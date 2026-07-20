@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Market research — WhatsApp-first CRM</title>
+<style>/* ============================================================================
+   checkpoint-html — design system tokens (paste into every page's <style>)
+   Visual identity: carmine accent, Segoe Variable display + Cascadia mono,
+   theme-aware (light/dark via prefers-color-scheme). Self-contained, no fonts
+   to load (system fonts only), no external anything.
+   Accent #9E3039 (light) / #C4525E (dark) is validated colorblind-safe and
+   ≥3:1 vs surface in both modes (dataviz validator). Keep it.
+   ============================================================================ */
+:root{
+  --bg:#F2F3F1; --surface:#FCFCFB; --ink:#1B1E20; --ink-2:#545A5E; --ink-3:#878D91;
+  --accent:#9E3039; --accent-soft:rgba(158,48,57,.08); --line:#DFE2DD; --chip:#EAECE7;
+  --gold:#8a6d1f;            /* secondary flag / "close call" */
+  --easy:#3f7d4e; --medium:#8a6d1f; --hard:#9E3039; --closed:#6b6f72;  /* verdict ramp */
+  --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:40px; --s6:72px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#141617; --surface:#1D2022; --ink:#E9EBEB; --ink-2:#A7ADB0; --ink-3:#71777A;
+  --accent:#C4525E; --accent-soft:rgba(196,82,94,.14); --line:#33383A; --chip:#26292B;
+  --gold:#c9a94a;
+  --easy:#6bbf80; --medium:#c9a94a; --hard:#C4525E; --closed:#8b9094;
+}}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);
+  font-family:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,sans-serif;
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:48px 24px 96px}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono,.eyebrow,.n,.kicker{font-family:"Cascadia Code",Consolas,ui-monospace,monospace}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+h1{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
+  font-size:clamp(34px,6vw,52px);font-weight:750;letter-spacing:-.03em;line-height:1.03}
+h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
+  font-size:24px;font-weight:700;letter-spacing:-.015em}
+.lede{margin-top:16px;font-size:18px;color:var(--ink-2);max-width:46em}
+
+/* stat tiles */
+.stats{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 18px}
+.stat .v{font-family:"Cascadia Code",monospace;font-size:22px;font-weight:700}
+.stat .l{font-size:12px;color:var(--ink-3);margin-top:2px}
+
+/* filter chips (sticky toolbar) */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:"Cascadia Code",monospace;font-size:12px;border:1px solid var(--line);
+  background:var(--surface);color:var(--ink-2);border-radius:20px;padding:5px 12px;cursor:pointer}
+.chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* cards */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.card.top{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}   /* highlight */
+
+/* horizontal score/weight bar */
+.bar{display:flex;align-items:center;gap:8px}
+.bar .track{flex:1;height:8px;background:var(--chip);border-radius:4px;overflow:hidden}
+.bar .fill{display:block;height:100%;background:var(--accent);border-radius:0 4px 4px 0}
+.bar .v{font-family:"Cascadia Code",monospace;font-size:13px;font-weight:600}
+
+/* nav card (hub) */
+.nav{display:block;background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  padding:22px;text-decoration:none;color:inherit;transition:border-color .15s}
+.nav:hover{border-color:var(--accent)}
+.nav .big{font-family:"Cascadia Code",monospace;font-size:30px;font-weight:750;color:var(--accent);margin-top:12px}
+
+/* status banner (hub) */
+.status{margin-top:24px;display:inline-flex;align-items:center;gap:10px;background:var(--accent-soft);
+  border:1px solid var(--accent);border-radius:10px;padding:10px 16px;font-size:14px}
+.status b{color:var(--accent)}
+
+.hidden{display:none!important}
+@media(max-width:680px){.wrap{padding:32px 16px 64px}}
+
+.pipe{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.step{display:flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);font-size:13px}
+.step .dot{width:8px;height:8px;border-radius:50%;background:var(--ink-3);flex:none}
+.step.done{color:var(--ink-2)} .step.done .dot{background:var(--easy)}
+.step.now{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)} .step.now .dot{background:var(--accent)}
+.step.next{opacity:.65}
+.navgrid{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.nav .kicker{font-size:11px;color:var(--ink-3);letter-spacing:.1em}
+.nav p{margin-top:8px;font-size:13.5px;color:var(--ink-2)}
+.asks{margin-top:36px}
+.asks .card{margin-top:12px}
+.asks .n{color:var(--accent);font-weight:700;margin-right:8px}
+.doc{margin-top:8px;max-width:56em}
+.doc h1{font-size:clamp(26px,4.5vw,36px);margin-top:26px}
+.doc h2{margin:38px 0 10px;padding-top:20px;border-top:1px solid var(--line)}
+.doc h3{margin:24px 0 8px;font-size:17px;font-weight:700}
+.doc p{margin:10px 0}
+.doc ul,.doc ol{margin:10px 0 10px 24px}
+.doc li{margin:5px 0}
+.doc code{background:var(--chip);padding:1px 6px;border-radius:4px;font-size:13px;font-family:"Cascadia Code",Consolas,ui-monospace,monospace}
+.doc hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+.tablewrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.doc table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:660px}
+.doc th{background:var(--chip);text-align:left;padding:8px 12px;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+.doc td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+.pri{font-family:"Cascadia Code",monospace;font-size:11px;padding:2px 9px;border-radius:10px;border:1px solid;white-space:nowrap}
+.pri.must{color:var(--hard);border-color:var(--hard);background:var(--accent-soft)}
+.pri.should{color:var(--medium);border-color:var(--medium)}
+.pri.later{color:var(--closed);border-color:var(--closed)}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 6px}
+.toc a{text-decoration:none}
+.back{font-family:"Cascadia Code",monospace;font-size:13px;display:inline-block;margin-bottom:26px;text-decoration:none}
+.footer{margin-top:64px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3)}
+</style>
+</head>
+<body><div class="wrap">
+
+<a class="back" href="index.html">&larr; checkpoint</a>
+<div class="eyebrow">MARKET RESEARCH · 2026-07-20</div>
+<div class="toc"><a class="chip" href="#snapshot-10-deep-dived-examples">Snapshot — 10 deep-dived examples</a><a class="chip" href="#patterns-across-the-market">Patterns across the market</a><a class="chip" href="#product-cards">Product cards</a><a class="chip" href="#long-list-31-further-candidates-not-deep-dived">Long list — 31 further candidates (not deep-dived)</a></div>
+<div class="doc"><h1>WhatsApp-first CRM — market examples</h1>
+<p>Input for the Timelines CRM spec. Two categories: <strong>(A) WhatsApp-first products with real CRM functionality</strong> · <strong>(B) SMB CRMs with native built-in WhatsApp</strong>. 2026-07-20.</p>
+<h2 id="snapshot-10-deep-dived-examples">Snapshot — 10 deep-dived examples</h2>
+<div class="tablewrap"><table><tr><th>Product</th><th>Region</th><th>Type</th><th>WhatsApp connection</th><th>Entry price</th><th>Traction</th></tr><tr><td><a href="https://www.kommo.com/" rel="noopener">Kommo</a> (ex-amoCRM)</td><td>US HQ, dominant in LATAM</td><td>A</td><td>QR (free "WhatsApp Lite") + official WABA</td><td>$15/seat/mo (6–24-mo upfront only)</td><td>500k+ users</td></tr><tr><td><a href="https://www.privyr.com/" rel="noopener">Privyr</a></td><td>Singapore, heavy India/SEA</td><td>A</td><td>Personal number first, official-API automations as add-ons</td><td>Free tier; $25/seat/mo annual</td><td>500k+ businesses claimed, 100k+ Android installs</td></tr><tr><td><a href="https://www.socialhub.pro/" rel="noopener">SocialHub</a></td><td>Brazil</td><td>A</td><td>QR + official WABA (Meta BSP)</td><td>R$99/mo workspace (~$18), CRM bundled free</td><td>15k+ companies</td></tr><tr><td><a href="https://leadsales.io/en/" rel="noopener">Leadsales</a></td><td>Mexico, LATAM-wide</td><td>A</td><td>QR on entry plan, WABA on upper tiers</td><td>$97/mo workspace (3 users incl.)</td><td>2.8k+ companies, $4.3M raised, Shark Tank MX</td></tr><tr><td><a href="https://www.interakt.shop/sales-crm/" rel="noopener">Interakt</a></td><td>India (Jio Haptik)</td><td>A</td><td>WABA only</td><td>₹2,499/mo ≈ $30 (5 seats)</td><td>10k+ businesses</td></tr><tr><td><a href="https://www.callbell.eu/" rel="noopener">Callbell</a></td><td>France, strong ES/IT/LATAM</td><td>A</td><td>WABA only (+ Meta Coexistence), min 3 seats</td><td>€15/seat/mo + €50 WA add-on</td><td>1B+ msgs/yr; acquired by Synacti 01.2025</td></tr><tr><td><a href="https://www.moskitcrm.com/" rel="noopener">Moskit CRM</a></td><td>Brazil</td><td>B</td><td>QR only (Chrome ext "Boost" over WhatsApp Web); WABA via partner</td><td>R$89/seat/mo (~$16), Boost is a paid add-on</td><td>2k+ companies</td></tr><tr><td><a href="https://www.agendor.com.br/" rel="noopener">Agendor</a></td><td>Brazil</td><td>B</td><td>Both: native Chat (Cloud API/Gupshup) + Sync ext (QR)</td><td>R$59/seat (~$11); WhatsApp = paid add-on per number</td><td>~6k payers, R$18.5M rev 2025, +46% YoY</td></tr><tr><td><a href="https://telecrm.in/" rel="noopener">TeleCRM</a></td><td>India</td><td>B</td><td>Both: WABA + "Chat Sync" Chrome ext (QR)</td><td>₹799/seat/mo (~$10); Chat Sync add-on ~$15/seat</td><td>2.5k+ businesses</td></tr><tr><td><a href="https://peppercloud.com/" rel="noopener">Pepper Cloud</a></td><td>Singapore, SEA</td><td>B</td><td>Both: QR ("no API costs") + WABA</td><td>Hidden, demo-gated</td><td>~$4.7M rev 2025, bootstrapped</td></tr></table></div>
+<h2 id="patterns-across-the-market">Patterns across the market</h2>
+<ol>
+<li><strong>The minimal winning feature set is small and consistent:</strong> shared WhatsApp inbox → contacts auto-created from inbound chats (matched by phone) → kanban pipeline with drag-and-drop stages → tags / custom fields / notes → tasks + follow-up reminders → message templates / quick replies → auto-assignment of chats to reps. Callbell wins with even less (no deal amounts, no tasks module). Nobody clones Pipedrive.</li>
+<li><strong>Dual connection wins; QR-session is the adoption path.</strong> Kommo, Leadsales, Pepper Cloud, Agendor, TeleCRM, SocialHub all ship QR/WhatsApp-Web as the low-friction entry AND official WABA above it. Privyr got to 500k businesses personal-number-first, "no WhatsApp API needed". WABA-only players (Interakt, Callbell) carry setup friction + per-conversation Meta fees + seat minimums — high effective entry cost.</li>
+<li><strong>Pricing anchors:</strong> per-seat $6–25/mo, or per-workspace bundles $18–97/mo with seat caps. The WhatsApp layer is frequently a separate paid add-on (Agendor R$49/number, TeleCRM ~$15/seat chat-sync, Privyr's automations, Kommo's WABA fees) — SMBs demonstrably pay extra specifically for WhatsApp-in-CRM.</li>
+<li><strong>Positioning: don't lead with the word "CRM".</strong> Kommo rebranded away from "amoCRM" in 2022 because "CRM" was "unknown jargon that pushed away" messaging-first users. The pitch that works: "run your sales inside WhatsApp", not "adopt a CRM".</li>
+<li><strong>AI is the standard upsell layer:</strong> conversation summaries, suggested replies, no-code bots/qualifiers, and — most interesting — Moskit's "Smart Fields" auto-extracting CRM field values from WhatsApp conversations; Pepper Cloud's AssistAI "chats into won deals". Consistent with layering AI on top of the base CRM.</li>
+<li><strong>Demand is proven at every price point</strong> — from 500k-user platforms down to $0 indie Chrome extensions over WhatsApp Web (WAPlus, WA Lead Pilot, WhatsApp Web CRM™, WaBaCRM, Lion CRM) that ship pipeline+tags+notes+reminders with no backend at all.</li>
+</ol>
+<h2 id="product-cards">Product cards</h2>
+<h3>Kommo (ex-amoCRM) — the category king</h3>
+<p>"#1 AI CRM for messenger-based sales": unified WhatsApp/IG/Telegram inbox feeding a kanban pipeline, Salesbot moves leads between stages. Dual WhatsApp: free "WhatsApp Lite" (QR, personal or Business-app number) even on Base, official Cloud API for templates/broadcasts. Features: pipelines, contacts, tasks, notes, calendar, automation, broadcasts, booking; AI summaries/replies/agents. $15/25/45 per seat, but <strong>only 6–24-month upfront billing</strong> — a self-serve monthly plan undercuts it. Lesson: minimal set + dual WhatsApp + drop "CRM" from the language.</p>
+<h3>Privyr — closest to our no-CRM user</h3>
+<p>Mobile-first CRM for individual B2C salespeople who live on their own WhatsApp number: instant lead alerts from FB/IG/TikTok/Google ads → one-tap templated, auto-personalised WhatsApp follow-up → simple pipeline stages → activity timeline. No WABA needed for the core; official-API auto-responder/campaigns sold as add-ons. Free tier, $25/seat annual. Claims 500k+ businesses across 125 countries. Lesson: the "salesperson who will never open a desktop CRM" persona is winnable at scale off the personal number — exactly our 80%.</p>
+<h3>SocialHub — Brazil, pipeline wrapped around the inbox</h3>
+<p>"CRM, Chatbot e Automação de WhatsApp em uma só plataforma"; CRM bundled free in every plan, kanban funnel is the same screen as the chat. Dual QR + official BSP; up to 50 agents on one number. R$99/199/399 per workspace (~$18–74). 15k+ companies. Lesson: workspace pricing with bundled seats+numbers; CRM as free wrapper drives the messaging subscription.</p>
+<h3>Leadsales — LATAM, deliberately simple</h3>
+<p>Conversational CRM: WhatsApp+FB+IG into one shared inbox, chats as cards on kanban "embudos", auto-assignment, scheduled follow-ups. QR entry / WABA higher tiers with conversation credits. $97/mo workspace (3 users, +$13/user). 2.8k+ companies, $4.3M raised. Lesson: volume-tiered workspace pricing (conversations/funnels/storage), not per-seat.</p>
+<h3>Interakt — India, WABA-only counterexample</h3>
+<p>Jio Haptik's WhatsApp sales CRM: real pipeline depth (stages, unified contact view, tasks, custom fields, round-robin, role-based access, stage-drop-off analytics). WABA-only, per-conversation Meta fees on top, ~$30/mo floor (5 seats). 10k+ businesses. Lesson: proves WhatsApp-first CRM sells at SMB scale in India; its lack of a personal/QR path is the gap we'd exploit.</p>
+<h3>Callbell — just-enough CRM around the inbox</h3>
+<p>Multi-agent inbox (WA/IG/Messenger/Telegram) + the lightest possible funnel: named stages picked from within the chat, contacts with custom fields/tags/notes, round-robin, broadcasts, stats. WABA-only, min 3 seats, WhatsApp consumption add-on €50 — real entry cost far above the €15 headline. Lesson: validates shipping a simple pipeline, not a Pipedrive clone; its pricing friction is our opening.</p>
+<h3>Moskit CRM — Brazil, the Boost model</h3>
+<p>Proper SMB sales CRM (contacts, funnel, tasks, proposals, reports) whose native WhatsApp is <strong>a first-party Chrome extension riding the user's WhatsApp Web session</strong>: auto-syncs text/audio/images/docs into the deal timeline every ~2 min, matches contacts by phone, surfaces deal data + templates inside WhatsApp Web. AI: Smart Fields extracts CRM field values from chats; Smart AI writes/summarizes. R$89–179/seat; Boost is a paid add-on. Lesson: the QR-session sync into a deal timeline is exactly our existing tech; field auto-extraction from chats is the AI feature to copy.</p>
+<h3>Agendor — Brazil, WhatsApp as paid add-on</h3>
+<p>Mature B2B SMB CRM (funnels, deals, tasks, goals, mobile-first for field reps). Two WhatsApp products: native "Agendor Chat" inbox (Cloud API or Gupshup, auto-creates contacts from inbound messages, create/view deals without leaving the chat, stage-change fires automated messages) and "WhatsApp Sync" Chrome extension (QR). CRM R$59/seat; Chat R$312/mo (3 users) or R$93/user; Sync R$49/number. ~6k payers, R$18.5M revenue 2025. Lesson: per-number add-on monetization + the auto-loop (inbound msg → contact → deal from chat → auto-message on stage change) is the core UX to ship.</p>
+<h3>TeleCRM — India, telecalling + WhatsApp</h3>
+<p>Indian MSME CRM: lead capture from 15+ sources (IndiaMART, Justdial, portals, ads), pipeline, auto-dialer with call recording, follow-ups. WhatsApp dual: WABA (one-time ₹1,999 setup, no platform surcharge) + "Chat Sync" Chrome extension capturing the whole team's WhatsApp into one dashboard (~$15/seat add-on). ~$10/seat. 2.5k+ businesses (Domino's, BYJU'S logos). Lesson: low seat price + WhatsApp layer as the paid add-on; multi-source lead capture matters in lead-gen-heavy markets.</p>
+<h3>Pepper Cloud — SEA, dual-path in a real CRM</h3>
+<p>Singapore SME sales CRM (pipelines, opportunities, forecasting, tickets, dashboards) with both WhatsApp paths native: QR ("without API costs, approvals or setup", unlimited accounts) + Cloud API for templates/broadcasts/AssistAI bot. Bootstrapped to ~$4.7M revenue. <strong>Counter-signal:</strong> pricing fully demo-gated, sales-led — the opposite of the self-serve motion our segment needs.</p>
+<h2 id="long-list-31-further-candidates-not-deep-dived">Long list — 31 further candidates (not deep-dived)</h2>
+<p><strong>LATAM:</strong> Zenvia Conversion ex-Sirena (AR/BR/MX, WA-first sales CRM), ClickCRM (BR, AI agents on native WA inbox), Basework (AR, workspace pricing in ARS), Kosmo (MX, 360 profiles from first message), DataCRM (CO, multi-agent WA + funnel + quotes), IMPULSA (CL, WA multiagente + ChatGPT bot), RD Station CRM (BR, "Conversas" native WABA into funnel).</p>
+<p><strong>India / Asia:</strong> Kylas (flat-price unlimited users, WA built in), DoubleTick (mobile-first WABA sales CRM), Zixflow (CRM + native WA Cloud campaigns), Mekari Qontak (Indonesia, Meta BSP omnichannel CRM).</p>
+<p><strong>MENA / Africa:</strong> Go4WhatsUp (Dubai, "HubSpot depth but WhatsApp-first"), DuceCRM (Nigeria, chat-first AI CRM), BizAI Smart CRM (South Africa, "simple as Excel, powerful as Salesforce").</p>
+<p><strong>Europe / global:</strong> Umnico (UK/CIS, 25+ messengers + pipeline), respond.io (Malaysia, Lifecycle stages in the chat workspace), SleekFlow (HK, social CRM + deal stages in inbox), Clientify (Spain, all-in-one SMB CRM w/ WABA inbox), ManyContacts (Spain, WA-first shared inbox + funnel), NetHunt (Ukraine, Gmail CRM + first-party WA), Bitrix24 / Zoho / Freshsales / HubSpot (suite CRMs with native WA channels — the heavyweight ceiling of category B).</p>
+<p><strong>Indie / low end (demand proof):</strong> WAPlus (free AI WA-Web CRM ext), WA Lead Pilot (solo-dev ext: tags, 7-stage pipeline, reminders), WhatsApp Web CRM™ (free account-less ext), WaBaCRM (kanban board ext), Lion CRM (white-label WA-Web CRM sold via resellers), Cloodo WhatsApp CRM (Product Hunt launch).</p></div>
+<div class="footer">Timelines CRM checkpoint · 2026-07-20 · generated from the working docs — do not edit the HTML by hand</div>
+</div></body></html>
