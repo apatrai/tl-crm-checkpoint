@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Context: the 20.07 meeting</title>
+<style>/* ============================================================================
+   checkpoint-html — design system tokens (paste into every page's <style>)
+   Visual identity: carmine accent, Segoe Variable display + Cascadia mono,
+   theme-aware (light/dark via prefers-color-scheme). Self-contained, no fonts
+   to load (system fonts only), no external anything.
+   Accent #9E3039 (light) / #C4525E (dark) is validated colorblind-safe and
+   ≥3:1 vs surface in both modes (dataviz validator). Keep it.
+   ============================================================================ */
+:root{
+  --bg:#F2F3F1; --surface:#FCFCFB; --ink:#1B1E20; --ink-2:#545A5E; --ink-3:#878D91;
+  --accent:#9E3039; --accent-soft:rgba(158,48,57,.08); --line:#DFE2DD; --chip:#EAECE7;
+  --gold:#8a6d1f;            /* secondary flag / "close call" */
+  --easy:#3f7d4e; --medium:#8a6d1f; --hard:#9E3039; --closed:#6b6f72;  /* verdict ramp */
+  --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:40px; --s6:72px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#141617; --surface:#1D2022; --ink:#E9EBEB; --ink-2:#A7ADB0; --ink-3:#71777A;
+  --accent:#C4525E; --accent-soft:rgba(196,82,94,.14); --line:#33383A; --chip:#26292B;
+  --gold:#c9a94a;
+  --easy:#6bbf80; --medium:#c9a94a; --hard:#C4525E; --closed:#8b9094;
+}}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);
+  font-family:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,sans-serif;
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:48px 24px 96px}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono,.eyebrow,.n,.kicker{font-family:"Cascadia Code",Consolas,ui-monospace,monospace}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+h1{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
+  font-size:clamp(34px,6vw,52px);font-weight:750;letter-spacing:-.03em;line-height:1.03}
+h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
+  font-size:24px;font-weight:700;letter-spacing:-.015em}
+.lede{margin-top:16px;font-size:18px;color:var(--ink-2);max-width:46em}
+
+/* stat tiles */
+.stats{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 18px}
+.stat .v{font-family:"Cascadia Code",monospace;font-size:22px;font-weight:700}
+.stat .l{font-size:12px;color:var(--ink-3);margin-top:2px}
+
+/* filter chips (sticky toolbar) */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:"Cascadia Code",monospace;font-size:12px;border:1px solid var(--line);
+  background:var(--surface);color:var(--ink-2);border-radius:20px;padding:5px 12px;cursor:pointer}
+.chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* cards */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.card.top{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}   /* highlight */
+
+/* horizontal score/weight bar */
+.bar{display:flex;align-items:center;gap:8px}
+.bar .track{flex:1;height:8px;background:var(--chip);border-radius:4px;overflow:hidden}
+.bar .fill{display:block;height:100%;background:var(--accent);border-radius:0 4px 4px 0}
+.bar .v{font-family:"Cascadia Code",monospace;font-size:13px;font-weight:600}
+
+/* nav card (hub) */
+.nav{display:block;background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  padding:22px;text-decoration:none;color:inherit;transition:border-color .15s}
+.nav:hover{border-color:var(--accent)}
+.nav .big{font-family:"Cascadia Code",monospace;font-size:30px;font-weight:750;color:var(--accent);margin-top:12px}
+
+/* status banner (hub) */
+.status{margin-top:24px;display:inline-flex;align-items:center;gap:10px;background:var(--accent-soft);
+  border:1px solid var(--accent);border-radius:10px;padding:10px 16px;font-size:14px}
+.status b{color:var(--accent)}
+
+.hidden{display:none!important}
+@media(max-width:680px){.wrap{padding:32px 16px 64px}}
+
+.pipe{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.step{display:flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);font-size:13px}
+.step .dot{width:8px;height:8px;border-radius:50%;background:var(--ink-3);flex:none}
+.step.done{color:var(--ink-2)} .step.done .dot{background:var(--easy)}
+.step.now{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)} .step.now .dot{background:var(--accent)}
+.step.next{opacity:.65}
+.navgrid{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.nav .kicker{font-size:11px;color:var(--ink-3);letter-spacing:.1em}
+.nav p{margin-top:8px;font-size:13.5px;color:var(--ink-2)}
+.asks{margin-top:36px}
+.asks .card{margin-top:12px}
+.asks .n{color:var(--accent);font-weight:700;margin-right:8px}
+.doc{margin-top:8px;max-width:56em}
+.doc h1{font-size:clamp(26px,4.5vw,36px);margin-top:26px}
+.doc h2{margin:38px 0 10px;padding-top:20px;border-top:1px solid var(--line)}
+.doc h3{margin:24px 0 8px;font-size:17px;font-weight:700}
+.doc p{margin:10px 0}
+.doc ul,.doc ol{margin:10px 0 10px 24px}
+.doc li{margin:5px 0}
+.doc code{background:var(--chip);padding:1px 6px;border-radius:4px;font-size:13px;font-family:"Cascadia Code",Consolas,ui-monospace,monospace}
+.doc hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+.tablewrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.doc table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:660px}
+.doc th{background:var(--chip);text-align:left;padding:8px 12px;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+.doc td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+.pri{font-family:"Cascadia Code",monospace;font-size:11px;padding:2px 9px;border-radius:10px;border:1px solid;white-space:nowrap}
+.pri.must{color:var(--hard);border-color:var(--hard);background:var(--accent-soft)}
+.pri.should{color:var(--medium);border-color:var(--medium)}
+.pri.later{color:var(--closed);border-color:var(--closed)}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 6px}
+.toc a{text-decoration:none}
+.back{font-family:"Cascadia Code",monospace;font-size:13px;display:inline-block;margin-bottom:26px;text-decoration:none}
+.footer{margin-top:64px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3)}
+</style>
+</head>
+<body><div class="wrap">
+
+<a class="back" href="index.html">&larr; checkpoint</a>
+<div class="eyebrow">MEETING CONTEXT</div>
+<div class="toc"><a class="chip" href="#how-the-idea-came-up">How the idea came up</a><a class="chip" href="#positions">Positions</a><a class="chip" href="#what-the-meeting-decided">What the meeting decided</a><a class="chip" href="#still-open-after-the-meeting">Still open after the meeting</a></div>
+<div class="doc"><h1>Context: the 20.07 meeting</h1>
+<p>The Timelines CRM idea was born at the growth weekly on 2026-07-20 (Anton + Ishay, ~1h53m). Quotes below are translated from Russian; full transcript: <code>team-ops/meetings/2026-07-20-growth-weekly-ishay-transcript.md</code>.</p>
+<h2 id="how-the-idea-came-up">How the idea came up</h2>
+<p>The discussion started from the top-of-funnel decline outside marketplaces. Anton: "there's obviously a big drop in non-marketplace, non-CRM stories." From there: "for most of these small companies, some contacts inside would be enough for them. LATAM is full of them… why don't we vibe-code our own? …spec a WhatsApp-first CRM… Then we could layer AI on top. That's what everyone wants."</p>
+<h2 id="positions">Positions</h2>
+<p><strong>Anton:</strong> a standalone app under the TimelinesAI brand, not inside the core product — "I'd call it Timelines CRM and sell it as a TimelinesAI addon… put it on the crm.timelines.ai domain… build it on our own SDK." Inside the core is a non-starter: "as soon as we do anything inside — that's a year, that's our UI, all those complications."</p>
+<p><strong>Ishay:</strong> backed the idea; his main objection was not the idea but the owner: "the idea is good — even if it fails, it's worth trying… My main problem here is who will own it. I keep coming back to MessageHub — nobody looks after MessageHub."</p>
+<p><strong>Why this is retention:</strong> Anton: "our bucket is leaking… and the leakiest segment is the people who have no CRM at all." That segment is the biggest one, and WhatsApp-first is a growing market.</p>
+<h2 id="what-the-meeting-decided">What the meeting decided</h2>
+<ul>
+<li><strong>The gate:</strong> "on Timelines CRM — let's write the spec and look at it… we'll see the scope." Scope is decided only after the spec.</li>
+<li><strong>Roles (proposed, not ratified):</strong> Anton + Cyril — business requirements via a recorded working call; Alexandra — analytics groundwork; final spec — Anton; development — Orkhan; sales — Cyril.</li>
+<li><strong>Process:</strong> not through the regular product meeting — a separate meeting: Ishay + Anton + Igor + Cyril, with Igor given the materials and the right framing in advance.</li>
+<li><strong>Benchmark:</strong> Kommo (already overgrown), plus research into acquire.com and small "WhatsApp CRM" products.</li>
+<li><strong>Technical:</strong> crm.timelines.ai domain, built on the TimelinesAI SDK/API; the WABA (official WhatsApp Business API) — per Ishay, ready "within a few weeks."</li>
+</ul>
+<h2 id="still-open-after-the-meeting">Still open after the meeting</h2>
+<ol>
+<li>The final owner (Ishay's MessageHub concern is not resolved).</li>
+<li>Whether Igor accepts it into the R&amp;D orbit (the "not in this quarter's roadmap" reflex is the risk).</li>
+<li>A committed WABA API date — a verbal "few weeks" is not a date.</li>
+</ol></div>
+<div class="footer">Timelines CRM checkpoint · 2026-07-20 · generated from the working docs — do not edit the HTML by hand</div>
+</div></body></html>
