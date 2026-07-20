@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Timelines CRM — TLDR</title>
+<style>/* ============================================================================
+   checkpoint-html — design system tokens (paste into every page's <style>)
+   Visual identity: carmine accent, Segoe Variable display + Cascadia mono,
+   theme-aware (light/dark via prefers-color-scheme). Self-contained, no fonts
+   to load (system fonts only), no external anything.
+   Accent #9E3039 (light) / #C4525E (dark) is validated colorblind-safe and
+   ≥3:1 vs surface in both modes (dataviz validator). Keep it.
+   ============================================================================ */
+:root{
+  --bg:#F2F3F1; --surface:#FCFCFB; --ink:#1B1E20; --ink-2:#545A5E; --ink-3:#878D91;
+  --accent:#9E3039; --accent-soft:rgba(158,48,57,.08); --line:#DFE2DD; --chip:#EAECE7;
+  --gold:#8a6d1f;            /* secondary flag / "close call" */
+  --easy:#3f7d4e; --medium:#8a6d1f; --hard:#9E3039; --closed:#6b6f72;  /* verdict ramp */
+  --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:40px; --s6:72px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#141617; --surface:#1D2022; --ink:#E9EBEB; --ink-2:#A7ADB0; --ink-3:#71777A;
+  --accent:#C4525E; --accent-soft:rgba(196,82,94,.14); --line:#33383A; --chip:#26292B;
+  --gold:#c9a94a;
+  --easy:#6bbf80; --medium:#c9a94a; --hard:#C4525E; --closed:#8b9094;
+}}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);
+  font-family:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,sans-serif;
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:48px 24px 96px}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono,.eyebrow,.n,.kicker{font-family:"Cascadia Code",Consolas,ui-monospace,monospace}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+h1{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
+  font-size:clamp(34px,6vw,52px);font-weight:750;letter-spacing:-.03em;line-height:1.03}
+h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
+  font-size:24px;font-weight:700;letter-spacing:-.015em}
+.lede{margin-top:16px;font-size:18px;color:var(--ink-2);max-width:46em}
+
+/* stat tiles */
+.stats{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 18px}
+.stat .v{font-family:"Cascadia Code",monospace;font-size:22px;font-weight:700}
+.stat .l{font-size:12px;color:var(--ink-3);margin-top:2px}
+
+/* filter chips (sticky toolbar) */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:"Cascadia Code",monospace;font-size:12px;border:1px solid var(--line);
+  background:var(--surface);color:var(--ink-2);border-radius:20px;padding:5px 12px;cursor:pointer}
+.chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* cards */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.card.top{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}   /* highlight */
+
+/* horizontal score/weight bar */
+.bar{display:flex;align-items:center;gap:8px}
+.bar .track{flex:1;height:8px;background:var(--chip);border-radius:4px;overflow:hidden}
+.bar .fill{display:block;height:100%;background:var(--accent);border-radius:0 4px 4px 0}
+.bar .v{font-family:"Cascadia Code",monospace;font-size:13px;font-weight:600}
+
+/* nav card (hub) */
+.nav{display:block;background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  padding:22px;text-decoration:none;color:inherit;transition:border-color .15s}
+.nav:hover{border-color:var(--accent)}
+.nav .big{font-family:"Cascadia Code",monospace;font-size:30px;font-weight:750;color:var(--accent);margin-top:12px}
+
+/* status banner (hub) */
+.status{margin-top:24px;display:inline-flex;align-items:center;gap:10px;background:var(--accent-soft);
+  border:1px solid var(--accent);border-radius:10px;padding:10px 16px;font-size:14px}
+.status b{color:var(--accent)}
+
+.hidden{display:none!important}
+@media(max-width:680px){.wrap{padding:32px 16px 64px}}
+
+.pipe{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.step{display:flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);font-size:13px}
+.step .dot{width:8px;height:8px;border-radius:50%;background:var(--ink-3);flex:none}
+.step.done{color:var(--ink-2)} .step.done .dot{background:var(--easy)}
+.step.now{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)} .step.now .dot{background:var(--accent)}
+.step.next{opacity:.65}
+.navgrid{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.nav .kicker{font-size:11px;color:var(--ink-3);letter-spacing:.1em}
+.nav p{margin-top:8px;font-size:13.5px;color:var(--ink-2)}
+.asks{margin-top:36px}
+.asks .card{margin-top:12px}
+.asks .n{color:var(--accent);font-weight:700;margin-right:8px}
+.doc{margin-top:8px;max-width:56em}
+.doc h1{font-size:clamp(26px,4.5vw,36px);margin-top:26px}
+.doc h2{margin:38px 0 10px;padding-top:20px;border-top:1px solid var(--line)}
+.doc h3{margin:24px 0 8px;font-size:17px;font-weight:700}
+.doc p{margin:10px 0}
+.doc ul,.doc ol{margin:10px 0 10px 24px}
+.doc li{margin:5px 0}
+.doc code{background:var(--chip);padding:1px 6px;border-radius:4px;font-size:13px;font-family:"Cascadia Code",Consolas,ui-monospace,monospace}
+.doc hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+.tablewrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.doc table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:660px}
+.doc th{background:var(--chip);text-align:left;padding:8px 12px;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+.doc td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+.pri{font-family:"Cascadia Code",monospace;font-size:11px;padding:2px 9px;border-radius:10px;border:1px solid;white-space:nowrap}
+.pri.must{color:var(--hard);border-color:var(--hard);background:var(--accent-soft)}
+.pri.should{color:var(--medium);border-color:var(--medium)}
+.pri.later{color:var(--closed);border-color:var(--closed)}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 6px}
+.toc a{text-decoration:none}
+.back{font-family:"Cascadia Code",monospace;font-size:13px;display:inline-block;margin-bottom:26px;text-decoration:none}
+.footer{margin-top:64px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3)}
+
+:root{--wa:#1fa855;--wa-out:#e4f6d3;--wa-out-ink:#1B1E20}
+@media(prefers-color-scheme:dark){:root{--wa:#31c46b;--wa-out:#0e4534;--wa-out-ink:#E9EBEB}}
+.sec{margin-top:52px}
+.sec .eyebrow{margin-bottom:8px}
+.sec h2{font-size:26px}
+.sec .sub{margin-top:6px;color:var(--ink-2);max-width:46em}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:18px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:18px}
+/* --- viz (single series, direct-labeled, no legend needed) --- */
+.viz-title{font-family:"Cascadia Code",monospace;font-size:11px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase;margin-bottom:14px}
+.vrow{display:grid;grid-template-columns:minmax(120px,190px) 1fr 84px;align-items:center;gap:10px;margin-top:10px}
+.vrow .vl{font-size:13px;color:var(--ink-2)}
+.vrow .track{height:20px;background:var(--chip);border-radius:4px;overflow:hidden}
+.vrow .fill{display:block;height:100%;background:var(--accent);border-radius:0 4px 4px 0}
+.vrow.mut .fill{background:var(--ink-3)}
+.vrow .vv{font-family:"Cascadia Code",monospace;font-size:13px;font-weight:700;text-align:left}
+.vcap{margin-top:14px;font-size:13px;color:var(--ink-2);border-top:1px solid var(--line);padding-top:10px}
+/* --- mockups --- */
+.mkwrap{margin-top:20px}
+.mkscroll{overflow-x:auto;border-radius:14px}
+.mkframe{min-width:700px;border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
+.mkbar{display:flex;align-items:center;gap:8px;padding:9px 14px;border-bottom:1px solid var(--line);background:var(--chip)}
+.mkbar i{width:9px;height:9px;border-radius:50%;background:var(--ink-3);opacity:.4;font-style:normal}
+.mkurl{font-family:"Cascadia Code",monospace;font-size:11px;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:3px 12px;margin-left:8px}
+.mk{font-size:11.5px;line-height:1.35}
+.mkcap{font-size:12.5px;color:var(--ink-3);margin-top:10px}
+.mkdot{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--accent);color:#fff;font-family:"Cascadia Code",monospace;font-size:10px;font-weight:700;flex:none;vertical-align:middle}
+.mklegend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:13px;color:var(--ink-2)}
+.mklegend span{display:flex;align-items:center;gap:7px}
+/* app mockup */
+.mkapp{display:grid;grid-template-columns:188px 1fr 216px;min-height:330px}
+.mklist{border-right:1px solid var(--line);padding:8px}
+.mksearch{background:var(--chip);border-radius:7px;padding:5px 9px;color:var(--ink-3);margin-bottom:6px}
+.mkchat{display:flex;gap:8px;align-items:center;padding:7px 8px;border-radius:8px}
+.mkchat.on{background:var(--accent-soft)}
+.mkav{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:10px;flex:none}
+.mkchat .nm{font-weight:600}
+.mkchat .sn{color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:98px}
+.mkun{margin-left:auto;background:var(--wa);color:#fff;border-radius:9px;font-size:9px;padding:1px 5px;font-weight:700}
+.mkthread{display:flex;flex-direction:column;background:var(--bg)}
+.mkhead{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--line);background:var(--surface)}
+.mkhead .ph{color:var(--ink-3)}
+.mkstage{margin-left:auto;font-family:"Cascadia Code",monospace;font-size:10px;border:1px solid var(--accent);color:var(--accent);border-radius:10px;padding:2px 8px}
+.mkmsgs{flex:1;padding:12px;display:flex;flex-direction:column;gap:7px}
+.mkm{max-width:78%;padding:6px 10px;border-radius:10px;border:1px solid var(--line);background:var(--surface)}
+.mkm.out{align-self:flex-end;background:var(--wa-out);color:var(--wa-out-ink);border-color:transparent}
+.mkm .t{display:block;font-size:9px;color:var(--ink-3);margin-top:2px;text-align:right}
+.mkin{display:flex;gap:8px;padding:8px 12px;border-top:1px solid var(--line);background:var(--surface);color:var(--ink-3)}
+.mkin .box{flex:1;background:var(--chip);border-radius:14px;padding:5px 11px}
+.mkpanel{border-left:1px solid var(--line);padding:10px}
+.mkpanel h4{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin:10px 0 5px}
+.mkpanel h4:first-child{margin-top:0}
+.mkstages{display:flex;flex-wrap:wrap;gap:4px}
+.mkstages b{font-weight:400;border:1px solid var(--line);border-radius:9px;padding:2px 7px;font-size:10px;color:var(--ink-3)}
+.mkstages b.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.mkfield{display:flex;justify-content:space-between;gap:6px;padding:4px 0;border-bottom:1px dashed var(--line)}
+.mkfield .k{color:var(--ink-3)}
+.mkai{color:var(--accent);font-size:9px;font-weight:700}
+.mktags b{display:inline-block;font-weight:500;background:var(--chip);border-radius:8px;padding:2px 8px;font-size:10px;margin:2px 2px 0 0}
+.mkrem{margin-top:6px;border:1px solid var(--medium);border-radius:8px;padding:6px 8px;font-size:10.5px}
+.mkrem b{color:var(--medium)}
+.mksum{margin-top:8px;background:var(--accent-soft);border-radius:8px;padding:7px 9px;font-size:10.5px}
+.mksum b{color:var(--accent);font-size:9px;letter-spacing:.08em}
+/* kanban mockup */
+.mkboard{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:12px;background:var(--bg);min-height:250px}
+.mkcol h5{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-2);margin-bottom:8px;display:flex;justify-content:space-between}
+.mkcol h5 i{font-style:normal;color:var(--ink-3);font-family:"Cascadia Code",monospace}
+.mkcard{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:8px 9px;margin-bottom:8px}
+.mkcard .row{display:flex;gap:7px;align-items:center;margin-bottom:4px}
+.mkcard .sn{color:var(--ink-3);font-size:10.5px}
+.mkcard.drag{transform:rotate(-2deg);border-color:var(--accent);box-shadow:0 6px 14px rgba(0,0,0,.14)}
+.mkcard .due{color:var(--medium);font-size:10px;margin-top:4px}
+.mkcard .due.ok{color:var(--easy)}
+/* bet / pilot */
+.price .v{font-family:"Cascadia Code",monospace;font-size:30px;font-weight:750;color:var(--accent)}
+.price .l{color:var(--ink-2);font-size:13px;margin-top:4px}
+.gates{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:18px}
+.gates .card h3{font-size:13px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px}
+.gates .ok h3{color:var(--easy)} .gates .kill h3{color:var(--hard)}
+.gates li{margin:5px 0 5px 18px;font-size:13.5px}
+.linkrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.linkrow a{font-family:"Cascadia Code",monospace;font-size:13px;border:1px solid var(--line);border-radius:10px;padding:8px 14px;text-decoration:none;background:var(--surface)}
+.linkrow a:hover{border-color:var(--accent)}
+</style>
+</head>
+<body><div class="wrap">
+
+<a class="back" href="index.html">&larr; checkpoint</a>
+<div class="eyebrow">TLDR · FOR THE DECISION MEETING · 5 MIN</div>
+<h1>Run your sales inside WhatsApp</h1>
+<p class="lede">Timelines CRM — a deliberately small CRM for the customers we lose today: small teams that live in WhatsApp and will never adopt Pipedrive. Built as a standalone addon on the platform we already run.</p>
+
+<div class="sec">
+<div class="eyebrow">01 · THE PROBLEM</div>
+<h2>Our biggest segment has nothing to buy from us</h2>
+<div class="grid2">
+<div class="card"><div class="viz-title">Of all active workspaces…</div>
+  <div class="vrow"><span class="vl">Run sales on WhatsApp</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="vv">100%</span></div>
+  <div class="vrow"><span class="vl">Never connect any CRM</span><span class="track"><span class="fill" style="width:80%"></span></span><span class="vv">~80%</span></div>
+  <div class="vcap">The core product bridges WhatsApp to a CRM — 8 in 10 users have no CRM to bridge to.</div>
+</div>
+<div class="card"><div class="viz-title">Trial → paid conversion, indexed</div>
+  <div class="vrow"><span class="vl">CRM connected</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="vv">5–8×</span></div>
+  <div class="vrow mut"><span class="vl">No CRM</span><span class="track"><span class="fill" style="width:15%"></span></span><span class="vv">baseline</span></div>
+  <div class="vcap">The no-CRM majority converts 5–8× worse and is our leakiest retention segment.</div>
+</div>
+</div>
+</div>
+
+<div class="sec">
+<div class="eyebrow">02 · THE PRODUCT</div>
+<h2>Their WhatsApp, with a pipeline around it</h2>
+<p class="sub">Connect the number they already use (QR, 5 minutes, no API). Every chat becomes a contact; chats get dragged through a simple pipeline; AI does the CRM admin for them.</p>
+<div class="mkwrap">
+<div class="mkscroll"><div class="mkframe mk">
+<div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai</span></div>
+<div class="mkapp">
+  <div class="mklist">
+    <div class="mksearch">Search chats…</div>
+    <div class="mkchat on"><span class="mkav" style="background:#7e57c2">MG</span><span><span class="nm">María G. <span class="mkdot">1</span></span><br><span class="sn">Great. If the price works…</span></span></div>
+    <div class="mkchat"><span class="mkav" style="background:#0288d1">RS</span><span><span class="nm">Rahul S.</span><br><span class="sn">Can you deliver Friday?</span></span><span class="mkun">2</span></div>
+    <div class="mkchat"><span class="mkav" style="background:#c2185b">AK</span><span><span class="nm">Ahmed K.</span><br><span class="sn">Thanks, got the invoice 🙏</span></span></div>
+    <div class="mkchat"><span class="mkav" style="background:#5d8a3c">AP</span><span><span class="nm">Ana P.</span><br><span class="sn">What colors do you have?</span></span><span class="mkun">1</span></div>
+    <div class="mkchat"><span class="mkav" style="background:#b06f1c">LM</span><span><span class="nm">Lucas M.</span><br><span class="sn">Ok, next month then</span></span></div>
+  </div>
+  <div class="mkthread">
+    <div class="mkhead"><span class="mkav" style="background:#7e57c2">MG</span><span><b>María G.</b><br><span class="ph">+52 1 33 ···· 4471</span></span><span class="mkstage">NEGOTIATION</span></div>
+    <div class="mkmsgs">
+      <div class="mkm">Hi! Do you still have the ceramic table sets? I need about 40 for my restaurant<span class="t">09:12</span></div>
+      <div class="mkm out">Yes! 40 sets by Friday is doable. Sending the catalog now 👇<span class="t">09:14</span></div>
+      <div class="mkm">Great. If the price works we'll take them monthly<span class="t">09:15</span></div>
+    </div>
+    <div class="mkin"><span class="box">Message… <b>/quote-template</b></span><span>📎</span></div>
+  </div>
+  <div class="mkpanel">
+    <h4>Stage <span class="mkdot">2</span></h4>
+    <div class="mkstages"><b>New</b><b>Contacted</b><b class="on">Negotiation</b><b>Won</b></div>
+    <h4>Deal fields <span class="mkdot">3</span></h4>
+    <div class="mkfield"><span class="k">Budget</span><span>≈ $1,200 <span class="mkai">AI</span></span></div>
+    <div class="mkfield"><span class="k">Quantity</span><span>40 sets <span class="mkai">AI</span></span></div>
+    <div class="mkfield"><span class="k">Type</span><span>Restaurant, recurring <span class="mkai">AI</span></span></div>
+    <h4>Tags</h4>
+    <div class="mktags"><b>wholesale</b><b>hot lead</b></div>
+    <div class="mkrem"><b>⏰ Follow-up</b> — send quote tomorrow 10:00 <span class="mkdot">4</span></div>
+    <div class="mksum"><b>AI SUMMARY</b><br>Restaurant owner wants 40 ceramic sets, monthly if the price fits. Waiting on a quote.</div>
+  </div>
+</div>
+</div></div>
+<div class="mklegend">
+<span><span class="mkdot">1</span> Every chat becomes a contact — zero data entry</span>
+<span><span class="mkdot">2</span> Deal stage set right from the conversation</span>
+<span><span class="mkdot">3</span> AI reads the chat and fills the fields</span>
+<span><span class="mkdot">4</span> Follow-up reminders — the #1 money saver</span>
+</div></div>
+<div class="mkwrap">
+<div class="mkscroll"><div class="mkframe mk">
+<div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai/pipeline</span></div>
+<div class="mkboard">
+  <div class="mkcol"><h5>New <i>12</i></h5>
+    <div class="mkcard"><div class="row"><span class="mkav" style="background:#5d8a3c">AP</span><b>Ana P.</b></div><div class="sn">What colors do you have?</div></div>
+    <div class="mkcard"><div class="row"><span class="mkav" style="background:#0288d1">RS</span><b>Rahul S.</b></div><div class="sn">Can you deliver Friday?</div><div class="due">⏰ today 15:00</div></div>
+  </div>
+  <div class="mkcol"><h5>Contacted <i>7</i></h5>
+    <div class="mkcard"><div class="row"><span class="mkav" style="background:#b06f1c">LM</span><b>Lucas M.</b></div><div class="sn">Ok, next month then</div><div class="due">⏰ Aug 1</div></div>
+  </div>
+  <div class="mkcol"><h5>Negotiation <i>4</i></h5>
+    <div class="mkcard drag"><div class="row"><span class="mkav" style="background:#7e57c2">MG</span><b>María G.</b></div><div class="sn">40 sets · ≈ $1,200 · monthly</div><div class="due">⏰ tomorrow 10:00</div></div>
+  </div>
+  <div class="mkcol"><h5>Won <i>9</i></h5>
+    <div class="mkcard"><div class="row"><span class="mkav" style="background:#c2185b">AK</span><b>Ahmed K.</b></div><div class="sn">Invoice paid ✓</div><div class="due ok">$860 this month</div></div>
+  </div>
+</div>
+</div></div></div>
+<div class="mkcap">Illustrative mockups — the shape of the product, not a design spec.</div>
+</div>
+
+<div class="sec">
+<div class="eyebrow">03 · WHY WE WIN</div>
+<h2>Distribution and friction, not features</h2>
+<div class="grid3">
+<div class="card"><h3>The audience is already ours</h3><p class="sub">Thousands of active workspaces with no CRM connected see it in-app. No cold launch — that's the difference from MessageHub.</p></div>
+<div class="card"><h3>The platform already exists</h3><p class="sub">Same SDK as our CRM integrations — 10+ shipped in the past month. WhatsApp connect, sync and billing are done; we build only the CRM side.</p></div>
+<div class="card"><h3>Monthly, self-serve</h3><p class="sub">Kommo — the market leader — only sells 6–24-month upfront contracts. We sell $19/month, cancel anytime, no sales call.</p></div>
+</div>
+</div>
+
+<div class="sec">
+<div class="eyebrow">04 · MARKET PROOF</div>
+<h2>This product category already works</h2>
+<div class="stats">
+<div class="stat"><div class="v">500k+</div><div class="l">users — Kommo (messenger-first CRM)</div></div>
+<div class="stat"><div class="v">500k+</div><div class="l">businesses — Privyr, personal-number first</div></div>
+<div class="stat"><div class="v">15k</div><div class="l">companies — SocialHub, Brazil only</div></div>
+<div class="stat"><div class="v">$6–25</div><div class="l">per seat/mo — the market's price band</div></div>
+</div>
+<p class="sub" style="margin-top:14px">10 products deep-dived, 41 surveyed → <a href="market.html">full research</a>. The pattern: a minimal feature set wins, QR is the adoption path, AI is the upsell.</p>
+</div>
+
+<div class="sec">
+<div class="eyebrow">05 · THE BET</div>
+<h2>Small bet, mechanical gate</h2>
+<div class="grid3">
+<div class="card price"><div class="v">$19/mo</div><div class="l">per workspace, 3 seats included, +$5/seat. Free for paying TimelinesAI customers — retention first.</div></div>
+<div class="card price"><div class="v">S → M</div><div class="l">build size: small prototype on Calypso, medium production build. No new brand, no paid acquisition.</div></div>
+<div class="card price"><div class="v">90 days</div><div class="l">pilot on our own base, then a mechanical scale-or-park decision. Criteria agreed before launch.</div></div>
+</div>
+<div class="gates">
+<div class="card ok"><h3>Scale if (90 days)</h3><ul><li>≥100 activated workspaces</li><li>retention lift in the activated no-CRM cohort</li><li>≥20 paying / ≥$500 MRR on the charged cohort</li></ul></div>
+<div class="card kill"><h3>Park if</h3><ul><li>&lt;30 activated workspaces, or</li><li>&lt;8 paying with a flat trajectory</li><li>→ stop, write down learnings, move on</li></ul></div>
+</div>
+</div>
+
+<div class="sec">
+<div class="eyebrow">06 · WHAT WE NEED DECIDED</div>
+<h2>Three asks of this meeting</h2>
+<div class="card" style="margin-top:12px"><span class="n" style="color:var(--accent);font-weight:700;margin-right:8px">1</span>Owners per stage — including launch-to-first-users, the phase MessageHub died in. Hard gate: no owners, no build.</div>
+<div class="card" style="margin-top:12px"><span class="n" style="color:var(--accent);font-weight:700;margin-right:8px">2</span>A committed WABA API date from R&amp;D — a verbal "few weeks" is not a date. v1 doesn't block on it (we start on QR), but the ban-risk mitigation can't be planned without it.</div>
+<div class="card" style="margin-top:12px"><span class="n" style="color:var(--accent);font-weight:700;margin-right:8px">3</span>SDK seam confirmation: the integration API's limits/quotas are fine for a first-party app.</div>
+<div class="linkrow">
+<a href="brd.html">Full BRD →</a>
+<a href="market.html">Market research →</a>
+<a href="meeting.html">20.07 meeting context →</a>
+</div>
+</div>
+<div class="footer">Timelines CRM checkpoint · 2026-07-20 · generated from the working docs — do not edit the HTML by hand</div>
+</div></body></html>
