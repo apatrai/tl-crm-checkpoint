@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Timelines CRM — growth plan to 100</title>
+<style>/* ============================================================================
+   checkpoint-html — design system tokens (paste into every page's <style>)
+   Visual identity: carmine accent, Segoe Variable display + Cascadia mono,
+   theme-aware (light/dark via prefers-color-scheme). Self-contained, no fonts
+   to load (system fonts only), no external anything.
+   Accent #9E3039 (light) / #C4525E (dark) is validated colorblind-safe and
+   ≥3:1 vs surface in both modes (dataviz validator). Keep it.
+   ============================================================================ */
+:root{
+  --bg:#F2F3F1; --surface:#FCFCFB; --ink:#1B1E20; --ink-2:#545A5E; --ink-3:#878D91;
+  --accent:#9E3039; --accent-soft:rgba(158,48,57,.08); --line:#DFE2DD; --chip:#EAECE7;
+  --gold:#8a6d1f;            /* secondary flag / "close call" */
+  --easy:#3f7d4e; --medium:#8a6d1f; --hard:#9E3039; --closed:#6b6f72;  /* verdict ramp */
+  --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:40px; --s6:72px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#141617; --surface:#1D2022; --ink:#E9EBEB; --ink-2:#A7ADB0; --ink-3:#71777A;
+  --accent:#C4525E; --accent-soft:rgba(196,82,94,.14); --line:#33383A; --chip:#26292B;
+  --gold:#c9a94a;
+  --easy:#6bbf80; --medium:#c9a94a; --hard:#C4525E; --closed:#8b9094;
+}}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);
+  font-family:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,sans-serif;
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:48px 24px 96px}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono,.eyebrow,.n,.kicker{font-family:"Cascadia Code",Consolas,ui-monospace,monospace}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+h1{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
+  font-size:clamp(34px,6vw,52px);font-weight:750;letter-spacing:-.03em;line-height:1.03}
+h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
+  font-size:24px;font-weight:700;letter-spacing:-.015em}
+.lede{margin-top:16px;font-size:18px;color:var(--ink-2);max-width:46em}
+
+/* stat tiles */
+.stats{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 18px}
+.stat .v{font-family:"Cascadia Code",monospace;font-size:22px;font-weight:700}
+.stat .l{font-size:12px;color:var(--ink-3);margin-top:2px}
+
+/* filter chips (sticky toolbar) */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:"Cascadia Code",monospace;font-size:12px;border:1px solid var(--line);
+  background:var(--surface);color:var(--ink-2);border-radius:20px;padding:5px 12px;cursor:pointer}
+.chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* cards */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.card.top{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}   /* highlight */
+
+/* horizontal score/weight bar */
+.bar{display:flex;align-items:center;gap:8px}
+.bar .track{flex:1;height:8px;background:var(--chip);border-radius:4px;overflow:hidden}
+.bar .fill{display:block;height:100%;background:var(--accent);border-radius:0 4px 4px 0}
+.bar .v{font-family:"Cascadia Code",monospace;font-size:13px;font-weight:600}
+
+/* nav card (hub) */
+.nav{display:block;background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  padding:22px;text-decoration:none;color:inherit;transition:border-color .15s}
+.nav:hover{border-color:var(--accent)}
+.nav .big{font-family:"Cascadia Code",monospace;font-size:30px;font-weight:750;color:var(--accent);margin-top:12px}
+
+/* status banner (hub) */
+.status{margin-top:24px;display:inline-flex;align-items:center;gap:10px;background:var(--accent-soft);
+  border:1px solid var(--accent);border-radius:10px;padding:10px 16px;font-size:14px}
+.status b{color:var(--accent)}
+
+.hidden{display:none!important}
+@media(max-width:680px){.wrap{padding:32px 16px 64px}}
+
+.pipe{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.step{display:flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);font-size:13px}
+.step .dot{width:8px;height:8px;border-radius:50%;background:var(--ink-3);flex:none}
+.step.done{color:var(--ink-2)} .step.done .dot{background:var(--easy)}
+.step.now{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)} .step.now .dot{background:var(--accent)}
+.step.next{opacity:.65}
+.navgrid{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.nav .kicker{font-size:12px;color:var(--ink-3);letter-spacing:.1em}
+.nav p{margin-top:8px;font-size:13.5px;color:var(--ink-2)}
+.asks{margin-top:36px}
+.asks .card{margin-top:12px}
+.asks .n{color:var(--accent);font-weight:700;margin-right:8px}
+.doc{margin-top:8px;max-width:56em}
+.doc h1{font-size:clamp(26px,4.5vw,36px);margin-top:26px}
+.doc h2{margin:38px 0 10px;padding-top:20px;border-top:1px solid var(--line)}
+.doc h3{margin:24px 0 8px;font-size:17px;font-weight:700}
+.doc p{margin:10px 0}
+.doc ul,.doc ol{margin:10px 0 10px 24px}
+.doc li{margin:5px 0}
+.doc code{background:var(--chip);padding:1px 6px;border-radius:4px;font-size:13px;font-family:"Cascadia Code",Consolas,ui-monospace,monospace}
+.doc hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+.tablewrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.doc table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:660px}
+.doc th{background:var(--chip);text-align:left;padding:8px 12px;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+.doc td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+.pri{font-family:"Cascadia Code",monospace;font-size:12px;padding:2px 9px;border-radius:10px;border:1px solid;white-space:nowrap}
+.pri.must{color:var(--hard);border-color:var(--hard);background:var(--accent-soft)}
+.pri.should{color:var(--medium);border-color:var(--medium)}
+.pri.later{color:var(--closed);border-color:var(--closed)}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 6px}
+.toc a{text-decoration:none}
+/* --- feature matrix --- */
+.mx h2{margin:26px 0 4px}
+.mx .sub{font-size:13.5px;color:var(--ink-2);margin-bottom:10px}
+.mx{--ok-bg:rgba(63,125,78,.13);--mid-bg:rgba(138,109,31,.13);--tl-bg:rgba(158,48,57,.06)}
+@media(prefers-color-scheme:dark){.mx{--ok-bg:rgba(107,191,128,.15);--mid-bg:rgba(201,169,74,.15);--tl-bg:rgba(196,82,94,.11)}}
+.mxlegend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--ink-2);margin:10px 0}
+.mxlegend span{display:inline-flex;align-items:center;gap:6px}
+.mxlegend .sw{width:20px;height:20px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font-family:"Cascadia Code",monospace;font-weight:700;font-size:12px}
+.mxnote{min-height:42px;display:flex;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:8px 14px;font-size:13px;color:var(--ink-3);margin-bottom:10px}
+.mxnote.on{color:var(--ink);border-color:var(--accent)}
+.mxnote b{color:var(--accent);margin-right:8px;white-space:nowrap}
+.mx .tablewrap{max-height:82vh;overflow:auto}
+.mx table{border-collapse:separate;border-spacing:0;min-width:1150px;width:100%;font-size:13px}
+.mx thead th{position:sticky;top:0;z-index:2;background:var(--chip);padding:10px 6px;text-align:center;font-size:12.5px;line-height:1.25;border-bottom:1px solid var(--line);letter-spacing:0;text-transform:none}
+.mx thead th:first-child{left:0;z-index:3;text-align:left;padding-left:12px}
+.mx tr.price td{font-family:"Cascadia Code",monospace;font-size:11.5px;color:var(--ink-2);text-align:center;background:var(--chip);border-bottom:1px solid var(--line);padding:6px 5px;cursor:default;line-height:1.35}
+.mx tr.price td:first-child{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,sans-serif;font-size:12.5px;text-align:left;background:var(--chip)}
+.mx tbody td:first-child{position:sticky;left:0;z-index:1;background:var(--surface);min-width:190px;padding:7px 12px;box-shadow:1px 0 0 var(--line);font-size:12.5px;border-bottom:1px solid var(--line)}
+.mx td.fv{width:86px;min-width:86px;text-align:center;font-family:"Cascadia Code",monospace;font-weight:700;font-size:13px;padding:7px 4px;border-bottom:1px solid var(--line);cursor:default}
+.fv.yes{background:var(--ok-bg);color:var(--easy)}
+.fv.partial{background:var(--mid-bg);color:var(--medium)}
+.fv.addon{background:var(--mid-bg);color:var(--medium)}
+.fv.no{color:var(--ink-3);font-weight:400}
+.fv.unknown{color:var(--ink-3);font-weight:400}
+.mx td.fv:hover{outline:2px solid var(--accent);outline-offset:-2px}
+.mx tbody tr:hover td:first-child{color:var(--accent);font-weight:600}
+.mx .grp td{background:var(--bg);border-bottom:1px solid var(--line);padding:14px 0 5px}
+.mx .grp td span{position:sticky;left:12px;display:inline-block;font-family:"Cascadia Code",monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.mx th.tlc{color:var(--accent)}
+.mx .tlc{box-shadow:inset 2px 0 0 var(--accent),inset -2px 0 0 var(--accent)}
+.mx td.fv.tlc.no,.mx td.fv.tlc.unknown{background:var(--tl-bg)}
+.mxtake{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:12px 16px;font-size:13.5px;margin:12px 0}
+.back{font-family:"Cascadia Code",monospace;font-size:13px;display:inline-block;margin-bottom:26px;text-decoration:none}
+.footer{margin-top:64px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3)}
+
+:root{--wa:#1fa855;--wa-out:#e4f6d3;--wa-out-ink:#1B1E20}
+@media(prefers-color-scheme:dark){:root{--wa:#31c46b;--wa-out:#0e4534;--wa-out-ink:#E9EBEB}}
+.sec{margin-top:52px}
+.sec .eyebrow{margin-bottom:8px}
+.sec h2{font-size:26px}
+.sec .sub{margin-top:6px;color:var(--ink-2);max-width:46em}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:18px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:18px}
+/* --- viz (single series, direct-labeled, no legend needed) --- */
+.viz-title{font-family:"Cascadia Code",monospace;font-size:12px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase;margin-bottom:14px}
+.vrow{display:grid;grid-template-columns:minmax(120px,190px) 1fr 84px;align-items:center;gap:10px;margin-top:10px}
+.vrow .vl{font-size:13px;color:var(--ink-2)}
+.vrow .track{height:20px;background:var(--chip);border-radius:4px;overflow:hidden}
+.vrow .fill{display:block;height:100%;background:var(--accent);border-radius:0 4px 4px 0}
+.vrow.mut .fill{background:var(--ink-3)}
+.vrow .vv{font-family:"Cascadia Code",monospace;font-size:13px;font-weight:700;text-align:left}
+.vcap{margin-top:14px;font-size:13px;color:var(--ink-2);border-top:1px solid var(--line);padding-top:10px}
+/* --- mockups --- */
+.mkwrap{margin-top:20px}
+.mkscroll{overflow-x:auto;border-radius:14px}
+.mkframe{min-width:700px;border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
+.mkbar{display:flex;align-items:center;gap:8px;padding:9px 14px;border-bottom:1px solid var(--line);background:var(--chip)}
+.mkbar i{width:9px;height:9px;border-radius:50%;background:var(--ink-3);opacity:.4;font-style:normal}
+.mkurl{font-family:"Cascadia Code",monospace;font-size:12px;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:3px 12px;margin-left:8px}
+.mk{font-size:12.5px;line-height:1.35}
+.mkcap{font-size:12.5px;color:var(--ink-3);margin-top:10px}
+.mkdot{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--accent);color:#fff;font-family:"Cascadia Code",monospace;font-size:11px;font-weight:700;flex:none;vertical-align:middle}
+.mklegend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:13px;color:var(--ink-2)}
+.mklegend span{display:flex;align-items:center;gap:7px}
+/* shared mockup atoms */
+.mkav{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:11px;flex:none}
+.mkfield{display:flex;justify-content:space-between;gap:6px;padding:4px 0;border-bottom:1px dashed var(--line)}
+.mkfield .k{color:var(--ink-3)}
+.mkai{color:var(--accent);font-size:10px;font-weight:700}
+.mktags b{display:inline-block;font-weight:500;background:var(--chip);border-radius:8px;padding:2px 8px;font-size:11px;margin:2px 2px 0 0}
+.mkrem{margin-top:6px;border:1px solid var(--medium);border-radius:8px;padding:6px 8px;font-size:11.5px}
+.mkrem b{color:var(--medium)}
+.mksum{margin-top:8px;background:var(--accent-soft);border-radius:8px;padding:7px 9px;font-size:11.5px}
+.mksum b{color:var(--accent);font-size:10px;letter-spacing:.08em}
+/* CRM top bar */
+.mkt{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);background:var(--surface)}
+.mkt .logo{font-weight:750;font-size:12.5px;letter-spacing:-.01em}
+.mkt .logo em{font-style:normal;color:var(--accent)}
+.mkaddon{font-family:"Cascadia Code",monospace;font-size:10.5px;border:1px solid var(--line);border-radius:10px;padding:2px 8px;color:var(--ink-2);background:var(--chip);display:inline-flex;align-items:center;gap:5px}
+.mkt .sp{flex:1}
+.mksearch2{background:var(--chip);border-radius:7px;padding:4px 12px;color:var(--ink-3);font-size:11.5px}
+.mkbtn{background:var(--accent);color:#fff;border-radius:7px;padding:4px 10px;font-size:11.5px;font-weight:600}
+.wadot{width:7px;height:7px;border-radius:50%;background:var(--wa);display:inline-block;flex:none}
+/* pipeline board */
+.mkboard{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:12px;background:var(--bg);min-height:270px}
+.mkcol h5{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-2);margin-bottom:8px;display:flex;justify-content:space-between}
+.mkcol h5 i{font-style:normal;color:var(--ink-3);font-family:"Cascadia Code",monospace}
+.mkcard{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:8px 9px;margin-bottom:8px}
+.mkcard .row{display:flex;gap:7px;align-items:center;margin-bottom:3px}
+.mkcard.drag{transform:rotate(-2deg);border-color:var(--accent);box-shadow:0 6px 14px rgba(0,0,0,.14)}
+.mkcard .fld{font-family:"Cascadia Code",monospace;font-size:11px;color:var(--ink-2);margin-top:3px}
+.mkcard .meta{display:flex;align-items:center;gap:5px;margin-top:5px;font-size:10.5px;color:var(--ink-3)}
+.mkcard .due{color:var(--medium);font-size:11px;margin-top:4px}
+.mkcard .due.ok{color:var(--easy)}
+/* deal record */
+.mkcrumb{padding:8px 14px;border-bottom:1px solid var(--line);background:var(--surface);color:var(--ink-3);font-size:11.5px}
+.mkcrumb b{color:var(--ink)}
+.mkdeal{display:grid;grid-template-columns:212px 1fr 30px;min-height:290px}
+.mkrail{border-right:1px solid var(--line);padding:10px;background:var(--surface)}
+.mkrail h4{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin:11px 0 5px}
+.mkrail h4:first-child{margin-top:0}
+.mktl{padding:14px 16px;background:var(--bg);position:relative}
+.mktl::before{content:'';position:absolute;left:27px;top:20px;bottom:20px;width:2px;background:var(--line)}
+.mktl .e{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;position:relative}
+.mktl .ic{width:22px;height:22px;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:12px;flex:none;position:relative;z-index:1}
+.mktl .tx{font-size:12px;color:var(--ink-2);padding-top:3px}
+.mktl .tx b{color:var(--ink)}
+.mktl .tm{margin-left:auto;font-size:10.5px;color:var(--ink-3);font-family:"Cascadia Code",monospace;padding-top:4px;flex:none}
+.mktab{writing-mode:vertical-rl;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--wa);color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em}
+/* product walkthrough extras */
+.mklabel{font-family:"Cascadia Code",monospace;font-size:12px;color:var(--accent);letter-spacing:.08em;margin:30px 0 8px;text-transform:uppercase}
+.mkframe.sm{min-width:0}
+.mkgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:18px;align-items:start}
+.mkgrid .mkscroll{border-radius:14px}
+.mksteps{border-right:1px solid var(--line);padding:12px;background:var(--surface)}
+.mksteps .st{display:flex;gap:8px;align-items:center;padding:7px 6px;font-size:12px;color:var(--ink-3)}
+.st .n{width:18px;height:18px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;font-family:"Cascadia Code",monospace;flex:none}
+.st.done{color:var(--easy)} .st.done .n{background:var(--easy);color:#fff;border-color:var(--easy)}
+.st.now{color:var(--ink);font-weight:600} .st.now .n{border-color:var(--accent);color:var(--accent)}
+.mkconnect{display:grid;grid-template-columns:190px 1fr;min-height:250px}
+.mkcstage{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;background:var(--bg);gap:8px;text-align:center;font-size:12px;color:var(--ink-2)}
+.qr{width:112px;height:112px;background:repeating-linear-gradient(90deg,var(--ink) 0 7px,transparent 7px 14px),repeating-linear-gradient(0deg,var(--ink) 0 7px,transparent 7px 14px);border:8px solid var(--surface);outline:1px solid var(--line);border-radius:6px}
+.mkshield{font-size:11.5px;color:var(--ink-3);max-width:270px}
+.mkck{padding:14px;background:var(--bg)}
+.mkprog{height:6px;background:var(--chip);border-radius:3px;overflow:hidden;margin:6px 0 12px}
+.mkprog i{display:block;height:100%;width:40%;background:var(--accent)}
+.mkck .ci{display:flex;align-items:center;gap:9px;padding:8px 11px;border:1px solid var(--line);border-radius:9px;margin-bottom:7px;font-size:12.5px;background:var(--surface)}
+.ci .cb{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent;flex:none}
+.ci.done .cb{background:var(--easy);border-color:var(--easy);color:#fff}
+.ci.part .cb{border-color:var(--medium);color:var(--medium)}
+.ci .r{margin-left:auto;font-family:"Cascadia Code",monospace;font-size:10.5px;color:var(--ink-3)}
+.mktbl{width:100%;font-size:12px;border-collapse:collapse;background:var(--bg)}
+.mktbl th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);padding:6px 11px;border-bottom:1px solid var(--line);background:var(--surface)}
+.mktbl td{padding:7px 11px;border-bottom:1px solid var(--line)}
+.mkstagechip{font-family:"Cascadia Code",monospace;font-size:10px;border:1px solid var(--line);border-radius:8px;padding:1px 7px;color:var(--ink-2);white-space:nowrap}
+.mktoolbar{display:flex;gap:6px;padding:8px 11px;border-bottom:1px solid var(--line);background:var(--surface);font-size:11px;color:var(--ink-3);align-items:center}
+.mktoolbar b{font-weight:500;border:1px solid var(--line);border-radius:10px;padding:2px 8px}
+.mktoolbar b.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.mkday{background:var(--bg);padding-bottom:8px}
+.mkday h6{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin:10px 12px 4px}
+.mkrow{display:flex;gap:8px;align-items:center;padding:7px 12px;border-bottom:1px solid var(--line);font-size:12px;background:var(--surface)}
+.mkrow.over{background:var(--accent-soft)}
+.mkrow .t{margin-left:auto;font-family:"Cascadia Code",monospace;font-size:10.5px;color:var(--ink-3);flex:none}
+.mkm{max-width:82%;padding:5px 9px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-size:11.5px}
+.mkm.out{align-self:flex-end;background:var(--wa-out);color:var(--wa-out-ink);border-color:transparent}
+.mkdrawer{border-left:1px solid var(--line);display:flex;flex-direction:column;background:var(--bg)}
+.mkdrawer .hd{padding:7px 10px;background:var(--wa);color:#fff;font-size:11px;font-weight:700}
+.mkdrawer .msgs{flex:1;padding:10px;display:flex;flex-direction:column;gap:6px}
+.mkdrawer .in{display:flex;gap:6px;padding:8px;border-top:1px solid var(--line);background:var(--surface);font-size:11px;color:var(--ink-3);align-items:center}
+.mkdrawer .in .box{flex:1;background:var(--chip);border-radius:12px;padding:4px 9px}
+.tplchip{font-family:"Cascadia Code",monospace;font-size:10px;background:var(--accent-soft);color:var(--accent);border-radius:8px;padding:2px 6px;white-space:nowrap}
+.mkplans{display:flex;gap:12px;padding:14px;background:var(--bg);flex-wrap:wrap}
+.mkplan{border:1px solid var(--line);border-radius:12px;padding:13px;flex:1;min-width:200px;background:var(--surface);font-size:12px}
+.mkplan.on{border-color:var(--easy)}
+.mkplan .pv{font-family:"Cascadia Code",monospace;font-size:19px;font-weight:750}
+.mkplan .ok3{color:var(--easy);font-weight:700;font-size:11px}
+.mkset{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line);font-size:12px;background:var(--surface)}
+.mkset .stt{margin-left:auto;font-family:"Cascadia Code",monospace;font-size:10.5px;flex:none}
+.ok2{color:var(--easy)} .dis{color:var(--ink-3)}
+.ph{width:252px;border:1px solid var(--line);border-radius:24px;padding:10px 8px;background:var(--surface);margin:0 auto}
+.ph .scr{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg)}
+.ph .phd{padding:8px 10px;font-size:12px;font-weight:700;border-bottom:1px solid var(--line);background:var(--surface)}
+.ph .body{padding:8px}
+.ph .nav2{display:flex;border-top:1px solid var(--line);background:var(--surface)}
+.ph .nav2 span{flex:1;text-align:center;font-size:10px;padding:6px 0;color:var(--ink-3)}
+.ph .nav2 span.on{color:var(--accent);font-weight:700}
+/* architecture strip */
+.arch{display:flex;flex-wrap:wrap;align-items:stretch;margin-top:18px}
+.anode{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;flex:1;min-width:170px}
+.anode h3{font-size:13px}
+.anode p{font-size:12.5px;color:var(--ink-3);margin-top:4px}
+.anode.hero{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.astack{display:flex;flex-direction:column;gap:10px;flex:1.25;min-width:200px}
+.aarr{display:flex;align-items:center;padding:0 10px;color:var(--ink-3);font-size:18px;font-family:"Cascadia Code",monospace;flex:none}
+@media(max-width:680px){.aarr{transform:rotate(90deg);padding:2px 0;justify-content:center;width:100%}}
+/* bet / pilot */
+.price .v{font-family:"Cascadia Code",monospace;font-size:30px;font-weight:750;color:var(--accent)}
+.price .l{color:var(--ink-2);font-size:13px;margin-top:4px}
+.gates{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:18px}
+.gates .card h3{font-size:13px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px}
+.gates .ok h3{color:var(--easy)} .gates .kill h3{color:var(--hard)}
+.gates li{margin:5px 0 5px 18px;font-size:13.5px}
+.linkrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.linkrow a{font-family:"Cascadia Code",monospace;font-size:13px;border:1px solid var(--line);border-radius:10px;padding:8px 14px;text-decoration:none;background:var(--surface)}
+.linkrow a:hover{border-color:var(--accent)}
+.wrap{max-width:1200px}</style>
+</head>
+<body><div class="wrap">
+
+<a class="back" href="index.html">&larr; checkpoint</a>
+<div class="eyebrow">GROWTH PLAN · OPERATIONAL · SEGMENT SIZES FROM PROD DB, 21.07</div>
+<h1>100 activated in 90 days — who gets what, from whom, when</h1>
+<p class="lede">Not a funnel sketch — the sending plan. Four segments with verified sizes, a concrete offer and channel per segment, owners, week-by-week rollout, and instrumentation. Raw plan yields ~158 activated; we commit to 100 (a ~40% haircut on every assumption).</p>
+
+<div class="mx" style="margin-top:26px">
+<h2>The four segments — verified sizes, expected contribution</h2>
+<div class="tablewrap"><table style="min-width:900px">
+<tr><th>Segment</th><th>Size (prod DB)</th><th>The offer</th><th>Channels</th><th>Math → activated</th></tr>
+<tr><td><b>S1 · Active paying, no CRM</b><br>the retention core</td><td>621 workspaces</td><td>Included free on their plan: "Your TimelinesAI now includes a CRM — turn chats into deals"</td><td>In-app banner + menu entry · 2 announce emails (Customer.io) · Cyril demos to top-50 by seats</td><td>20% try (125) × 45% activate ≈ <b>56</b></td></tr>
+<tr><td><b>S2 · Active free/trial, no CRM</b></td><td>136 workspaces</td><td>14-day addon trial — they're already evaluating the platform</td><td>Same in-app + email path as S1</td><td>25% try (34) × 40% ≈ <b>14</b></td></tr>
+<tr><td><b>S3 · New trialists</b> (inflow during the pilot)</td><td>~590/mo no-CRM WhatsApp-activated ≈ 1,770 over 90 days</td><td>Onboarding step right after WhatsApp connect: "No CRM yet? Turn your chats into a pipeline — built in" + day-2 email in the trial sequence</td><td>Onboarding flow step · Customer.io trial branch (trigger: wa_connected && !crm_connected) · in-app banner</td><td>8% try (~140) × 40% ≈ <b>56</b></td></tr>
+<tr><td><b>S4 · Churned, no CRM</b> (WhatsApp activity in last 12 mo)</td><td>4,543 workspaces, incl. 896 former payers</td><td>Win-back: "You left before we had this — TimelinesAI is now a WhatsApp CRM"</td><td>2 win-back email waves (former payers first) · WabaLoop WhatsApp touch where a number is known · Cyril personal outreach to top-100 former payers by past MRR</td><td>2% try (~90) × 35% ≈ <b>32</b></td></tr>
+<tr><td><b>Total</b></td><td>~7,100 reachable</td><td></td><td></td><td><b>~158 raw → commit 100</b></td></tr>
+</table></div>
+</div>
+
+<div class="mx" style="margin-top:30px">
+<h2>Who sends what — channels, tech, owners</h2>
+<div class="tablewrap"><table style="min-width:900px">
+<tr><th>Channel / tech</th><th>What exactly</th><th>Targeting / trigger</th><th>Owner</th><th>Live</th></tr>
+<tr><td>In-app placement (core product)</td><td>Left-menu entry "CRM" + one dismissible banner</td><td>workspace has no CRM connection; banner caps at 3 impressions</td><td>R&D slot (small — the one core change we ask for)</td><td>W3 (fallback: email carries the plan if the slot slips)</td></tr>
+<tr><td>Customer.io — announce</td><td>2 emails to S1+S2 (second wave to non-openers only)</td><td>Segment sync from prod: active && !crm_connected</td><td>Alexandra (owns lifecycle campaigns)</td><td>W3 / W5</td></tr>
+<tr><td>Customer.io — trial branch</td><td>Onboarding step + day-2 email inside the existing trial sequence</td><td>Event: wa_connected && !crm_connected</td><td>Alexandra</td><td>W4</td></tr>
+<tr><td>Customer.io — win-back</td><td>2 waves × 2 emails; former payers get wave 1</td><td>plan expired && had WhatsApp && !crm_connected && activity <12 mo</td><td>Alexandra</td><td>W6–7 / W9–10</td></tr>
+<tr><td>WabaLoop engine</td><td>CRM-offer template added to the existing WhatsApp outreach loop</td><td>Churned subset with a known, reachable number</td><td>Anton</td><td>W8</td></tr>
+<tr><td>Cyril — manual</td><td>Demos: top-50 active paying (by seats) + top-100 churned former payers (by past MRR)</td><td>Hand-picked lists from the segment queries</td><td>Cyril</td><td>W1 (soft launch) onward</td></tr>
+<tr><td>PostHog</td><td>Events: crm_addon_viewed / installed / pipeline_created / activated + per-segment-per-channel dashboard</td><td>Instrumented in the app from day one</td><td>Alexandra</td><td>W1</td></tr>
+<tr><td>Billing entitlement</td><td>Free flag for S1 (paying workspaces); 14-day trial for everyone else</td><td>Addon SKU on existing TimelinesAI billing</td><td>Orkhan (build)</td><td>W1</td></tr>
+</table></div>
+</div>
+
+<div class="mx" style="margin-top:30px">
+<h2>Week by week</h2>
+<div class="tablewrap"><table style="min-width:760px">
+<tr><th>Weeks</th><th>What happens</th></tr>
+<tr><td>W1–2</td><td>Soft launch: 50 hand-picked S1 workspaces (Cyril invitations + onboarding calls where wanted); PostHog instrumentation live; fix the sharpest onboarding friction before any mass sends</td></tr>
+<tr><td>W3</td><td>In-app banner + menu entry live (if the R&D slot landed); announce email #1 to S1+S2 (~750 workspaces)</td></tr>
+<tr><td>W4</td><td>S3 machine on: onboarding step + day-2 email — every new trialist from here sees the offer automatically</td></tr>
+<tr><td>W5</td><td>Announce email #2 to non-openers; Cyril's top-50 demos rolling</td></tr>
+<tr><td>W6–7</td><td>Win-back wave 1 to S4 (896 former payers first, then the rest)</td></tr>
+<tr><td>W8</td><td>WabaLoop CRM template live for the churned-with-number subset</td></tr>
+<tr><td>W9–10</td><td>Win-back wave 2; messaging iterated on PostHog per-channel data; D60 checkpoint (≥60 activated or the contingency review)</td></tr>
+<tr><td>W11–12</td><td>Gate readout prep: activated-cohort retention vs matched control; D90 decision per the BRD gates</td></tr>
+</table></div>
+<p class="sub" style="margin-top:14px">Milestones: <b>D30 ≥ 25 · D60 ≥ 60 · D90 ≥ 100.</b> Contingency if D30 misses: pull win-back forward, double email cadence, Cyril widens to top-150. Gates and kill criteria: <a href="brd.html">BRD §4</a>.</p>
+</div>
+
+<div class="linkrow" style="margin-top:30px">
+<a href="tldr.html#growth">Funnel summary (TLDR) →</a>
+<a href="brd.html#9-distribution">BRD §9 Distribution →</a>
+<a href="index.html">← Checkpoint</a>
+</div>
+<div class="footer">Timelines CRM checkpoint · 2026-07-20 · generated from the working docs — do not edit the HTML by hand</div>
+</div></body></html>
