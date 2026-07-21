@@ -108,6 +108,22 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .pri.later{color:var(--closed);border-color:var(--closed)}
 .toc{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 6px}
 .toc a{text-decoration:none}
+/* --- feature matrix --- */
+.mx h2{margin:26px 0 4px}
+.mx .sub{font-size:13.5px;color:var(--ink-2);margin-bottom:12px}
+.mx table{min-width:1020px}
+.mx th:first-child,.mx td:first-child{position:sticky;left:0;background:var(--surface);z-index:1;min-width:186px;box-shadow:1px 0 0 var(--line)}
+.mx thead th{white-space:nowrap}
+.mx th.tlc,.mx td.tlc{background:var(--accent-soft)}
+.mx th.tlc{color:var(--accent)}
+.mx td.fv{text-align:center;font-family:"Cascadia Code",monospace;font-weight:700;font-size:14px;cursor:default}
+.fv.yes{color:var(--easy)} .fv.partial{color:var(--medium)} .fv.addon{color:var(--medium)}
+.fv.no{color:var(--ink-3);font-weight:400} .fv.unknown{color:var(--ink-3);font-weight:400}
+.mx tr.price td{font-size:11px;color:var(--ink-2);text-align:center}
+.mx tr.price td:first-child{text-align:left}
+.mxlegend{display:flex;flex-wrap:wrap;gap:16px;font-size:12.5px;color:var(--ink-2);margin:10px 0 4px}
+.mxlegend b{font-family:"Cascadia Code",monospace;font-weight:700}
+.mxlegend .g-yes{color:var(--easy)} .mxlegend .g-part{color:var(--medium)} .mxlegend .g-no{color:var(--ink-3)}
 .back{font-family:"Cascadia Code",monospace;font-size:13px;display:inline-block;margin-bottom:26px;text-decoration:none}
 .footer{margin-top:64px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3)}
 </style>
@@ -117,6 +133,7 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 <a class="back" href="index.html">&larr; checkpoint</a>
 <div class="eyebrow">MEETING CONTEXT</div>
 <div class="toc"><a class="chip" href="#how-the-idea-came-up">How the idea came up</a><a class="chip" href="#positions">Positions</a><a class="chip" href="#what-the-meeting-decided">What the meeting decided</a><a class="chip" href="#still-open-after-the-meeting">Still open after the meeting</a></div>
+
 <div class="doc"><h1>Context: the 20.07 meeting</h1>
 <p>The Timelines CRM idea was born at the growth weekly on 2026-07-20 (Anton + Ishay, ~1h53m). Quotes below are translated from Russian; full transcript: <code>team-ops/meetings/2026-07-20-growth-weekly-ishay-transcript.md</code>.</p>
 <h2 id="how-the-idea-came-up">How the idea came up</h2>
