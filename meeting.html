@@ -84,7 +84,7 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .step.now{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)} .step.now .dot{background:var(--accent)}
 .step.next{opacity:.65}
 .navgrid{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
-.nav .kicker{font-size:11px;color:var(--ink-3);letter-spacing:.1em}
+.nav .kicker{font-size:12px;color:var(--ink-3);letter-spacing:.1em}
 .nav p{margin-top:8px;font-size:13.5px;color:var(--ink-2)}
 .asks{margin-top:36px}
 .asks .card{margin-top:12px}
@@ -100,9 +100,9 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .doc hr{border:none;border-top:1px solid var(--line);margin:26px 0}
 .tablewrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
 .doc table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:660px}
-.doc th{background:var(--chip);text-align:left;padding:8px 12px;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+.doc th{background:var(--chip);text-align:left;padding:8px 12px;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
 .doc td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
-.pri{font-family:"Cascadia Code",monospace;font-size:11px;padding:2px 9px;border-radius:10px;border:1px solid;white-space:nowrap}
+.pri{font-family:"Cascadia Code",monospace;font-size:12px;padding:2px 9px;border-radius:10px;border:1px solid;white-space:nowrap}
 .pri.must{color:var(--hard);border-color:var(--hard);background:var(--accent-soft)}
 .pri.should{color:var(--medium);border-color:var(--medium)}
 .pri.later{color:var(--closed);border-color:var(--closed)}
@@ -123,7 +123,7 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .mx table{border-collapse:separate;border-spacing:0;min-width:1150px;width:100%;font-size:13px}
 .mx thead th{position:sticky;top:0;z-index:2;background:var(--chip);padding:10px 6px;text-align:center;font-size:12.5px;line-height:1.25;border-bottom:1px solid var(--line);letter-spacing:0;text-transform:none}
 .mx thead th:first-child{left:0;z-index:3;text-align:left;padding-left:12px}
-.mx tr.price td{font-family:"Cascadia Code",monospace;font-size:10.5px;color:var(--ink-2);text-align:center;background:var(--chip);border-bottom:1px solid var(--line);padding:6px 5px;cursor:default;line-height:1.35}
+.mx tr.price td{font-family:"Cascadia Code",monospace;font-size:11.5px;color:var(--ink-2);text-align:center;background:var(--chip);border-bottom:1px solid var(--line);padding:6px 5px;cursor:default;line-height:1.35}
 .mx tr.price td:first-child{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,sans-serif;font-size:12.5px;text-align:left;background:var(--chip)}
 .mx tbody td:first-child{position:sticky;left:0;z-index:1;background:var(--surface);min-width:190px;padding:7px 12px;box-shadow:1px 0 0 var(--line);font-size:12.5px;border-bottom:1px solid var(--line)}
 .mx td.fv{width:86px;min-width:86px;text-align:center;font-family:"Cascadia Code",monospace;font-weight:700;font-size:13px;padding:7px 4px;border-bottom:1px solid var(--line);cursor:default}
@@ -135,10 +135,11 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .mx td.fv:hover{outline:2px solid var(--accent);outline-offset:-2px}
 .mx tbody tr:hover td:first-child{color:var(--accent);font-weight:600}
 .mx .grp td{background:var(--bg);border-bottom:1px solid var(--line);padding:14px 0 5px}
-.mx .grp td span{position:sticky;left:12px;display:inline-block;font-family:"Cascadia Code",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.mx .grp td span{position:sticky;left:12px;display:inline-block;font-family:"Cascadia Code",monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
 .mx th.tlc{color:var(--accent)}
-.mx .tlc{box-shadow:inset 2px 0 0 var(--accent-soft),inset -2px 0 0 var(--accent-soft)}
+.mx .tlc{box-shadow:inset 2px 0 0 var(--accent),inset -2px 0 0 var(--accent)}
 .mx td.fv.tlc.no,.mx td.fv.tlc.unknown{background:var(--tl-bg)}
+.mxtake{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:12px 16px;font-size:13.5px;margin:12px 0}
 .back{font-family:"Cascadia Code",monospace;font-size:13px;display:inline-block;margin-bottom:26px;text-decoration:none}
 .footer{margin-top:64px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3)}
 </style>
@@ -150,7 +151,7 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 <div class="toc"><a class="chip" href="#how-the-idea-came-up">How the idea came up</a><a class="chip" href="#positions">Positions</a><a class="chip" href="#what-the-meeting-decided">What the meeting decided</a><a class="chip" href="#still-open-after-the-meeting">Still open after the meeting</a></div>
 
 <div class="doc"><h1>Context: the 20.07 meeting</h1>
-<p>The Timelines CRM idea was born at the growth weekly on 2026-07-20 (Anton + Ishay, ~1h53m). Quotes below are translated from Russian; full transcript: <code>team-ops/meetings/2026-07-20-growth-weekly-ishay-transcript.md</code>.</p>
+<p>The Timelines CRM idea was born at the growth weekly on 2026-07-20 (Anton + Ishay, ~1h53m). Quotes below are translated from Russian; the full transcript is on file.</p>
 <h2 id="how-the-idea-came-up">How the idea came up</h2>
 <p>The discussion started from the top-of-funnel decline outside marketplaces. Anton: "there's obviously a big drop in non-marketplace, non-CRM stories." From there: "for most of these small companies, some contacts inside would be enough for them. LATAM is full of them… why don't we vibe-code our own? …spec a WhatsApp-first CRM… Then we could layer AI on top. That's what everyone wants."</p>
 <h2 id="positions">Positions</h2>
@@ -171,5 +172,6 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 <li>Whether Igor accepts it into the R&amp;D orbit (the "not in this quarter's roadmap" reflex is the risk).</li>
 <li>A committed WABA API date — a verbal "few weeks" is not a date.</li>
 </ol></div>
+
 <div class="footer">Timelines CRM checkpoint · 2026-07-20 · generated from the working docs — do not edit the HTML by hand</div>
 </div></body></html>
