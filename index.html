@@ -84,7 +84,7 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .step.now{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)} .step.now .dot{background:var(--accent)}
 .step.next{opacity:.65}
 .navgrid{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
-.nav .kicker{font-size:11px;color:var(--ink-3);letter-spacing:.1em}
+.nav .kicker{font-size:12px;color:var(--ink-3);letter-spacing:.1em}
 .nav p{margin-top:8px;font-size:13.5px;color:var(--ink-2)}
 .asks{margin-top:36px}
 .asks .card{margin-top:12px}
@@ -100,9 +100,9 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .doc hr{border:none;border-top:1px solid var(--line);margin:26px 0}
 .tablewrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
 .doc table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:660px}
-.doc th{background:var(--chip);text-align:left;padding:8px 12px;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+.doc th{background:var(--chip);text-align:left;padding:8px 12px;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
 .doc td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
-.pri{font-family:"Cascadia Code",monospace;font-size:11px;padding:2px 9px;border-radius:10px;border:1px solid;white-space:nowrap}
+.pri{font-family:"Cascadia Code",monospace;font-size:12px;padding:2px 9px;border-radius:10px;border:1px solid;white-space:nowrap}
 .pri.must{color:var(--hard);border-color:var(--hard);background:var(--accent-soft)}
 .pri.should{color:var(--medium);border-color:var(--medium)}
 .pri.later{color:var(--closed);border-color:var(--closed)}
@@ -123,7 +123,7 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .mx table{border-collapse:separate;border-spacing:0;min-width:1150px;width:100%;font-size:13px}
 .mx thead th{position:sticky;top:0;z-index:2;background:var(--chip);padding:10px 6px;text-align:center;font-size:12.5px;line-height:1.25;border-bottom:1px solid var(--line);letter-spacing:0;text-transform:none}
 .mx thead th:first-child{left:0;z-index:3;text-align:left;padding-left:12px}
-.mx tr.price td{font-family:"Cascadia Code",monospace;font-size:10.5px;color:var(--ink-2);text-align:center;background:var(--chip);border-bottom:1px solid var(--line);padding:6px 5px;cursor:default;line-height:1.35}
+.mx tr.price td{font-family:"Cascadia Code",monospace;font-size:11.5px;color:var(--ink-2);text-align:center;background:var(--chip);border-bottom:1px solid var(--line);padding:6px 5px;cursor:default;line-height:1.35}
 .mx tr.price td:first-child{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,sans-serif;font-size:12.5px;text-align:left;background:var(--chip)}
 .mx tbody td:first-child{position:sticky;left:0;z-index:1;background:var(--surface);min-width:190px;padding:7px 12px;box-shadow:1px 0 0 var(--line);font-size:12.5px;border-bottom:1px solid var(--line)}
 .mx td.fv{width:86px;min-width:86px;text-align:center;font-family:"Cascadia Code",monospace;font-weight:700;font-size:13px;padding:7px 4px;border-bottom:1px solid var(--line);cursor:default}
@@ -135,10 +135,11 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .mx td.fv:hover{outline:2px solid var(--accent);outline-offset:-2px}
 .mx tbody tr:hover td:first-child{color:var(--accent);font-weight:600}
 .mx .grp td{background:var(--bg);border-bottom:1px solid var(--line);padding:14px 0 5px}
-.mx .grp td span{position:sticky;left:12px;display:inline-block;font-family:"Cascadia Code",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.mx .grp td span{position:sticky;left:12px;display:inline-block;font-family:"Cascadia Code",monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
 .mx th.tlc{color:var(--accent)}
-.mx .tlc{box-shadow:inset 2px 0 0 var(--accent-soft),inset -2px 0 0 var(--accent-soft)}
+.mx .tlc{box-shadow:inset 2px 0 0 var(--accent),inset -2px 0 0 var(--accent)}
 .mx td.fv.tlc.no,.mx td.fv.tlc.unknown{background:var(--tl-bg)}
+.mxtake{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:12px 16px;font-size:13.5px;margin:12px 0}
 .back{font-family:"Cascadia Code",monospace;font-size:13px;display:inline-block;margin-bottom:26px;text-decoration:none}
 .footer{margin-top:64px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3)}
 </style>
@@ -147,8 +148,14 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 
 <div class="eyebrow">TIMELINESAI · TEAM-OPS · CHECKPOINT</div>
 <h1>Timelines CRM</h1>
-<p class="lede">A lightweight CRM for the "I live in WhatsApp and will never adopt a CRM" segment — the biggest and leakiest segment of the TimelinesAI base. A standalone app on the same SDK as our CRM integrations: connection, sync and billing already exist in the platform; only the CRM side gets built.</p>
+<p class="lede">A lightweight CRM for the "I live in WhatsApp and will never adopt a CRM" segment — the majority of our inflow and our leakiest segment. A standalone app on the platform's integration seam: WhatsApp connection, sync and the billing rail are reused; the CRM app itself is the build.</p>
 <div class="status">● <span><b>BRD v0.3</b> — ready — next step: decision meeting Ishay · Anton · Igor · Cyril</span></div>
+<div class="asks" style="margin-top:18px">
+<div class="card" style="margin-top:8px;padding:12px 16px"><span class="n">1</span>Ratify the owners (Orkhan → launch; Alexandra → traction; Cyril → commercial)</div>
+<div class="card" style="margin-top:8px;padding:12px 16px"><span class="n">2</span>Accept the bounded R&amp;D scope (seam + one SDK fix + one placement slot)</div>
+<div class="card" style="margin-top:8px;padding:12px 16px"><span class="n">3</span>Approve the pilot design (gates · pricing tests · customer-facing name)</div>
+<p style="margin-top:8px;font-size:13px;color:var(--ink-3)">Full asks with rationale: <a href="tldr.html">the TLDR</a>, section 06.</p>
+</div>
 <div class="pipe">
 <span class="step done"><span class="dot"></span>Idea (20.07 meeting)</span>
 <span class="step done"><span class="dot"></span>Market research</span>
@@ -158,23 +165,17 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 <span class="step next"><span class="dot"></span>90-day pilot</span>
 </div>
 <div class="stats">
-<div class="stat"><div class="v">~80%</div><div class="l">of workspaces never connect a CRM (estimate, verifying)</div></div>
-<div class="stat"><div class="v">5–8×</div><div class="l">better trial→paid conversion when a CRM is connected</div></div>
-<div class="stat"><div class="v">$19/mo</div><div class="l">proposed price (workspace, 3 seats included)</div></div>
+<div class="stat"><div class="v">59%</div><div class="l">of new WhatsApp-activated workspaces never connect a CRM (prod DB, Jul-2026)</div></div>
+<div class="stat"><div class="v">34%</div><div class="l">CRM-less among the surviving active base — the 59→34 gap is the leak</div></div>
+<div class="stat"><div class="v">5–8×</div><div class="l">better trial→paid conversion when a CRM is connected (correlation; pilot tests causation)</div></div>
 <div class="stat"><div class="v">90 days</div><div class="l">pilot with kill criteria agreed up front</div></div>
 </div>
 <div class="navgrid">
 <a class="nav" href="tldr.html"><span class="kicker">VISUAL</span><h2>TLDR for the decision meeting</h2><p>One page: the problem in one picture, product mockups, market proof, the bet, and the three asks. Start here.</p><div class="big">1 page</div></a>
-<a class="nav" href="product.html"><span class="kicker">VISUAL</span><h2>Product walkthrough</h2><p>The whole v1 interface, screen by screen — every feature-matrix row has a mockup, labeled with its BRD capability.</p><div class="big">13 screens</div></a>
+<a class="nav" href="product.html"><span class="kicker">VISUAL</span><h2>Product walkthrough</h2><p>The whole v1 interface, screen by screen — every feature-matrix row has a mockup, labeled with its BRD capability.</p><div class="big">14 screens</div></a>
 <a class="nav" href="brd.html"><span class="kicker">FULL DOC</span><h2>BRD — business requirements</h2><p>Press release + FAQ, goals and kill criteria, scope, pricing, dependencies, and 12 Must capabilities ready to slice into specs.</p><div class="big">12 Must</div></a>
 <a class="nav" href="market.html"><span class="kicker">FULL DOC</span><h2>Market research</h2><p>10 products deep-dived (Kommo, Privyr, Moskit…), 31 more in the long list. Patterns: minimal feature set, QR as the adoption path, AI as the upsell.</p><div class="big">10 / 41</div></a>
 <a class="nav" href="meeting.html"><span class="kicker">CONTEXT</span><h2>Context: the 20.07 meeting</h2><p>How the idea came up, Anton's and Ishay's positions with quotes, what was decided, what's open. The unresolved question is the owner.</p><div class="big">3 open</div></a>
-</div>
-<div class="asks">
-<h2>What the decision meeting must close</h2>
-<div class="card"><span class="n">1</span>Owners per stage — including launch-to-first-users, the phase MessageHub died in. Hard gate: no owners, no build.</div>
-<div class="card"><span class="n">2</span>A committed WABA API date from R&amp;D — a verbal "few weeks" is not a date. v1 doesn't block on it (we start on QR), but the ban-risk mitigation can't be planned without it.</div>
-<div class="card"><span class="n">3</span>SDK seam confirmation: the integration API's limits/quotas are fine for a first-party app.</div>
 </div>
 <div class="footer">Timelines CRM checkpoint · 2026-07-20 · generated from the working docs — do not edit the HTML by hand</div>
 </div></body></html>
