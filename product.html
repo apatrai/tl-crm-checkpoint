@@ -84,7 +84,7 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .step.now{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)} .step.now .dot{background:var(--accent)}
 .step.next{opacity:.65}
 .navgrid{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
-.nav .kicker{font-size:11px;color:var(--ink-3);letter-spacing:.1em}
+.nav .kicker{font-size:12px;color:var(--ink-3);letter-spacing:.1em}
 .nav p{margin-top:8px;font-size:13.5px;color:var(--ink-2)}
 .asks{margin-top:36px}
 .asks .card{margin-top:12px}
@@ -100,9 +100,9 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .doc hr{border:none;border-top:1px solid var(--line);margin:26px 0}
 .tablewrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
 .doc table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:660px}
-.doc th{background:var(--chip);text-align:left;padding:8px 12px;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+.doc th{background:var(--chip);text-align:left;padding:8px 12px;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
 .doc td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
-.pri{font-family:"Cascadia Code",monospace;font-size:11px;padding:2px 9px;border-radius:10px;border:1px solid;white-space:nowrap}
+.pri{font-family:"Cascadia Code",monospace;font-size:12px;padding:2px 9px;border-radius:10px;border:1px solid;white-space:nowrap}
 .pri.must{color:var(--hard);border-color:var(--hard);background:var(--accent-soft)}
 .pri.should{color:var(--medium);border-color:var(--medium)}
 .pri.later{color:var(--closed);border-color:var(--closed)}
@@ -123,7 +123,7 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .mx table{border-collapse:separate;border-spacing:0;min-width:1150px;width:100%;font-size:13px}
 .mx thead th{position:sticky;top:0;z-index:2;background:var(--chip);padding:10px 6px;text-align:center;font-size:12.5px;line-height:1.25;border-bottom:1px solid var(--line);letter-spacing:0;text-transform:none}
 .mx thead th:first-child{left:0;z-index:3;text-align:left;padding-left:12px}
-.mx tr.price td{font-family:"Cascadia Code",monospace;font-size:10.5px;color:var(--ink-2);text-align:center;background:var(--chip);border-bottom:1px solid var(--line);padding:6px 5px;cursor:default;line-height:1.35}
+.mx tr.price td{font-family:"Cascadia Code",monospace;font-size:11.5px;color:var(--ink-2);text-align:center;background:var(--chip);border-bottom:1px solid var(--line);padding:6px 5px;cursor:default;line-height:1.35}
 .mx tr.price td:first-child{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,sans-serif;font-size:12.5px;text-align:left;background:var(--chip)}
 .mx tbody td:first-child{position:sticky;left:0;z-index:1;background:var(--surface);min-width:190px;padding:7px 12px;box-shadow:1px 0 0 var(--line);font-size:12.5px;border-bottom:1px solid var(--line)}
 .mx td.fv{width:86px;min-width:86px;text-align:center;font-family:"Cascadia Code",monospace;font-weight:700;font-size:13px;padding:7px 4px;border-bottom:1px solid var(--line);cursor:default}
@@ -135,10 +135,11 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .mx td.fv:hover{outline:2px solid var(--accent);outline-offset:-2px}
 .mx tbody tr:hover td:first-child{color:var(--accent);font-weight:600}
 .mx .grp td{background:var(--bg);border-bottom:1px solid var(--line);padding:14px 0 5px}
-.mx .grp td span{position:sticky;left:12px;display:inline-block;font-family:"Cascadia Code",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.mx .grp td span{position:sticky;left:12px;display:inline-block;font-family:"Cascadia Code",monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
 .mx th.tlc{color:var(--accent)}
-.mx .tlc{box-shadow:inset 2px 0 0 var(--accent-soft),inset -2px 0 0 var(--accent-soft)}
+.mx .tlc{box-shadow:inset 2px 0 0 var(--accent),inset -2px 0 0 var(--accent)}
 .mx td.fv.tlc.no,.mx td.fv.tlc.unknown{background:var(--tl-bg)}
+.mxtake{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:12px 16px;font-size:13.5px;margin:12px 0}
 .back{font-family:"Cascadia Code",monospace;font-size:13px;display:inline-block;margin-bottom:26px;text-decoration:none}
 .footer{margin-top:64px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3)}
 
@@ -151,7 +152,7 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:18px}
 .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:18px}
 /* --- viz (single series, direct-labeled, no legend needed) --- */
-.viz-title{font-family:"Cascadia Code",monospace;font-size:11px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase;margin-bottom:14px}
+.viz-title{font-family:"Cascadia Code",monospace;font-size:12px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase;margin-bottom:14px}
 .vrow{display:grid;grid-template-columns:minmax(120px,190px) 1fr 84px;align-items:center;gap:10px;margin-top:10px}
 .vrow .vl{font-size:13px;color:var(--ink-2)}
 .vrow .track{height:20px;background:var(--chip);border-radius:4px;overflow:hidden}
@@ -165,119 +166,119 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .mkframe{min-width:700px;border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
 .mkbar{display:flex;align-items:center;gap:8px;padding:9px 14px;border-bottom:1px solid var(--line);background:var(--chip)}
 .mkbar i{width:9px;height:9px;border-radius:50%;background:var(--ink-3);opacity:.4;font-style:normal}
-.mkurl{font-family:"Cascadia Code",monospace;font-size:11px;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:3px 12px;margin-left:8px}
-.mk{font-size:11.5px;line-height:1.35}
+.mkurl{font-family:"Cascadia Code",monospace;font-size:12px;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:3px 12px;margin-left:8px}
+.mk{font-size:12.5px;line-height:1.35}
 .mkcap{font-size:12.5px;color:var(--ink-3);margin-top:10px}
-.mkdot{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--accent);color:#fff;font-family:"Cascadia Code",monospace;font-size:10px;font-weight:700;flex:none;vertical-align:middle}
+.mkdot{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--accent);color:#fff;font-family:"Cascadia Code",monospace;font-size:11px;font-weight:700;flex:none;vertical-align:middle}
 .mklegend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:13px;color:var(--ink-2)}
 .mklegend span{display:flex;align-items:center;gap:7px}
 /* shared mockup atoms */
-.mkav{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:10px;flex:none}
+.mkav{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:11px;flex:none}
 .mkfield{display:flex;justify-content:space-between;gap:6px;padding:4px 0;border-bottom:1px dashed var(--line)}
 .mkfield .k{color:var(--ink-3)}
-.mkai{color:var(--accent);font-size:9px;font-weight:700}
-.mktags b{display:inline-block;font-weight:500;background:var(--chip);border-radius:8px;padding:2px 8px;font-size:10px;margin:2px 2px 0 0}
-.mkrem{margin-top:6px;border:1px solid var(--medium);border-radius:8px;padding:6px 8px;font-size:10.5px}
+.mkai{color:var(--accent);font-size:10px;font-weight:700}
+.mktags b{display:inline-block;font-weight:500;background:var(--chip);border-radius:8px;padding:2px 8px;font-size:11px;margin:2px 2px 0 0}
+.mkrem{margin-top:6px;border:1px solid var(--medium);border-radius:8px;padding:6px 8px;font-size:11.5px}
 .mkrem b{color:var(--medium)}
-.mksum{margin-top:8px;background:var(--accent-soft);border-radius:8px;padding:7px 9px;font-size:10.5px}
-.mksum b{color:var(--accent);font-size:9px;letter-spacing:.08em}
+.mksum{margin-top:8px;background:var(--accent-soft);border-radius:8px;padding:7px 9px;font-size:11.5px}
+.mksum b{color:var(--accent);font-size:10px;letter-spacing:.08em}
 /* CRM top bar */
 .mkt{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);background:var(--surface)}
 .mkt .logo{font-weight:750;font-size:12.5px;letter-spacing:-.01em}
 .mkt .logo em{font-style:normal;color:var(--accent)}
-.mkaddon{font-family:"Cascadia Code",monospace;font-size:9.5px;border:1px solid var(--line);border-radius:10px;padding:2px 8px;color:var(--ink-2);background:var(--chip);display:inline-flex;align-items:center;gap:5px}
+.mkaddon{font-family:"Cascadia Code",monospace;font-size:10.5px;border:1px solid var(--line);border-radius:10px;padding:2px 8px;color:var(--ink-2);background:var(--chip);display:inline-flex;align-items:center;gap:5px}
 .mkt .sp{flex:1}
-.mksearch2{background:var(--chip);border-radius:7px;padding:4px 12px;color:var(--ink-3);font-size:10.5px}
-.mkbtn{background:var(--accent);color:#fff;border-radius:7px;padding:4px 10px;font-size:10.5px;font-weight:600}
+.mksearch2{background:var(--chip);border-radius:7px;padding:4px 12px;color:var(--ink-3);font-size:11.5px}
+.mkbtn{background:var(--accent);color:#fff;border-radius:7px;padding:4px 10px;font-size:11.5px;font-weight:600}
 .wadot{width:7px;height:7px;border-radius:50%;background:var(--wa);display:inline-block;flex:none}
 /* pipeline board */
 .mkboard{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:12px;background:var(--bg);min-height:270px}
-.mkcol h5{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-2);margin-bottom:8px;display:flex;justify-content:space-between}
+.mkcol h5{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-2);margin-bottom:8px;display:flex;justify-content:space-between}
 .mkcol h5 i{font-style:normal;color:var(--ink-3);font-family:"Cascadia Code",monospace}
 .mkcard{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:8px 9px;margin-bottom:8px}
 .mkcard .row{display:flex;gap:7px;align-items:center;margin-bottom:3px}
 .mkcard.drag{transform:rotate(-2deg);border-color:var(--accent);box-shadow:0 6px 14px rgba(0,0,0,.14)}
-.mkcard .fld{font-family:"Cascadia Code",monospace;font-size:10px;color:var(--ink-2);margin-top:3px}
-.mkcard .meta{display:flex;align-items:center;gap:5px;margin-top:5px;font-size:9.5px;color:var(--ink-3)}
-.mkcard .due{color:var(--medium);font-size:10px;margin-top:4px}
+.mkcard .fld{font-family:"Cascadia Code",monospace;font-size:11px;color:var(--ink-2);margin-top:3px}
+.mkcard .meta{display:flex;align-items:center;gap:5px;margin-top:5px;font-size:10.5px;color:var(--ink-3)}
+.mkcard .due{color:var(--medium);font-size:11px;margin-top:4px}
 .mkcard .due.ok{color:var(--easy)}
 /* deal record */
-.mkcrumb{padding:8px 14px;border-bottom:1px solid var(--line);background:var(--surface);color:var(--ink-3);font-size:10.5px}
+.mkcrumb{padding:8px 14px;border-bottom:1px solid var(--line);background:var(--surface);color:var(--ink-3);font-size:11.5px}
 .mkcrumb b{color:var(--ink)}
 .mkdeal{display:grid;grid-template-columns:212px 1fr 30px;min-height:290px}
 .mkrail{border-right:1px solid var(--line);padding:10px;background:var(--surface)}
-.mkrail h4{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin:11px 0 5px}
+.mkrail h4{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin:11px 0 5px}
 .mkrail h4:first-child{margin-top:0}
 .mktl{padding:14px 16px;background:var(--bg);position:relative}
 .mktl::before{content:'';position:absolute;left:27px;top:20px;bottom:20px;width:2px;background:var(--line)}
 .mktl .e{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;position:relative}
-.mktl .ic{width:22px;height:22px;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;flex:none;position:relative;z-index:1}
-.mktl .tx{font-size:11px;color:var(--ink-2);padding-top:3px}
+.mktl .ic{width:22px;height:22px;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:12px;flex:none;position:relative;z-index:1}
+.mktl .tx{font-size:12px;color:var(--ink-2);padding-top:3px}
 .mktl .tx b{color:var(--ink)}
-.mktl .tm{margin-left:auto;font-size:9.5px;color:var(--ink-3);font-family:"Cascadia Code",monospace;padding-top:4px;flex:none}
-.mktab{writing-mode:vertical-rl;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--wa);color:#fff;font-size:10px;font-weight:700;letter-spacing:.06em}
+.mktl .tm{margin-left:auto;font-size:10.5px;color:var(--ink-3);font-family:"Cascadia Code",monospace;padding-top:4px;flex:none}
+.mktab{writing-mode:vertical-rl;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--wa);color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em}
 /* product walkthrough extras */
-.mklabel{font-family:"Cascadia Code",monospace;font-size:11px;color:var(--accent);letter-spacing:.08em;margin:30px 0 8px;text-transform:uppercase}
+.mklabel{font-family:"Cascadia Code",monospace;font-size:12px;color:var(--accent);letter-spacing:.08em;margin:30px 0 8px;text-transform:uppercase}
 .mkframe.sm{min-width:0}
 .mkgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:18px;align-items:start}
 .mkgrid .mkscroll{border-radius:14px}
 .mksteps{border-right:1px solid var(--line);padding:12px;background:var(--surface)}
-.mksteps .st{display:flex;gap:8px;align-items:center;padding:7px 6px;font-size:11px;color:var(--ink-3)}
-.st .n{width:18px;height:18px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:10px;font-family:"Cascadia Code",monospace;flex:none}
+.mksteps .st{display:flex;gap:8px;align-items:center;padding:7px 6px;font-size:12px;color:var(--ink-3)}
+.st .n{width:18px;height:18px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;font-family:"Cascadia Code",monospace;flex:none}
 .st.done{color:var(--easy)} .st.done .n{background:var(--easy);color:#fff;border-color:var(--easy)}
 .st.now{color:var(--ink);font-weight:600} .st.now .n{border-color:var(--accent);color:var(--accent)}
 .mkconnect{display:grid;grid-template-columns:190px 1fr;min-height:250px}
-.mkcstage{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;background:var(--bg);gap:8px;text-align:center;font-size:11px;color:var(--ink-2)}
+.mkcstage{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;background:var(--bg);gap:8px;text-align:center;font-size:12px;color:var(--ink-2)}
 .qr{width:112px;height:112px;background:repeating-linear-gradient(90deg,var(--ink) 0 7px,transparent 7px 14px),repeating-linear-gradient(0deg,var(--ink) 0 7px,transparent 7px 14px);border:8px solid var(--surface);outline:1px solid var(--line);border-radius:6px}
-.mkshield{font-size:10.5px;color:var(--ink-3);max-width:270px}
+.mkshield{font-size:11.5px;color:var(--ink-3);max-width:270px}
 .mkck{padding:14px;background:var(--bg)}
 .mkprog{height:6px;background:var(--chip);border-radius:3px;overflow:hidden;margin:6px 0 12px}
 .mkprog i{display:block;height:100%;width:40%;background:var(--accent)}
-.mkck .ci{display:flex;align-items:center;gap:9px;padding:8px 11px;border:1px solid var(--line);border-radius:9px;margin-bottom:7px;font-size:11.5px;background:var(--surface)}
-.ci .cb{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:9px;color:transparent;flex:none}
+.mkck .ci{display:flex;align-items:center;gap:9px;padding:8px 11px;border:1px solid var(--line);border-radius:9px;margin-bottom:7px;font-size:12.5px;background:var(--surface)}
+.ci .cb{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent;flex:none}
 .ci.done .cb{background:var(--easy);border-color:var(--easy);color:#fff}
 .ci.part .cb{border-color:var(--medium);color:var(--medium)}
-.ci .r{margin-left:auto;font-family:"Cascadia Code",monospace;font-size:9.5px;color:var(--ink-3)}
-.mktbl{width:100%;font-size:11px;border-collapse:collapse;background:var(--bg)}
-.mktbl th{text-align:left;font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);padding:6px 11px;border-bottom:1px solid var(--line);background:var(--surface)}
+.ci .r{margin-left:auto;font-family:"Cascadia Code",monospace;font-size:10.5px;color:var(--ink-3)}
+.mktbl{width:100%;font-size:12px;border-collapse:collapse;background:var(--bg)}
+.mktbl th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);padding:6px 11px;border-bottom:1px solid var(--line);background:var(--surface)}
 .mktbl td{padding:7px 11px;border-bottom:1px solid var(--line)}
-.mkstagechip{font-family:"Cascadia Code",monospace;font-size:9px;border:1px solid var(--line);border-radius:8px;padding:1px 7px;color:var(--ink-2);white-space:nowrap}
-.mktoolbar{display:flex;gap:6px;padding:8px 11px;border-bottom:1px solid var(--line);background:var(--surface);font-size:10px;color:var(--ink-3);align-items:center}
+.mkstagechip{font-family:"Cascadia Code",monospace;font-size:10px;border:1px solid var(--line);border-radius:8px;padding:1px 7px;color:var(--ink-2);white-space:nowrap}
+.mktoolbar{display:flex;gap:6px;padding:8px 11px;border-bottom:1px solid var(--line);background:var(--surface);font-size:11px;color:var(--ink-3);align-items:center}
 .mktoolbar b{font-weight:500;border:1px solid var(--line);border-radius:10px;padding:2px 8px}
 .mktoolbar b.on{background:var(--accent);color:#fff;border-color:var(--accent)}
 .mkday{background:var(--bg);padding-bottom:8px}
-.mkday h6{font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin:10px 12px 4px}
-.mkrow{display:flex;gap:8px;align-items:center;padding:7px 12px;border-bottom:1px solid var(--line);font-size:11px;background:var(--surface)}
+.mkday h6{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin:10px 12px 4px}
+.mkrow{display:flex;gap:8px;align-items:center;padding:7px 12px;border-bottom:1px solid var(--line);font-size:12px;background:var(--surface)}
 .mkrow.over{background:var(--accent-soft)}
-.mkrow .t{margin-left:auto;font-family:"Cascadia Code",monospace;font-size:9.5px;color:var(--ink-3);flex:none}
-.mkm{max-width:82%;padding:5px 9px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-size:10.5px}
+.mkrow .t{margin-left:auto;font-family:"Cascadia Code",monospace;font-size:10.5px;color:var(--ink-3);flex:none}
+.mkm{max-width:82%;padding:5px 9px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-size:11.5px}
 .mkm.out{align-self:flex-end;background:var(--wa-out);color:var(--wa-out-ink);border-color:transparent}
 .mkdrawer{border-left:1px solid var(--line);display:flex;flex-direction:column;background:var(--bg)}
-.mkdrawer .hd{padding:7px 10px;background:var(--wa);color:#fff;font-size:10px;font-weight:700}
+.mkdrawer .hd{padding:7px 10px;background:var(--wa);color:#fff;font-size:11px;font-weight:700}
 .mkdrawer .msgs{flex:1;padding:10px;display:flex;flex-direction:column;gap:6px}
-.mkdrawer .in{display:flex;gap:6px;padding:8px;border-top:1px solid var(--line);background:var(--surface);font-size:10px;color:var(--ink-3);align-items:center}
+.mkdrawer .in{display:flex;gap:6px;padding:8px;border-top:1px solid var(--line);background:var(--surface);font-size:11px;color:var(--ink-3);align-items:center}
 .mkdrawer .in .box{flex:1;background:var(--chip);border-radius:12px;padding:4px 9px}
-.tplchip{font-family:"Cascadia Code",monospace;font-size:9px;background:var(--accent-soft);color:var(--accent);border-radius:8px;padding:2px 6px;white-space:nowrap}
+.tplchip{font-family:"Cascadia Code",monospace;font-size:10px;background:var(--accent-soft);color:var(--accent);border-radius:8px;padding:2px 6px;white-space:nowrap}
 .mkplans{display:flex;gap:12px;padding:14px;background:var(--bg);flex-wrap:wrap}
-.mkplan{border:1px solid var(--line);border-radius:12px;padding:13px;flex:1;min-width:200px;background:var(--surface);font-size:11px}
+.mkplan{border:1px solid var(--line);border-radius:12px;padding:13px;flex:1;min-width:200px;background:var(--surface);font-size:12px}
 .mkplan.on{border-color:var(--easy)}
 .mkplan .pv{font-family:"Cascadia Code",monospace;font-size:19px;font-weight:750}
-.mkplan .ok3{color:var(--easy);font-weight:700;font-size:10px}
-.mkset{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line);font-size:11px;background:var(--surface)}
-.mkset .stt{margin-left:auto;font-family:"Cascadia Code",monospace;font-size:9.5px;flex:none}
+.mkplan .ok3{color:var(--easy);font-weight:700;font-size:11px}
+.mkset{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line);font-size:12px;background:var(--surface)}
+.mkset .stt{margin-left:auto;font-family:"Cascadia Code",monospace;font-size:10.5px;flex:none}
 .ok2{color:var(--easy)} .dis{color:var(--ink-3)}
 .ph{width:252px;border:1px solid var(--line);border-radius:24px;padding:10px 8px;background:var(--surface);margin:0 auto}
 .ph .scr{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg)}
-.ph .phd{padding:8px 10px;font-size:11px;font-weight:700;border-bottom:1px solid var(--line);background:var(--surface)}
+.ph .phd{padding:8px 10px;font-size:12px;font-weight:700;border-bottom:1px solid var(--line);background:var(--surface)}
 .ph .body{padding:8px}
 .ph .nav2{display:flex;border-top:1px solid var(--line);background:var(--surface)}
-.ph .nav2 span{flex:1;text-align:center;font-size:9px;padding:6px 0;color:var(--ink-3)}
+.ph .nav2 span{flex:1;text-align:center;font-size:10px;padding:6px 0;color:var(--ink-3)}
 .ph .nav2 span.on{color:var(--accent);font-weight:700}
 /* architecture strip */
 .arch{display:flex;flex-wrap:wrap;align-items:stretch;margin-top:18px}
 .anode{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;flex:1;min-width:170px}
 .anode h3{font-size:13px}
-.anode p{font-size:11.5px;color:var(--ink-3);margin-top:4px}
+.anode p{font-size:12.5px;color:var(--ink-3);margin-top:4px}
 .anode.hero{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
 .astack{display:flex;flex-direction:column;gap:10px;flex:1.25;min-width:200px}
 .aarr{display:flex;align-items:center;padding:0 10px;color:var(--ink-3);font-size:18px;font-family:"Cascadia Code",monospace;flex:none}
@@ -299,7 +300,7 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 <a class="back" href="index.html">&larr; checkpoint</a>
 <div class="eyebrow">PRODUCT WALKTHROUGH · EVERY SCREEN OF V1</div>
 <h1>The v1 interface, screen by screen</h1>
-<p class="lede">Every row of the <a href="market.html#feature-matrix">feature matrix</a> has a screen here. Labels map each mockup to its BRD capability (M/S/L). Illustrative — the build follows the BRD, these set the shape.</p>
+<p class="lede">Every row of the <a href="market.html#feature-matrix">feature matrix</a> has a screen here. Labels map each mockup to its BRD capability — <b>M = Must</b> (v1 doesn't launch without it), <b>S = Should</b> (wanted, launch can slip it), <b>L = Later</b>. Illustrative — the build follows the BRD, these set the shape. "Budget/$" values on cards are AI-filled custom fields, not a native deal amount (v1 has none).</p>
 
 <div class="mx" style="margin-top:22px"><div class="tablewrap"><table style="min-width:640px">
 <tr><th>Matrix row</th><th>Where it lives in the product</th></tr>
@@ -438,7 +439,7 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
       <div class="mkm out">Yes — 40 by Friday works. Catalog below 👇</div>
       <div class="mkm">Great. If the price works we'll take them monthly</div>
     </div>
-    <div class="in"><span class="box">Message…</span><span class="tplchip">/quote ▾</span><span class="tplchip">✨ Suggest reply</span></div>
+    <div class="in"><span class="box">Message…</span><span class="tplchip">/quote ▾</span><span class="tplchip">✨ Suggest reply · S2</span></div>
   </div>
 </div>
 </div></div>
@@ -514,7 +515,7 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 <div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai/billing</span></div>
 <div class="mkplans">
   <div class="mkplan on"><span class="ok3">✓ INCLUDED WITH TIMELINESAI</span><div class="pv">$0</div>Your workspace has an active TimelinesAI subscription — Timelines CRM is included. 3 seats in use.</div>
-  <div class="mkplan"><span style="font-family:'Cascadia Code',monospace;font-size:10px;color:var(--ink-3)">STANDALONE</span><div class="pv">$19/mo</div>Workspace · 3 seats included · +$5 per extra seat · cancel anytime. <b>14-day free trial.</b> Billed through your TimelinesAI account.</div>
+  <div class="mkplan"><span style="font-family:'Cascadia Code',monospace;font-size:11px;color:var(--ink-3)">STANDALONE</span><div class="pv">$19/mo</div>Workspace · 3 seats included · +$5 per extra seat · cancel anytime. <b>14-day free trial.</b> Billed through your TimelinesAI account.</div>
 </div>
 </div></div></div>
 <div><div class="mklabel" id="s-safety" style="margin-top:0">M1 + M12 + S1 · Connection &amp; ban-safety</div>
