@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Timelines CRM — product walkthrough</title>
+<style>/* ============================================================================
+   checkpoint-html — design system tokens (paste into every page's <style>)
+   Visual identity: carmine accent, Segoe Variable display + Cascadia mono,
+   theme-aware (light/dark via prefers-color-scheme). Self-contained, no fonts
+   to load (system fonts only), no external anything.
+   Accent #9E3039 (light) / #C4525E (dark) is validated colorblind-safe and
+   ≥3:1 vs surface in both modes (dataviz validator). Keep it.
+   ============================================================================ */
+:root{
+  --bg:#F2F3F1; --surface:#FCFCFB; --ink:#1B1E20; --ink-2:#545A5E; --ink-3:#878D91;
+  --accent:#9E3039; --accent-soft:rgba(158,48,57,.08); --line:#DFE2DD; --chip:#EAECE7;
+  --gold:#8a6d1f;            /* secondary flag / "close call" */
+  --easy:#3f7d4e; --medium:#8a6d1f; --hard:#9E3039; --closed:#6b6f72;  /* verdict ramp */
+  --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:40px; --s6:72px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#141617; --surface:#1D2022; --ink:#E9EBEB; --ink-2:#A7ADB0; --ink-3:#71777A;
+  --accent:#C4525E; --accent-soft:rgba(196,82,94,.14); --line:#33383A; --chip:#26292B;
+  --gold:#c9a94a;
+  --easy:#6bbf80; --medium:#c9a94a; --hard:#C4525E; --closed:#8b9094;
+}}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);
+  font-family:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,sans-serif;
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:48px 24px 96px}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono,.eyebrow,.n,.kicker{font-family:"Cascadia Code",Consolas,ui-monospace,monospace}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+h1{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
+  font-size:clamp(34px,6vw,52px);font-weight:750;letter-spacing:-.03em;line-height:1.03}
+h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
+  font-size:24px;font-weight:700;letter-spacing:-.015em}
+.lede{margin-top:16px;font-size:18px;color:var(--ink-2);max-width:46em}
+
+/* stat tiles */
+.stats{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 18px}
+.stat .v{font-family:"Cascadia Code",monospace;font-size:22px;font-weight:700}
+.stat .l{font-size:12px;color:var(--ink-3);margin-top:2px}
+
+/* filter chips (sticky toolbar) */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:"Cascadia Code",monospace;font-size:12px;border:1px solid var(--line);
+  background:var(--surface);color:var(--ink-2);border-radius:20px;padding:5px 12px;cursor:pointer}
+.chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* cards */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.card.top{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}   /* highlight */
+
+/* horizontal score/weight bar */
+.bar{display:flex;align-items:center;gap:8px}
+.bar .track{flex:1;height:8px;background:var(--chip);border-radius:4px;overflow:hidden}
+.bar .fill{display:block;height:100%;background:var(--accent);border-radius:0 4px 4px 0}
+.bar .v{font-family:"Cascadia Code",monospace;font-size:13px;font-weight:600}
+
+/* nav card (hub) */
+.nav{display:block;background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  padding:22px;text-decoration:none;color:inherit;transition:border-color .15s}
+.nav:hover{border-color:var(--accent)}
+.nav .big{font-family:"Cascadia Code",monospace;font-size:30px;font-weight:750;color:var(--accent);margin-top:12px}
+
+/* status banner (hub) */
+.status{margin-top:24px;display:inline-flex;align-items:center;gap:10px;background:var(--accent-soft);
+  border:1px solid var(--accent);border-radius:10px;padding:10px 16px;font-size:14px}
+.status b{color:var(--accent)}
+
+.hidden{display:none!important}
+@media(max-width:680px){.wrap{padding:32px 16px 64px}}
+
+.pipe{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.step{display:flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);font-size:13px}
+.step .dot{width:8px;height:8px;border-radius:50%;background:var(--ink-3);flex:none}
+.step.done{color:var(--ink-2)} .step.done .dot{background:var(--easy)}
+.step.now{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)} .step.now .dot{background:var(--accent)}
+.step.next{opacity:.65}
+.navgrid{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.nav .kicker{font-size:11px;color:var(--ink-3);letter-spacing:.1em}
+.nav p{margin-top:8px;font-size:13.5px;color:var(--ink-2)}
+.asks{margin-top:36px}
+.asks .card{margin-top:12px}
+.asks .n{color:var(--accent);font-weight:700;margin-right:8px}
+.doc{margin-top:8px;max-width:56em}
+.doc h1{font-size:clamp(26px,4.5vw,36px);margin-top:26px}
+.doc h2{margin:38px 0 10px;padding-top:20px;border-top:1px solid var(--line)}
+.doc h3{margin:24px 0 8px;font-size:17px;font-weight:700}
+.doc p{margin:10px 0}
+.doc ul,.doc ol{margin:10px 0 10px 24px}
+.doc li{margin:5px 0}
+.doc code{background:var(--chip);padding:1px 6px;border-radius:4px;font-size:13px;font-family:"Cascadia Code",Consolas,ui-monospace,monospace}
+.doc hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+.tablewrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.doc table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:660px}
+.doc th{background:var(--chip);text-align:left;padding:8px 12px;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+.doc td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+.pri{font-family:"Cascadia Code",monospace;font-size:11px;padding:2px 9px;border-radius:10px;border:1px solid;white-space:nowrap}
+.pri.must{color:var(--hard);border-color:var(--hard);background:var(--accent-soft)}
+.pri.should{color:var(--medium);border-color:var(--medium)}
+.pri.later{color:var(--closed);border-color:var(--closed)}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 6px}
+.toc a{text-decoration:none}
+/* --- feature matrix --- */
+.mx h2{margin:26px 0 4px}
+.mx .sub{font-size:13.5px;color:var(--ink-2);margin-bottom:10px}
+.mx{--ok-bg:rgba(63,125,78,.13);--mid-bg:rgba(138,109,31,.13);--tl-bg:rgba(158,48,57,.06)}
+@media(prefers-color-scheme:dark){.mx{--ok-bg:rgba(107,191,128,.15);--mid-bg:rgba(201,169,74,.15);--tl-bg:rgba(196,82,94,.11)}}
+.mxlegend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--ink-2);margin:10px 0}
+.mxlegend span{display:inline-flex;align-items:center;gap:6px}
+.mxlegend .sw{width:20px;height:20px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font-family:"Cascadia Code",monospace;font-weight:700;font-size:12px}
+.mxnote{min-height:42px;display:flex;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:8px 14px;font-size:13px;color:var(--ink-3);margin-bottom:10px}
+.mxnote.on{color:var(--ink);border-color:var(--accent)}
+.mxnote b{color:var(--accent);margin-right:8px;white-space:nowrap}
+.mx .tablewrap{max-height:82vh;overflow:auto}
+.mx table{border-collapse:separate;border-spacing:0;min-width:1150px;width:100%;font-size:13px}
+.mx thead th{position:sticky;top:0;z-index:2;background:var(--chip);padding:10px 6px;text-align:center;font-size:12.5px;line-height:1.25;border-bottom:1px solid var(--line);letter-spacing:0;text-transform:none}
+.mx thead th:first-child{left:0;z-index:3;text-align:left;padding-left:12px}
+.mx tr.price td{font-family:"Cascadia Code",monospace;font-size:10.5px;color:var(--ink-2);text-align:center;background:var(--chip);border-bottom:1px solid var(--line);padding:6px 5px;cursor:default;line-height:1.35}
+.mx tr.price td:first-child{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,sans-serif;font-size:12.5px;text-align:left;background:var(--chip)}
+.mx tbody td:first-child{position:sticky;left:0;z-index:1;background:var(--surface);min-width:190px;padding:7px 12px;box-shadow:1px 0 0 var(--line);font-size:12.5px;border-bottom:1px solid var(--line)}
+.mx td.fv{width:86px;min-width:86px;text-align:center;font-family:"Cascadia Code",monospace;font-weight:700;font-size:13px;padding:7px 4px;border-bottom:1px solid var(--line);cursor:default}
+.fv.yes{background:var(--ok-bg);color:var(--easy)}
+.fv.partial{background:var(--mid-bg);color:var(--medium)}
+.fv.addon{background:var(--mid-bg);color:var(--medium)}
+.fv.no{color:var(--ink-3);font-weight:400}
+.fv.unknown{color:var(--ink-3);font-weight:400}
+.mx td.fv:hover{outline:2px solid var(--accent);outline-offset:-2px}
+.mx tbody tr:hover td:first-child{color:var(--accent);font-weight:600}
+.mx .grp td{background:var(--bg);border-bottom:1px solid var(--line);padding:14px 0 5px}
+.mx .grp td span{position:sticky;left:12px;display:inline-block;font-family:"Cascadia Code",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.mx th.tlc{color:var(--accent)}
+.mx .tlc{box-shadow:inset 2px 0 0 var(--accent-soft),inset -2px 0 0 var(--accent-soft)}
+.mx td.fv.tlc.no,.mx td.fv.tlc.unknown{background:var(--tl-bg)}
+.back{font-family:"Cascadia Code",monospace;font-size:13px;display:inline-block;margin-bottom:26px;text-decoration:none}
+.footer{margin-top:64px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3)}
+
+:root{--wa:#1fa855;--wa-out:#e4f6d3;--wa-out-ink:#1B1E20}
+@media(prefers-color-scheme:dark){:root{--wa:#31c46b;--wa-out:#0e4534;--wa-out-ink:#E9EBEB}}
+.sec{margin-top:52px}
+.sec .eyebrow{margin-bottom:8px}
+.sec h2{font-size:26px}
+.sec .sub{margin-top:6px;color:var(--ink-2);max-width:46em}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:18px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:18px}
+/* --- viz (single series, direct-labeled, no legend needed) --- */
+.viz-title{font-family:"Cascadia Code",monospace;font-size:11px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase;margin-bottom:14px}
+.vrow{display:grid;grid-template-columns:minmax(120px,190px) 1fr 84px;align-items:center;gap:10px;margin-top:10px}
+.vrow .vl{font-size:13px;color:var(--ink-2)}
+.vrow .track{height:20px;background:var(--chip);border-radius:4px;overflow:hidden}
+.vrow .fill{display:block;height:100%;background:var(--accent);border-radius:0 4px 4px 0}
+.vrow.mut .fill{background:var(--ink-3)}
+.vrow .vv{font-family:"Cascadia Code",monospace;font-size:13px;font-weight:700;text-align:left}
+.vcap{margin-top:14px;font-size:13px;color:var(--ink-2);border-top:1px solid var(--line);padding-top:10px}
+/* --- mockups --- */
+.mkwrap{margin-top:20px}
+.mkscroll{overflow-x:auto;border-radius:14px}
+.mkframe{min-width:700px;border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
+.mkbar{display:flex;align-items:center;gap:8px;padding:9px 14px;border-bottom:1px solid var(--line);background:var(--chip)}
+.mkbar i{width:9px;height:9px;border-radius:50%;background:var(--ink-3);opacity:.4;font-style:normal}
+.mkurl{font-family:"Cascadia Code",monospace;font-size:11px;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:3px 12px;margin-left:8px}
+.mk{font-size:11.5px;line-height:1.35}
+.mkcap{font-size:12.5px;color:var(--ink-3);margin-top:10px}
+.mkdot{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--accent);color:#fff;font-family:"Cascadia Code",monospace;font-size:10px;font-weight:700;flex:none;vertical-align:middle}
+.mklegend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:13px;color:var(--ink-2)}
+.mklegend span{display:flex;align-items:center;gap:7px}
+/* shared mockup atoms */
+.mkav{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:10px;flex:none}
+.mkfield{display:flex;justify-content:space-between;gap:6px;padding:4px 0;border-bottom:1px dashed var(--line)}
+.mkfield .k{color:var(--ink-3)}
+.mkai{color:var(--accent);font-size:9px;font-weight:700}
+.mktags b{display:inline-block;font-weight:500;background:var(--chip);border-radius:8px;padding:2px 8px;font-size:10px;margin:2px 2px 0 0}
+.mkrem{margin-top:6px;border:1px solid var(--medium);border-radius:8px;padding:6px 8px;font-size:10.5px}
+.mkrem b{color:var(--medium)}
+.mksum{margin-top:8px;background:var(--accent-soft);border-radius:8px;padding:7px 9px;font-size:10.5px}
+.mksum b{color:var(--accent);font-size:9px;letter-spacing:.08em}
+/* CRM top bar */
+.mkt{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);background:var(--surface)}
+.mkt .logo{font-weight:750;font-size:12.5px;letter-spacing:-.01em}
+.mkt .logo em{font-style:normal;color:var(--accent)}
+.mkaddon{font-family:"Cascadia Code",monospace;font-size:9.5px;border:1px solid var(--line);border-radius:10px;padding:2px 8px;color:var(--ink-2);background:var(--chip);display:inline-flex;align-items:center;gap:5px}
+.mkt .sp{flex:1}
+.mksearch2{background:var(--chip);border-radius:7px;padding:4px 12px;color:var(--ink-3);font-size:10.5px}
+.mkbtn{background:var(--accent);color:#fff;border-radius:7px;padding:4px 10px;font-size:10.5px;font-weight:600}
+.wadot{width:7px;height:7px;border-radius:50%;background:var(--wa);display:inline-block;flex:none}
+/* pipeline board */
+.mkboard{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:12px;background:var(--bg);min-height:270px}
+.mkcol h5{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-2);margin-bottom:8px;display:flex;justify-content:space-between}
+.mkcol h5 i{font-style:normal;color:var(--ink-3);font-family:"Cascadia Code",monospace}
+.mkcard{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:8px 9px;margin-bottom:8px}
+.mkcard .row{display:flex;gap:7px;align-items:center;margin-bottom:3px}
+.mkcard.drag{transform:rotate(-2deg);border-color:var(--accent);box-shadow:0 6px 14px rgba(0,0,0,.14)}
+.mkcard .fld{font-family:"Cascadia Code",monospace;font-size:10px;color:var(--ink-2);margin-top:3px}
+.mkcard .meta{display:flex;align-items:center;gap:5px;margin-top:5px;font-size:9.5px;color:var(--ink-3)}
+.mkcard .due{color:var(--medium);font-size:10px;margin-top:4px}
+.mkcard .due.ok{color:var(--easy)}
+/* deal record */
+.mkcrumb{padding:8px 14px;border-bottom:1px solid var(--line);background:var(--surface);color:var(--ink-3);font-size:10.5px}
+.mkcrumb b{color:var(--ink)}
+.mkdeal{display:grid;grid-template-columns:212px 1fr 30px;min-height:290px}
+.mkrail{border-right:1px solid var(--line);padding:10px;background:var(--surface)}
+.mkrail h4{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin:11px 0 5px}
+.mkrail h4:first-child{margin-top:0}
+.mktl{padding:14px 16px;background:var(--bg);position:relative}
+.mktl::before{content:'';position:absolute;left:27px;top:20px;bottom:20px;width:2px;background:var(--line)}
+.mktl .e{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;position:relative}
+.mktl .ic{width:22px;height:22px;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;flex:none;position:relative;z-index:1}
+.mktl .tx{font-size:11px;color:var(--ink-2);padding-top:3px}
+.mktl .tx b{color:var(--ink)}
+.mktl .tm{margin-left:auto;font-size:9.5px;color:var(--ink-3);font-family:"Cascadia Code",monospace;padding-top:4px;flex:none}
+.mktab{writing-mode:vertical-rl;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--wa);color:#fff;font-size:10px;font-weight:700;letter-spacing:.06em}
+/* product walkthrough extras */
+.mklabel{font-family:"Cascadia Code",monospace;font-size:11px;color:var(--accent);letter-spacing:.08em;margin:30px 0 8px;text-transform:uppercase}
+.mkframe.sm{min-width:0}
+.mkgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:18px;align-items:start}
+.mkgrid .mkscroll{border-radius:14px}
+.mksteps{border-right:1px solid var(--line);padding:12px;background:var(--surface)}
+.mksteps .st{display:flex;gap:8px;align-items:center;padding:7px 6px;font-size:11px;color:var(--ink-3)}
+.st .n{width:18px;height:18px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:10px;font-family:"Cascadia Code",monospace;flex:none}
+.st.done{color:var(--easy)} .st.done .n{background:var(--easy);color:#fff;border-color:var(--easy)}
+.st.now{color:var(--ink);font-weight:600} .st.now .n{border-color:var(--accent);color:var(--accent)}
+.mkconnect{display:grid;grid-template-columns:190px 1fr;min-height:250px}
+.mkcstage{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;background:var(--bg);gap:8px;text-align:center;font-size:11px;color:var(--ink-2)}
+.qr{width:112px;height:112px;background:repeating-linear-gradient(90deg,var(--ink) 0 7px,transparent 7px 14px),repeating-linear-gradient(0deg,var(--ink) 0 7px,transparent 7px 14px);border:8px solid var(--surface);outline:1px solid var(--line);border-radius:6px}
+.mkshield{font-size:10.5px;color:var(--ink-3);max-width:270px}
+.mkck{padding:14px;background:var(--bg)}
+.mkprog{height:6px;background:var(--chip);border-radius:3px;overflow:hidden;margin:6px 0 12px}
+.mkprog i{display:block;height:100%;width:40%;background:var(--accent)}
+.mkck .ci{display:flex;align-items:center;gap:9px;padding:8px 11px;border:1px solid var(--line);border-radius:9px;margin-bottom:7px;font-size:11.5px;background:var(--surface)}
+.ci .cb{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:9px;color:transparent;flex:none}
+.ci.done .cb{background:var(--easy);border-color:var(--easy);color:#fff}
+.ci.part .cb{border-color:var(--medium);color:var(--medium)}
+.ci .r{margin-left:auto;font-family:"Cascadia Code",monospace;font-size:9.5px;color:var(--ink-3)}
+.mktbl{width:100%;font-size:11px;border-collapse:collapse;background:var(--bg)}
+.mktbl th{text-align:left;font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);padding:6px 11px;border-bottom:1px solid var(--line);background:var(--surface)}
+.mktbl td{padding:7px 11px;border-bottom:1px solid var(--line)}
+.mkstagechip{font-family:"Cascadia Code",monospace;font-size:9px;border:1px solid var(--line);border-radius:8px;padding:1px 7px;color:var(--ink-2);white-space:nowrap}
+.mktoolbar{display:flex;gap:6px;padding:8px 11px;border-bottom:1px solid var(--line);background:var(--surface);font-size:10px;color:var(--ink-3);align-items:center}
+.mktoolbar b{font-weight:500;border:1px solid var(--line);border-radius:10px;padding:2px 8px}
+.mktoolbar b.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.mkday{background:var(--bg);padding-bottom:8px}
+.mkday h6{font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin:10px 12px 4px}
+.mkrow{display:flex;gap:8px;align-items:center;padding:7px 12px;border-bottom:1px solid var(--line);font-size:11px;background:var(--surface)}
+.mkrow.over{background:var(--accent-soft)}
+.mkrow .t{margin-left:auto;font-family:"Cascadia Code",monospace;font-size:9.5px;color:var(--ink-3);flex:none}
+.mkm{max-width:82%;padding:5px 9px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-size:10.5px}
+.mkm.out{align-self:flex-end;background:var(--wa-out);color:var(--wa-out-ink);border-color:transparent}
+.mkdrawer{border-left:1px solid var(--line);display:flex;flex-direction:column;background:var(--bg)}
+.mkdrawer .hd{padding:7px 10px;background:var(--wa);color:#fff;font-size:10px;font-weight:700}
+.mkdrawer .msgs{flex:1;padding:10px;display:flex;flex-direction:column;gap:6px}
+.mkdrawer .in{display:flex;gap:6px;padding:8px;border-top:1px solid var(--line);background:var(--surface);font-size:10px;color:var(--ink-3);align-items:center}
+.mkdrawer .in .box{flex:1;background:var(--chip);border-radius:12px;padding:4px 9px}
+.tplchip{font-family:"Cascadia Code",monospace;font-size:9px;background:var(--accent-soft);color:var(--accent);border-radius:8px;padding:2px 6px;white-space:nowrap}
+.mkplans{display:flex;gap:12px;padding:14px;background:var(--bg);flex-wrap:wrap}
+.mkplan{border:1px solid var(--line);border-radius:12px;padding:13px;flex:1;min-width:200px;background:var(--surface);font-size:11px}
+.mkplan.on{border-color:var(--easy)}
+.mkplan .pv{font-family:"Cascadia Code",monospace;font-size:19px;font-weight:750}
+.mkplan .ok3{color:var(--easy);font-weight:700;font-size:10px}
+.mkset{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line);font-size:11px;background:var(--surface)}
+.mkset .stt{margin-left:auto;font-family:"Cascadia Code",monospace;font-size:9.5px;flex:none}
+.ok2{color:var(--easy)} .dis{color:var(--ink-3)}
+.ph{width:252px;border:1px solid var(--line);border-radius:24px;padding:10px 8px;background:var(--surface);margin:0 auto}
+.ph .scr{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg)}
+.ph .phd{padding:8px 10px;font-size:11px;font-weight:700;border-bottom:1px solid var(--line);background:var(--surface)}
+.ph .body{padding:8px}
+.ph .nav2{display:flex;border-top:1px solid var(--line);background:var(--surface)}
+.ph .nav2 span{flex:1;text-align:center;font-size:9px;padding:6px 0;color:var(--ink-3)}
+.ph .nav2 span.on{color:var(--accent);font-weight:700}
+/* architecture strip */
+.arch{display:flex;flex-wrap:wrap;align-items:stretch;margin-top:18px}
+.anode{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;flex:1;min-width:170px}
+.anode h3{font-size:13px}
+.anode p{font-size:11.5px;color:var(--ink-3);margin-top:4px}
+.anode.hero{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.astack{display:flex;flex-direction:column;gap:10px;flex:1.25;min-width:200px}
+.aarr{display:flex;align-items:center;padding:0 10px;color:var(--ink-3);font-size:18px;font-family:"Cascadia Code",monospace;flex:none}
+@media(max-width:680px){.aarr{transform:rotate(90deg);padding:2px 0;justify-content:center;width:100%}}
+/* bet / pilot */
+.price .v{font-family:"Cascadia Code",monospace;font-size:30px;font-weight:750;color:var(--accent)}
+.price .l{color:var(--ink-2);font-size:13px;margin-top:4px}
+.gates{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:18px}
+.gates .card h3{font-size:13px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px}
+.gates .ok h3{color:var(--easy)} .gates .kill h3{color:var(--hard)}
+.gates li{margin:5px 0 5px 18px;font-size:13.5px}
+.linkrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.linkrow a{font-family:"Cascadia Code",monospace;font-size:13px;border:1px solid var(--line);border-radius:10px;padding:8px 14px;text-decoration:none;background:var(--surface)}
+.linkrow a:hover{border-color:var(--accent)}
+</style>
+</head>
+<body><div class="wrap">
+
+<a class="back" href="index.html">&larr; checkpoint</a>
+<div class="eyebrow">PRODUCT WALKTHROUGH · EVERY SCREEN OF V1</div>
+<h1>The v1 interface, screen by screen</h1>
+<p class="lede">Every row of the <a href="market.html#feature-matrix">feature matrix</a> has a screen here. Labels map each mockup to its BRD capability (M/S/L). Illustrative — the build follows the BRD, these set the shape.</p>
+
+<div class="mx" style="margin-top:22px"><div class="tablewrap"><table style="min-width:640px">
+<tr><th>Matrix row</th><th>Where it lives in the product</th></tr>
+<tr><td>Personal WhatsApp via QR</td><td><a href="#s-connect">Connect screen</a></td></tr>
+<tr><td>Official WhatsApp API (WABA)</td><td><a href="#s-safety">Connection settings — "coming" (S1)</a></td></tr>
+<tr><td>Two-way chat in-product</td><td><a href="#s-drawer">WhatsApp drawer on the deal</a></td></tr>
+<tr><td>Chat history sync</td><td><a href="#s-start">Setup — "214 conversations imported"</a></td></tr>
+<tr><td>Auto-create contact from chat</td><td><a href="#s-contacts">Contacts — auto-created toast</a></td></tr>
+<tr><td>Kanban pipeline</td><td><a href="#s-pipeline">Pipeline board (home screen)</a></td></tr>
+<tr><td>Tags & custom fields</td><td><a href="#s-fields">Fields & tags settings + deal rail</a></td></tr>
+<tr><td>Notes</td><td><a href="#s-deal">Deal record — activity timeline</a></td></tr>
+<tr><td>Tasks / follow-up reminders</td><td><a href="#s-today">"Today" view + deal reminders</a></td></tr>
+<tr><td>Templates / quick replies</td><td><a href="#s-templates">Templates screen + /slash in the drawer</a></td></tr>
+<tr><td>Auto-assignment</td><td><a href="#s-team">Team — manual v1, round-robin next (S3)</a></td></tr>
+<tr><td>Broadcasts / campaigns</td><td><a href="#s-later">Deliberately absent — ban-safety (M12)</a></td></tr>
+<tr><td>Chatbots / flows</td><td><a href="#s-later">Later (L2)</a></td></tr>
+<tr><td>AI summaries / replies</td><td><a href="#s-deal">AI summary on the deal + ✨ Suggest reply (S2)</a></td></tr>
+<tr><td>AI auto-fill fields from chat</td><td><a href="#s-fields">AI badge on every extracted field (M11)</a></td></tr>
+<tr><td>Native mobile app</td><td><a href="#s-mobile">Web-responsive v1; apps Later (L4)</a></td></tr>
+<tr><td>Channels beyond WhatsApp</td><td><a href="#s-later">Later (L3) — WhatsApp only is the wedge</a></td></tr>
+<tr><td>Self-serve monthly billing</td><td><a href="#s-billing">Billing — included vs standalone $19</a></td></tr>
+</table></div></div>
+
+<div class="sec" id="s-start">
+<div class="eyebrow">START</div>
+<h2>From zero to a working CRM in one sitting</h2>
+<div class="mklabel" id="s-connect">M1 · Connect WhatsApp via QR — the existing TimelinesAI flow</div>
+
+<div class="mkscroll"><div class="mkframe mk">
+<div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai/connect</span></div>
+<div class="mkconnect">
+  <div class="mksteps">
+    <div class="st done"><span class="n">✓</span>Create workspace</div>
+    <div class="st now"><span class="n">2</span>Connect WhatsApp</div>
+    <div class="st"><span class="n">3</span>Your first pipeline</div>
+    <div class="st"><span class="n">4</span>Invite your team</div>
+  </div>
+  <div class="mkcstage">
+    <div class="qr"></div>
+    <b>Scan with the phone that runs your WhatsApp</b>
+    <span>Personal or Business-app number · takes about 5 minutes · no API, no approvals</span>
+    <span class="mkshield">🛡 Built to keep your number safe: no bulk messaging anywhere in this product</span>
+    <span class="mkaddon"><span class="wadot"></span>Connection &amp; sync by TimelinesAI</span>
+  </div>
+</div>
+</div></div>
+<div class="mklabel">M10 · Self-serve onboarding + M2 · history sync</div>
+
+<div class="mkscroll"><div class="mkframe mk">
+<div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai/welcome</span></div>
+<div class="mkt"><span class="logo">Timelines <em>CRM</em></span><span class="mkaddon"><span class="wadot"></span>Addon · synced with TimelinesAI · +52 1 33 ···· 4471</span><span class="sp"></span><span class="mksearch2">Search deals…</span><span class="mkbtn">+ New deal</span></div>
+<div class="mkck">
+  <b style="font-size:12px">Setup — 2 of 5 done</b>
+  <div class="mkprog"><i></i></div>
+  <div class="ci done"><span class="cb">✓</span>Connect your WhatsApp number<span class="r">done</span></div>
+  <div class="ci done"><span class="cb">✓</span>Chat history synced — 214 conversations imported<span class="r">done</span></div>
+  <div class="ci part"><span class="cb">◐</span>Promote your first 5 chats to deals<span class="r">2/5</span></div>
+  <div class="ci"><span class="cb">○</span>Set your first follow-up reminder<span class="r">1 min</span></div>
+  <div class="ci"><span class="cb">○</span>Invite a teammate<span class="r">1 min</span></div>
+</div>
+</div></div>
+<div class="mkcap">The checklist is the support-load guardrail: signup → connected → active pipeline, no human help.</div>
+</div>
+
+<div class="sec" id="s-sell">
+<div class="eyebrow">SELL</div>
+<h2>Deals are the home screen</h2>
+<div class="mklabel" id="s-pipeline">M4 · Pipeline — the first thing a user sees every day</div>
+
+<div class="mkscroll"><div class="mkframe mk">
+<div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai/pipeline</span></div>
+<div class="mkt"><span class="logo">Timelines <em>CRM</em></span><span class="mkaddon"><span class="wadot"></span>Addon · synced with TimelinesAI · +52 1 33 ···· 4471</span><span class="sp"></span><span class="mksearch2">Search deals…</span><span class="mkbtn">+ New deal</span></div>
+<div class="mkboard">
+  <div class="mkcol"><h5>New <i>12</i></h5>
+    <div class="mkcard"><div class="row"><span class="mkav" style="background:#5d8a3c">AP</span><b>Ana P. — retail order</b></div><div class="fld">colors: ? · qty: ~15 <span class="mkai">AI</span></div><div class="meta"><span class="wadot"></span>2 new messages</div></div>
+    <div class="mkcard"><div class="row"><span class="mkav" style="background:#0288d1">RS</span><b>Rahul S. — delivery</b></div><div class="fld">deadline: Friday <span class="mkai">AI</span></div><div class="due">⏰ today 15:00</div></div>
+  </div>
+  <div class="mkcol"><h5>Contacted <i>7</i></h5>
+    <div class="mkcard"><div class="row"><span class="mkav" style="background:#b06f1c">LM</span><b>Lucas M. — furniture</b></div><div class="fld">budget: ≈ $400 <span class="mkai">AI</span></div><div class="due">⏰ Aug 1</div></div>
+  </div>
+  <div class="mkcol"><h5>Negotiation <i>4</i></h5>
+    <div class="mkcard drag"><div class="row"><span class="mkav" style="background:#7e57c2">MG</span><b>María G. — restaurant</b></div><div class="fld">≈ $1,200 · 40 sets · monthly <span class="mkai">AI</span></div><div class="mktags"><b>wholesale</b><b>hot</b></div><div class="due">⏰ quote tomorrow 10:00</div></div>
+  </div>
+  <div class="mkcol"><h5>Won <i>9</i></h5>
+    <div class="mkcard"><div class="row"><span class="mkav" style="background:#c2185b">AK</span><b>Ahmed K. — hotel</b></div><div class="fld">invoice paid ✓</div><div class="due ok">closed this week</div></div>
+  </div>
+</div>
+</div></div>
+<div class="mklabel" id="s-deal">M4 + M5 + M6 + M11 · The deal record — CRM bones</div>
+
+<div class="mkscroll"><div class="mkframe mk">
+<div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai/deal/1187</span></div>
+<div class="mkt"><span class="logo">Timelines <em>CRM</em></span><span class="mkaddon"><span class="wadot"></span>Addon · synced with TimelinesAI · +52 1 33 ···· 4471</span><span class="sp"></span><span class="mksearch2">Search deals…</span><span class="mkbtn">+ New deal</span></div>
+<div class="mkcrumb">Pipeline › Negotiation › <b>María G. — restaurant order</b></div>
+<div class="mkdeal">
+  <div class="mkrail">
+    <h4>Deal fields</h4>
+    <div class="mkfield"><span class="k">Budget</span><span>≈ $1,200 <span class="mkai">AI</span></span></div>
+    <div class="mkfield"><span class="k">Quantity</span><span>40 sets <span class="mkai">AI</span></span></div>
+    <div class="mkfield"><span class="k">Type</span><span>Recurring <span class="mkai">AI</span></span></div>
+    <h4>Contact</h4>
+    <div class="mkfield"><span class="k">Phone</span><span>+52 1 33 ···· 4471</span></div>
+    <div class="mkfield"><span class="k">Source</span><span>WhatsApp</span></div>
+    <h4>Tags</h4>
+    <div class="mktags"><b>wholesale</b><b>hot lead</b></div>
+    <div class="mkrem"><b>⏰ Next step</b> — send quote tomorrow 10:00</div>
+    <div class="mksum"><b>AI SUMMARY</b><br>Wants 40 ceramic sets, monthly if the price fits. Waiting on a quote.</div>
+  </div>
+  <div class="mktl">
+    <div class="e"><span class="ic">📈</span><span class="tx"><b>Stage → Negotiation</b> — moved by Ana</span><span class="tm">09:20</span></div>
+    <div class="e"><span class="ic">💬</span><span class="tx"><b>WhatsApp · 3 messages today</b> — "…if the price works we'll take them monthly". Reply →</span><span class="tm">09:15</span></div>
+    <div class="e"><span class="ic">✨</span><span class="tx"><b>AI updated 3 fields</b> from the conversation — budget, quantity, type</span><span class="tm">09:15</span></div>
+    <div class="e"><span class="ic">⏰</span><span class="tx"><b>Reminder set</b> — send quote tomorrow 10:00</span><span class="tm">09:16</span></div>
+    <div class="e"><span class="ic">📝</span><span class="tx"><b>Note</b> — "ships from the Guadalajara warehouse, check stock first"</span><span class="tm">09:18</span></div>
+  </div>
+  <div class="mktab">WhatsApp ▸</div>
+</div>
+</div></div>
+<div class="mklabel" id="s-drawer">M2 + M7 + S2 · The WhatsApp drawer — selling happens here, without leaving the deal</div>
+
+<div class="mkscroll"><div class="mkframe mk">
+<div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai/deal/1187</span></div>
+<div class="mkt"><span class="logo">Timelines <em>CRM</em></span><span class="mkaddon"><span class="wadot"></span>Addon · synced with TimelinesAI · +52 1 33 ···· 4471</span><span class="sp"></span><span class="mksearch2">Search deals…</span><span class="mkbtn">+ New deal</span></div>
+<div class="mkcrumb">Pipeline › Negotiation › <b>María G. — restaurant order</b></div>
+<div class="mkdeal" style="grid-template-columns:1fr 250px">
+  <div class="mktl">
+    <div class="e"><span class="ic">📈</span><span class="tx"><b>Stage → Negotiation</b> — moved by Ana</span><span class="tm">09:20</span></div>
+    <div class="e"><span class="ic">✨</span><span class="tx"><b>AI updated 3 fields</b> from the conversation</span><span class="tm">09:15</span></div>
+    <div class="e"><span class="ic">⏰</span><span class="tx"><b>Reminder set</b> — send quote tomorrow 10:00</span><span class="tm">09:16</span></div>
+    <div class="e"><span class="ic">📝</span><span class="tx"><b>Note</b> — "check Guadalajara stock first"</span><span class="tm">09:18</span></div>
+  </div>
+  <div class="mkdrawer">
+    <div class="hd">WhatsApp — María G. · synced by TimelinesAI</div>
+    <div class="msgs">
+      <div class="mkm">Do you still have the ceramic table sets? Need ~40 for my restaurant</div>
+      <div class="mkm out">Yes — 40 by Friday works. Catalog below 👇</div>
+      <div class="mkm">Great. If the price works we'll take them monthly</div>
+    </div>
+    <div class="in"><span class="box">Message…</span><span class="tplchip">/quote ▾</span><span class="tplchip">✨ Suggest reply</span></div>
+  </div>
+</div>
+</div></div>
+<div class="mklabel" id="s-contacts">M3 · Contacts — auto-created from chats, deduped by phone</div>
+
+<div class="mkscroll"><div class="mkframe mk">
+<div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai/contacts</span></div>
+<div class="mkt"><span class="logo">Timelines <em>CRM</em></span><span class="mkaddon"><span class="wadot"></span>Addon · synced with TimelinesAI · +52 1 33 ···· 4471</span><span class="sp"></span><span class="mksearch2">Search deals…</span><span class="mkbtn">+ New deal</span></div>
+<div class="mktoolbar"><b class="on">All · 214</b><b>hot lead</b><b>wholesale</b><b>no deal yet · 168</b><span style="margin-left:auto">↳ new contact auto-created from WhatsApp: <b>Ana P.</b></span></div>
+<table class="mktbl">
+<tr><th>Contact</th><th>Phone</th><th>Tags</th><th>Last WhatsApp</th><th>Deal</th></tr>
+<tr><td><span class="mkav" style="background:#7e57c2">MG</span> María G.</td><td>+52 1 33 ···· 4471</td><td><span class="mktags"><b>wholesale</b><b>hot</b></span></td><td><span class="wadot"></span> 2 m ago</td><td><span class="mkstagechip">NEGOTIATION</span></td></tr>
+<tr><td><span class="mkav" style="background:#0288d1">RS</span> Rahul S.</td><td>+91 98 ···· 2210</td><td><span class="mktags"><b>delivery</b></span></td><td><span class="wadot"></span> 41 m ago</td><td><span class="mkstagechip">NEW</span></td></tr>
+<tr><td><span class="mkav" style="background:#c2185b">AK</span> Ahmed K.</td><td>+971 50 ···· 118</td><td><span class="mktags"><b>hotel</b></span></td><td>yesterday</td><td><span class="mkstagechip">WON</span></td></tr>
+<tr><td><span class="mkav" style="background:#5d8a3c">AP</span> Ana P.</td><td>+55 11 ···· 907</td><td></td><td><span class="wadot"></span> just now</td><td><span class="mkstagechip">—</span></td></tr>
+</table>
+</div></div>
+<div class="mkgrid" style="margin-top:18px">
+<div><div class="mklabel" id="s-today" style="margin-top:0">M6 · "Today" — the follow-up cockpit</div>
+<div class="mkscroll"><div class="mkframe mk sm">
+<div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai/today</span></div>
+<div class="mkday">
+  <h6>Overdue · 1</h6>
+  <div class="mkrow over"><span class="mkav" style="background:#b06f1c">LM</span><span><b>Lucas M.</b> — confirm next-month order</span><span class="t">yesterday</span></div>
+  <h6>Today · 2</h6>
+  <div class="mkrow"><span class="mkav" style="background:#7e57c2">MG</span><span><b>María G.</b> — send the quote</span><span class="t">10:00</span></div>
+  <div class="mkrow"><span class="mkav" style="background:#0288d1">RS</span><span><b>Rahul S.</b> — confirm Friday delivery</span><span class="t">15:00</span></div>
+  <h6>Upcoming</h6>
+  <div class="mkrow" style="opacity:.6"><span class="mkav" style="background:#c2185b">AK</span><span><b>Ahmed K.</b> — restock check-in</span><span class="t">Aug 1</span></div>
+</div>
+</div></div></div>
+<div><div class="mklabel" id="s-templates" style="margin-top:0">M7 · Templates with personalization</div>
+<div class="mkscroll"><div class="mkframe mk sm">
+<div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai/templates</span></div>
+<div class="mkday">
+  <div class="mkrow"><span><b>/quote</b> — "Hi {{name}}, here's the quote for {{qty}} — valid 7 days"</span><span class="t">used 32×</span></div>
+  <div class="mkrow"><span><b>/catalog</b> — "Our current catalog 👇 — which line interests you?"</span><span class="t">used 57×</span></div>
+  <div class="mkrow"><span><b>/followup</b> — "Hi {{name}}, just checking — any questions on the quote?"</span><span class="t">used 21×</span></div>
+  <div class="mkrow"><span class="mkbtn">+ New template</span><span class="t">personalization: {{name}}, {{qty}}, …</span></div>
+</div>
+</div></div></div>
+</div>
+</div>
+
+<div class="sec" id="s-run">
+<div class="eyebrow">RUN</div>
+<h2>Team, fields, billing — the boring parts, already thought through</h2>
+<div class="mkgrid">
+<div><div class="mklabel" id="s-fields" style="margin-top:0">M5 + M11 · Custom fields — AI fills them from the conversation</div>
+<div class="mkscroll"><div class="mkframe mk sm">
+<div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai/settings/fields</span></div>
+<div class="mkday">
+  <div class="mkrow"><span><b>Budget</b> · number</span><span class="t">✨ AI fills from chat</span></div>
+  <div class="mkrow"><span><b>Quantity</b> · text</span><span class="t">✨ AI fills from chat</span></div>
+  <div class="mkrow"><span><b>Type</b> · dropdown (retail / wholesale / recurring)</span><span class="t">✨ AI fills from chat</span></div>
+  <div class="mkrow"><span><b>Delivery city</b> · text</span><span class="t">manual</span></div>
+  <div class="mkrow"><span class="mkbtn">+ Add field</span><span class="t">6 of 10 fields used · tags unlimited</span></div>
+</div>
+</div></div></div>
+<div><div class="mklabel" id="s-team" style="margin-top:0">M8 · Team &amp; roles + S3 · assignment</div>
+<div class="mkscroll"><div class="mkframe mk sm">
+<div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai/team</span></div>
+<div class="mkday">
+  <div class="mkrow"><span class="mkav" style="background:#5d8a3c">AN</span><span><b>Ana</b> (you) · Admin</span><span class="t">owner</span></div>
+  <div class="mkrow"><span class="mkav" style="background:#0288d1">LU</span><span><b>Luis</b> · Member — sees assigned deals</span><span class="t">active</span></div>
+  <div class="mkrow"><span class="mkav" style="background:#b06f1c">PE</span><span><b>pedro@…</b> · invited</span><span class="t">pending</span></div>
+  <div class="mkrow"><span><b>Assignment:</b> manual per chat in v1</span><span class="t">round-robin — next release</span></div>
+  <div class="mkrow"><span class="mkbtn">+ Invite teammate</span><span class="t">$5/seat beyond 3</span></div>
+</div>
+</div></div></div>
+<div><div class="mklabel" id="s-billing" style="margin-top:0">M9 · Billing — addon SKU on TimelinesAI billing</div>
+<div class="mkscroll"><div class="mkframe mk sm">
+<div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai/billing</span></div>
+<div class="mkplans">
+  <div class="mkplan on"><span class="ok3">✓ INCLUDED WITH TIMELINESAI</span><div class="pv">$0</div>Your workspace has an active TimelinesAI subscription — Timelines CRM is included. 3 seats in use.</div>
+  <div class="mkplan"><span style="font-family:'Cascadia Code',monospace;font-size:10px;color:var(--ink-3)">STANDALONE</span><div class="pv">$19/mo</div>Workspace · 3 seats included · +$5 per extra seat · cancel anytime. <b>14-day free trial.</b> Billed through your TimelinesAI account.</div>
+</div>
+</div></div></div>
+<div><div class="mklabel" id="s-safety" style="margin-top:0">M1 + M12 + S1 · Connection &amp; ban-safety</div>
+<div class="mkscroll"><div class="mkframe mk sm">
+<div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai/settings/whatsapp</span></div>
+<div class="mkday">
+  <div class="mkset"><span class="wadot"></span><span><b>+52 1 33 ···· 4471</b> — personal number via QR</span><span class="stt ok2">connected · session healthy</span></div>
+  <div class="mkset"><span>🔁</span><span>Reconnect / switch number</span><span class="stt dis">QR scan</span></div>
+  <div class="mkset"><span>🏢</span><span><b>Official WhatsApp API (WABA)</b> — for template messaging at scale</span><span class="stt dis">coming — platform API</span></div>
+  <div class="mkset"><span>🛡</span><span><b>Ban-safety by design</b> — no bulk or cold messaging features exist in this product; coexistence with your phone app supported</span><span class="stt ok2">always on</span></div>
+</div>
+</div></div></div>
+</div>
+</div>
+
+<div class="sec" id="s-mobile">
+<div class="eyebrow">ON THE PHONE</div>
+<h2>Web-responsive from day one</h2>
+<p class="sub">The market is mobile-first; v1 ships responsive web (native apps are a Later). Same pipeline, one column, bottom navigation.</p>
+
+<div class="ph"><div class="scr">
+<div class="phd">Pipeline ▾ <span style="float:right;font-weight:400;color:var(--ink-3)">Negotiation · 4</span></div>
+<div class="body">
+  <div class="mkcard"><div class="row"><span class="mkav" style="background:#7e57c2">MG</span><b>María G. — restaurant</b></div><div class="fld">≈ $1,200 · 40 sets <span class="mkai">AI</span></div><div class="due">⏰ quote tomorrow 10:00</div></div>
+  <div class="mkcard"><div class="row"><span class="mkav" style="background:#b06f1c">LM</span><b>Lucas M. — furniture</b></div><div class="fld">budget: ≈ $400 <span class="mkai">AI</span></div></div>
+  <div class="mkcard" style="opacity:.55"><div class="row"><span class="mkav" style="background:#0288d1">RS</span><b>Rahul S. — delivery</b></div></div>
+</div>
+<div class="nav2"><span class="on">◧ Pipeline</span><span>◉ Contacts</span><span>⏰ Today</span></div>
+</div></div>
+</div>
+
+<div class="sec" id="s-later">
+<div class="eyebrow">NOT IN V1 — ON PURPOSE</div>
+<h2>The empty matrix cells are decisions, not gaps</h2>
+<div class="grid3">
+<div class="card"><h3>Broadcasts / campaigns</h3><p class="sub">Deliberately absent (M12): nothing to get a number banned for. Returns only with the official API.</p></div>
+<div class="card"><h3>Chatbots / flows</h3><p class="sub">Later (L2) — the upsell layer once the base CRM has traction.</p></div>
+<div class="card"><h3>Instagram / Messenger · native apps</h3><p class="sub">Later (L3/L4) — WhatsApp-only is the wedge; responsive web covers mobile in v1.</p></div>
+</div>
+<div class="mklabel" style="margin-top:26px">S4 · Should — funnel numbers (can slip v1)</div>
+
+<div class="mkscroll"><div class="mkframe mk sm">
+<div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai/reports</span></div>
+<div style="padding:14px;background:var(--bg)">
+  <div class="viz-title">This week — deals per stage</div>
+  <div class="vrow"><span class="vl">New</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="vv">12</span></div>
+  <div class="vrow"><span class="vl">Contacted</span><span class="track"><span class="fill" style="width:58%"></span></span><span class="vv">7</span></div>
+  <div class="vrow"><span class="vl">Negotiation</span><span class="track"><span class="fill" style="width:33%"></span></span><span class="vv">4</span></div>
+  <div class="vrow"><span class="vl">Won</span><span class="track"><span class="fill" style="width:17%"></span></span><span class="vv">2 this week</span></div>
+</div>
+</div></div>
+</div>
+
+<div class="sec">
+<div class="linkrow">
+<a href="tldr.html">← TLDR</a>
+<a href="market.html#feature-matrix">Feature matrix →</a>
+<a href="brd.html">Full BRD →</a>
+</div>
+</div>
+<div class="footer">Timelines CRM checkpoint · 2026-07-20 · generated from the working docs — do not edit the HTML by hand</div>
+</div></body></html>
