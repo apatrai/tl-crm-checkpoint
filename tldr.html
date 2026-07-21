@@ -84,7 +84,7 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .step.now{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)} .step.now .dot{background:var(--accent)}
 .step.next{opacity:.65}
 .navgrid{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
-.nav .kicker{font-size:11px;color:var(--ink-3);letter-spacing:.1em}
+.nav .kicker{font-size:12px;color:var(--ink-3);letter-spacing:.1em}
 .nav p{margin-top:8px;font-size:13.5px;color:var(--ink-2)}
 .asks{margin-top:36px}
 .asks .card{margin-top:12px}
@@ -100,9 +100,9 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .doc hr{border:none;border-top:1px solid var(--line);margin:26px 0}
 .tablewrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
 .doc table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:660px}
-.doc th{background:var(--chip);text-align:left;padding:8px 12px;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+.doc th{background:var(--chip);text-align:left;padding:8px 12px;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
 .doc td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
-.pri{font-family:"Cascadia Code",monospace;font-size:11px;padding:2px 9px;border-radius:10px;border:1px solid;white-space:nowrap}
+.pri{font-family:"Cascadia Code",monospace;font-size:12px;padding:2px 9px;border-radius:10px;border:1px solid;white-space:nowrap}
 .pri.must{color:var(--hard);border-color:var(--hard);background:var(--accent-soft)}
 .pri.should{color:var(--medium);border-color:var(--medium)}
 .pri.later{color:var(--closed);border-color:var(--closed)}
@@ -123,7 +123,7 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .mx table{border-collapse:separate;border-spacing:0;min-width:1150px;width:100%;font-size:13px}
 .mx thead th{position:sticky;top:0;z-index:2;background:var(--chip);padding:10px 6px;text-align:center;font-size:12.5px;line-height:1.25;border-bottom:1px solid var(--line);letter-spacing:0;text-transform:none}
 .mx thead th:first-child{left:0;z-index:3;text-align:left;padding-left:12px}
-.mx tr.price td{font-family:"Cascadia Code",monospace;font-size:10.5px;color:var(--ink-2);text-align:center;background:var(--chip);border-bottom:1px solid var(--line);padding:6px 5px;cursor:default;line-height:1.35}
+.mx tr.price td{font-family:"Cascadia Code",monospace;font-size:11.5px;color:var(--ink-2);text-align:center;background:var(--chip);border-bottom:1px solid var(--line);padding:6px 5px;cursor:default;line-height:1.35}
 .mx tr.price td:first-child{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,sans-serif;font-size:12.5px;text-align:left;background:var(--chip)}
 .mx tbody td:first-child{position:sticky;left:0;z-index:1;background:var(--surface);min-width:190px;padding:7px 12px;box-shadow:1px 0 0 var(--line);font-size:12.5px;border-bottom:1px solid var(--line)}
 .mx td.fv{width:86px;min-width:86px;text-align:center;font-family:"Cascadia Code",monospace;font-weight:700;font-size:13px;padding:7px 4px;border-bottom:1px solid var(--line);cursor:default}
@@ -135,10 +135,11 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .mx td.fv:hover{outline:2px solid var(--accent);outline-offset:-2px}
 .mx tbody tr:hover td:first-child{color:var(--accent);font-weight:600}
 .mx .grp td{background:var(--bg);border-bottom:1px solid var(--line);padding:14px 0 5px}
-.mx .grp td span{position:sticky;left:12px;display:inline-block;font-family:"Cascadia Code",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.mx .grp td span{position:sticky;left:12px;display:inline-block;font-family:"Cascadia Code",monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
 .mx th.tlc{color:var(--accent)}
-.mx .tlc{box-shadow:inset 2px 0 0 var(--accent-soft),inset -2px 0 0 var(--accent-soft)}
+.mx .tlc{box-shadow:inset 2px 0 0 var(--accent),inset -2px 0 0 var(--accent)}
 .mx td.fv.tlc.no,.mx td.fv.tlc.unknown{background:var(--tl-bg)}
+.mxtake{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:12px 16px;font-size:13.5px;margin:12px 0}
 .back{font-family:"Cascadia Code",monospace;font-size:13px;display:inline-block;margin-bottom:26px;text-decoration:none}
 .footer{margin-top:64px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3)}
 
@@ -151,7 +152,7 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:18px}
 .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:18px}
 /* --- viz (single series, direct-labeled, no legend needed) --- */
-.viz-title{font-family:"Cascadia Code",monospace;font-size:11px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase;margin-bottom:14px}
+.viz-title{font-family:"Cascadia Code",monospace;font-size:12px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase;margin-bottom:14px}
 .vrow{display:grid;grid-template-columns:minmax(120px,190px) 1fr 84px;align-items:center;gap:10px;margin-top:10px}
 .vrow .vl{font-size:13px;color:var(--ink-2)}
 .vrow .track{height:20px;background:var(--chip);border-radius:4px;overflow:hidden}
@@ -165,119 +166,119 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .mkframe{min-width:700px;border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
 .mkbar{display:flex;align-items:center;gap:8px;padding:9px 14px;border-bottom:1px solid var(--line);background:var(--chip)}
 .mkbar i{width:9px;height:9px;border-radius:50%;background:var(--ink-3);opacity:.4;font-style:normal}
-.mkurl{font-family:"Cascadia Code",monospace;font-size:11px;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:3px 12px;margin-left:8px}
-.mk{font-size:11.5px;line-height:1.35}
+.mkurl{font-family:"Cascadia Code",monospace;font-size:12px;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:3px 12px;margin-left:8px}
+.mk{font-size:12.5px;line-height:1.35}
 .mkcap{font-size:12.5px;color:var(--ink-3);margin-top:10px}
-.mkdot{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--accent);color:#fff;font-family:"Cascadia Code",monospace;font-size:10px;font-weight:700;flex:none;vertical-align:middle}
+.mkdot{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--accent);color:#fff;font-family:"Cascadia Code",monospace;font-size:11px;font-weight:700;flex:none;vertical-align:middle}
 .mklegend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:13px;color:var(--ink-2)}
 .mklegend span{display:flex;align-items:center;gap:7px}
 /* shared mockup atoms */
-.mkav{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:10px;flex:none}
+.mkav{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:11px;flex:none}
 .mkfield{display:flex;justify-content:space-between;gap:6px;padding:4px 0;border-bottom:1px dashed var(--line)}
 .mkfield .k{color:var(--ink-3)}
-.mkai{color:var(--accent);font-size:9px;font-weight:700}
-.mktags b{display:inline-block;font-weight:500;background:var(--chip);border-radius:8px;padding:2px 8px;font-size:10px;margin:2px 2px 0 0}
-.mkrem{margin-top:6px;border:1px solid var(--medium);border-radius:8px;padding:6px 8px;font-size:10.5px}
+.mkai{color:var(--accent);font-size:10px;font-weight:700}
+.mktags b{display:inline-block;font-weight:500;background:var(--chip);border-radius:8px;padding:2px 8px;font-size:11px;margin:2px 2px 0 0}
+.mkrem{margin-top:6px;border:1px solid var(--medium);border-radius:8px;padding:6px 8px;font-size:11.5px}
 .mkrem b{color:var(--medium)}
-.mksum{margin-top:8px;background:var(--accent-soft);border-radius:8px;padding:7px 9px;font-size:10.5px}
-.mksum b{color:var(--accent);font-size:9px;letter-spacing:.08em}
+.mksum{margin-top:8px;background:var(--accent-soft);border-radius:8px;padding:7px 9px;font-size:11.5px}
+.mksum b{color:var(--accent);font-size:10px;letter-spacing:.08em}
 /* CRM top bar */
 .mkt{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);background:var(--surface)}
 .mkt .logo{font-weight:750;font-size:12.5px;letter-spacing:-.01em}
 .mkt .logo em{font-style:normal;color:var(--accent)}
-.mkaddon{font-family:"Cascadia Code",monospace;font-size:9.5px;border:1px solid var(--line);border-radius:10px;padding:2px 8px;color:var(--ink-2);background:var(--chip);display:inline-flex;align-items:center;gap:5px}
+.mkaddon{font-family:"Cascadia Code",monospace;font-size:10.5px;border:1px solid var(--line);border-radius:10px;padding:2px 8px;color:var(--ink-2);background:var(--chip);display:inline-flex;align-items:center;gap:5px}
 .mkt .sp{flex:1}
-.mksearch2{background:var(--chip);border-radius:7px;padding:4px 12px;color:var(--ink-3);font-size:10.5px}
-.mkbtn{background:var(--accent);color:#fff;border-radius:7px;padding:4px 10px;font-size:10.5px;font-weight:600}
+.mksearch2{background:var(--chip);border-radius:7px;padding:4px 12px;color:var(--ink-3);font-size:11.5px}
+.mkbtn{background:var(--accent);color:#fff;border-radius:7px;padding:4px 10px;font-size:11.5px;font-weight:600}
 .wadot{width:7px;height:7px;border-radius:50%;background:var(--wa);display:inline-block;flex:none}
 /* pipeline board */
 .mkboard{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:12px;background:var(--bg);min-height:270px}
-.mkcol h5{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-2);margin-bottom:8px;display:flex;justify-content:space-between}
+.mkcol h5{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-2);margin-bottom:8px;display:flex;justify-content:space-between}
 .mkcol h5 i{font-style:normal;color:var(--ink-3);font-family:"Cascadia Code",monospace}
 .mkcard{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:8px 9px;margin-bottom:8px}
 .mkcard .row{display:flex;gap:7px;align-items:center;margin-bottom:3px}
 .mkcard.drag{transform:rotate(-2deg);border-color:var(--accent);box-shadow:0 6px 14px rgba(0,0,0,.14)}
-.mkcard .fld{font-family:"Cascadia Code",monospace;font-size:10px;color:var(--ink-2);margin-top:3px}
-.mkcard .meta{display:flex;align-items:center;gap:5px;margin-top:5px;font-size:9.5px;color:var(--ink-3)}
-.mkcard .due{color:var(--medium);font-size:10px;margin-top:4px}
+.mkcard .fld{font-family:"Cascadia Code",monospace;font-size:11px;color:var(--ink-2);margin-top:3px}
+.mkcard .meta{display:flex;align-items:center;gap:5px;margin-top:5px;font-size:10.5px;color:var(--ink-3)}
+.mkcard .due{color:var(--medium);font-size:11px;margin-top:4px}
 .mkcard .due.ok{color:var(--easy)}
 /* deal record */
-.mkcrumb{padding:8px 14px;border-bottom:1px solid var(--line);background:var(--surface);color:var(--ink-3);font-size:10.5px}
+.mkcrumb{padding:8px 14px;border-bottom:1px solid var(--line);background:var(--surface);color:var(--ink-3);font-size:11.5px}
 .mkcrumb b{color:var(--ink)}
 .mkdeal{display:grid;grid-template-columns:212px 1fr 30px;min-height:290px}
 .mkrail{border-right:1px solid var(--line);padding:10px;background:var(--surface)}
-.mkrail h4{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin:11px 0 5px}
+.mkrail h4{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin:11px 0 5px}
 .mkrail h4:first-child{margin-top:0}
 .mktl{padding:14px 16px;background:var(--bg);position:relative}
 .mktl::before{content:'';position:absolute;left:27px;top:20px;bottom:20px;width:2px;background:var(--line)}
 .mktl .e{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;position:relative}
-.mktl .ic{width:22px;height:22px;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;flex:none;position:relative;z-index:1}
-.mktl .tx{font-size:11px;color:var(--ink-2);padding-top:3px}
+.mktl .ic{width:22px;height:22px;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:12px;flex:none;position:relative;z-index:1}
+.mktl .tx{font-size:12px;color:var(--ink-2);padding-top:3px}
 .mktl .tx b{color:var(--ink)}
-.mktl .tm{margin-left:auto;font-size:9.5px;color:var(--ink-3);font-family:"Cascadia Code",monospace;padding-top:4px;flex:none}
-.mktab{writing-mode:vertical-rl;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--wa);color:#fff;font-size:10px;font-weight:700;letter-spacing:.06em}
+.mktl .tm{margin-left:auto;font-size:10.5px;color:var(--ink-3);font-family:"Cascadia Code",monospace;padding-top:4px;flex:none}
+.mktab{writing-mode:vertical-rl;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--wa);color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em}
 /* product walkthrough extras */
-.mklabel{font-family:"Cascadia Code",monospace;font-size:11px;color:var(--accent);letter-spacing:.08em;margin:30px 0 8px;text-transform:uppercase}
+.mklabel{font-family:"Cascadia Code",monospace;font-size:12px;color:var(--accent);letter-spacing:.08em;margin:30px 0 8px;text-transform:uppercase}
 .mkframe.sm{min-width:0}
 .mkgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:18px;align-items:start}
 .mkgrid .mkscroll{border-radius:14px}
 .mksteps{border-right:1px solid var(--line);padding:12px;background:var(--surface)}
-.mksteps .st{display:flex;gap:8px;align-items:center;padding:7px 6px;font-size:11px;color:var(--ink-3)}
-.st .n{width:18px;height:18px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:10px;font-family:"Cascadia Code",monospace;flex:none}
+.mksteps .st{display:flex;gap:8px;align-items:center;padding:7px 6px;font-size:12px;color:var(--ink-3)}
+.st .n{width:18px;height:18px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;font-family:"Cascadia Code",monospace;flex:none}
 .st.done{color:var(--easy)} .st.done .n{background:var(--easy);color:#fff;border-color:var(--easy)}
 .st.now{color:var(--ink);font-weight:600} .st.now .n{border-color:var(--accent);color:var(--accent)}
 .mkconnect{display:grid;grid-template-columns:190px 1fr;min-height:250px}
-.mkcstage{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;background:var(--bg);gap:8px;text-align:center;font-size:11px;color:var(--ink-2)}
+.mkcstage{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;background:var(--bg);gap:8px;text-align:center;font-size:12px;color:var(--ink-2)}
 .qr{width:112px;height:112px;background:repeating-linear-gradient(90deg,var(--ink) 0 7px,transparent 7px 14px),repeating-linear-gradient(0deg,var(--ink) 0 7px,transparent 7px 14px);border:8px solid var(--surface);outline:1px solid var(--line);border-radius:6px}
-.mkshield{font-size:10.5px;color:var(--ink-3);max-width:270px}
+.mkshield{font-size:11.5px;color:var(--ink-3);max-width:270px}
 .mkck{padding:14px;background:var(--bg)}
 .mkprog{height:6px;background:var(--chip);border-radius:3px;overflow:hidden;margin:6px 0 12px}
 .mkprog i{display:block;height:100%;width:40%;background:var(--accent)}
-.mkck .ci{display:flex;align-items:center;gap:9px;padding:8px 11px;border:1px solid var(--line);border-radius:9px;margin-bottom:7px;font-size:11.5px;background:var(--surface)}
-.ci .cb{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:9px;color:transparent;flex:none}
+.mkck .ci{display:flex;align-items:center;gap:9px;padding:8px 11px;border:1px solid var(--line);border-radius:9px;margin-bottom:7px;font-size:12.5px;background:var(--surface)}
+.ci .cb{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent;flex:none}
 .ci.done .cb{background:var(--easy);border-color:var(--easy);color:#fff}
 .ci.part .cb{border-color:var(--medium);color:var(--medium)}
-.ci .r{margin-left:auto;font-family:"Cascadia Code",monospace;font-size:9.5px;color:var(--ink-3)}
-.mktbl{width:100%;font-size:11px;border-collapse:collapse;background:var(--bg)}
-.mktbl th{text-align:left;font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);padding:6px 11px;border-bottom:1px solid var(--line);background:var(--surface)}
+.ci .r{margin-left:auto;font-family:"Cascadia Code",monospace;font-size:10.5px;color:var(--ink-3)}
+.mktbl{width:100%;font-size:12px;border-collapse:collapse;background:var(--bg)}
+.mktbl th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);padding:6px 11px;border-bottom:1px solid var(--line);background:var(--surface)}
 .mktbl td{padding:7px 11px;border-bottom:1px solid var(--line)}
-.mkstagechip{font-family:"Cascadia Code",monospace;font-size:9px;border:1px solid var(--line);border-radius:8px;padding:1px 7px;color:var(--ink-2);white-space:nowrap}
-.mktoolbar{display:flex;gap:6px;padding:8px 11px;border-bottom:1px solid var(--line);background:var(--surface);font-size:10px;color:var(--ink-3);align-items:center}
+.mkstagechip{font-family:"Cascadia Code",monospace;font-size:10px;border:1px solid var(--line);border-radius:8px;padding:1px 7px;color:var(--ink-2);white-space:nowrap}
+.mktoolbar{display:flex;gap:6px;padding:8px 11px;border-bottom:1px solid var(--line);background:var(--surface);font-size:11px;color:var(--ink-3);align-items:center}
 .mktoolbar b{font-weight:500;border:1px solid var(--line);border-radius:10px;padding:2px 8px}
 .mktoolbar b.on{background:var(--accent);color:#fff;border-color:var(--accent)}
 .mkday{background:var(--bg);padding-bottom:8px}
-.mkday h6{font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin:10px 12px 4px}
-.mkrow{display:flex;gap:8px;align-items:center;padding:7px 12px;border-bottom:1px solid var(--line);font-size:11px;background:var(--surface)}
+.mkday h6{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin:10px 12px 4px}
+.mkrow{display:flex;gap:8px;align-items:center;padding:7px 12px;border-bottom:1px solid var(--line);font-size:12px;background:var(--surface)}
 .mkrow.over{background:var(--accent-soft)}
-.mkrow .t{margin-left:auto;font-family:"Cascadia Code",monospace;font-size:9.5px;color:var(--ink-3);flex:none}
-.mkm{max-width:82%;padding:5px 9px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-size:10.5px}
+.mkrow .t{margin-left:auto;font-family:"Cascadia Code",monospace;font-size:10.5px;color:var(--ink-3);flex:none}
+.mkm{max-width:82%;padding:5px 9px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-size:11.5px}
 .mkm.out{align-self:flex-end;background:var(--wa-out);color:var(--wa-out-ink);border-color:transparent}
 .mkdrawer{border-left:1px solid var(--line);display:flex;flex-direction:column;background:var(--bg)}
-.mkdrawer .hd{padding:7px 10px;background:var(--wa);color:#fff;font-size:10px;font-weight:700}
+.mkdrawer .hd{padding:7px 10px;background:var(--wa);color:#fff;font-size:11px;font-weight:700}
 .mkdrawer .msgs{flex:1;padding:10px;display:flex;flex-direction:column;gap:6px}
-.mkdrawer .in{display:flex;gap:6px;padding:8px;border-top:1px solid var(--line);background:var(--surface);font-size:10px;color:var(--ink-3);align-items:center}
+.mkdrawer .in{display:flex;gap:6px;padding:8px;border-top:1px solid var(--line);background:var(--surface);font-size:11px;color:var(--ink-3);align-items:center}
 .mkdrawer .in .box{flex:1;background:var(--chip);border-radius:12px;padding:4px 9px}
-.tplchip{font-family:"Cascadia Code",monospace;font-size:9px;background:var(--accent-soft);color:var(--accent);border-radius:8px;padding:2px 6px;white-space:nowrap}
+.tplchip{font-family:"Cascadia Code",monospace;font-size:10px;background:var(--accent-soft);color:var(--accent);border-radius:8px;padding:2px 6px;white-space:nowrap}
 .mkplans{display:flex;gap:12px;padding:14px;background:var(--bg);flex-wrap:wrap}
-.mkplan{border:1px solid var(--line);border-radius:12px;padding:13px;flex:1;min-width:200px;background:var(--surface);font-size:11px}
+.mkplan{border:1px solid var(--line);border-radius:12px;padding:13px;flex:1;min-width:200px;background:var(--surface);font-size:12px}
 .mkplan.on{border-color:var(--easy)}
 .mkplan .pv{font-family:"Cascadia Code",monospace;font-size:19px;font-weight:750}
-.mkplan .ok3{color:var(--easy);font-weight:700;font-size:10px}
-.mkset{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line);font-size:11px;background:var(--surface)}
-.mkset .stt{margin-left:auto;font-family:"Cascadia Code",monospace;font-size:9.5px;flex:none}
+.mkplan .ok3{color:var(--easy);font-weight:700;font-size:11px}
+.mkset{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line);font-size:12px;background:var(--surface)}
+.mkset .stt{margin-left:auto;font-family:"Cascadia Code",monospace;font-size:10.5px;flex:none}
 .ok2{color:var(--easy)} .dis{color:var(--ink-3)}
 .ph{width:252px;border:1px solid var(--line);border-radius:24px;padding:10px 8px;background:var(--surface);margin:0 auto}
 .ph .scr{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg)}
-.ph .phd{padding:8px 10px;font-size:11px;font-weight:700;border-bottom:1px solid var(--line);background:var(--surface)}
+.ph .phd{padding:8px 10px;font-size:12px;font-weight:700;border-bottom:1px solid var(--line);background:var(--surface)}
 .ph .body{padding:8px}
 .ph .nav2{display:flex;border-top:1px solid var(--line);background:var(--surface)}
-.ph .nav2 span{flex:1;text-align:center;font-size:9px;padding:6px 0;color:var(--ink-3)}
+.ph .nav2 span{flex:1;text-align:center;font-size:10px;padding:6px 0;color:var(--ink-3)}
 .ph .nav2 span.on{color:var(--accent);font-weight:700}
 /* architecture strip */
 .arch{display:flex;flex-wrap:wrap;align-items:stretch;margin-top:18px}
 .anode{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;flex:1;min-width:170px}
 .anode h3{font-size:13px}
-.anode p{font-size:11.5px;color:var(--ink-3);margin-top:4px}
+.anode p{font-size:12.5px;color:var(--ink-3);margin-top:4px}
 .anode.hero{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
 .astack{display:flex;flex-direction:column;gap:10px;flex:1.25;min-width:200px}
 .aarr{display:flex;align-items:center;padding:0 10px;color:var(--ink-3);font-size:18px;font-family:"Cascadia Code",monospace;flex:none}
@@ -303,17 +304,17 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 
 <div class="sec">
 <div class="eyebrow">01 · THE PROBLEM</div>
-<h2>Our biggest segment has nothing to buy from us</h2>
+<h2>The majority of our inflow has nothing to buy from us — and it leaks out</h2>
 <div class="grid2">
-<div class="card"><div class="viz-title">Of all active workspaces…</div>
-  <div class="vrow"><span class="vl">Run sales on WhatsApp</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="vv">100%</span></div>
-  <div class="vrow"><span class="vl">Never connect any CRM</span><span class="track"><span class="fill" style="width:80%"></span></span><span class="vv">~80%</span></div>
-  <div class="vcap">The core product bridges WhatsApp to a CRM — 8 in 10 users have no CRM to bridge to.</div>
+<div class="card"><div class="viz-title">Workspaces with NO CRM connected (prod DB, Jul-2026)</div>
+  <div class="vrow"><span class="vl">Of new WhatsApp-activated workspaces</span><span class="track"><span class="fill" style="width:59%"></span></span><span class="vv">59%</span></div>
+  <div class="vrow mut"><span class="vl">Of the surviving active base</span><span class="track"><span class="fill" style="width:34%"></span></span><span class="vv">34%</span></div>
+  <div class="vcap">The majority arrives with no CRM — and mostly doesn't survive. The 59→34 gap is the churn this product buys back.</div>
 </div>
-<div class="card"><div class="viz-title">Trial → paid conversion, indexed</div>
-  <div class="vrow"><span class="vl">CRM connected</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="vv">5–8×</span></div>
-  <div class="vrow mut"><span class="vl">No CRM</span><span class="track"><span class="fill" style="width:15%"></span></span><span class="vv">baseline</span></div>
-  <div class="vcap">The no-CRM majority converts 5–8× worse and is our leakiest retention segment.</div>
+<div class="card"><div class="viz-title">Trial → paid conversion (multiples, not %)</div>
+  <div class="vrow"><span class="vl">CRM connected = 5–8×</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="vv">5–8×</span></div>
+  <div class="vrow mut"><span class="vl">No CRM = 1× (baseline)</span><span class="track"><span class="fill" style="width:15%"></span></span><span class="vv">1×</span></div>
+  <div class="vcap">Correlation today — CRM-connectors self-select. Whether giving no-CRM users our CRM reproduces the lift is exactly what the pilot's matched-cohort test answers.</div>
 </div>
 </div>
 </div>
@@ -325,7 +326,7 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 <div class="mkwrap">
 <div class="mkscroll"><div class="mkframe mk">
 <div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai/pipeline</span></div>
-<div class="mkt"><span class="logo">Timelines <em>CRM</em></span><span class="mkaddon"><span class="wadot"></span>Addon · synced with TimelinesAI · +52 1 33 ···· 4471 <span class="mkdot">1</span></span><span class="sp"></span><span class="mksearch2">Search deals…</span><span class="mkbtn">+ New deal</span></div>
+<div class="mkt"><span class="logo">Timelines <em>CRM</em></span><span class="mkaddon"><span class="wadot"></span>Addon · synced with TimelinesAI · +52 1 33 ···· 4471 </span><span class="sp"></span><span class="mksearch2">Search deals…</span><span class="mkbtn">+ New deal</span></div>
 <div class="mkboard">
   <div class="mkcol"><h5>New <i>12</i></h5>
     <div class="mkcard"><div class="row"><span class="mkav" style="background:#5d8a3c">AP</span><b>Ana P. — retail order</b></div><div class="fld">colors: ? · qty: ~15 <span class="mkai">AI</span></div><div class="meta"><span class="wadot"></span>2 new messages</div></div>
@@ -342,43 +343,13 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
   </div>
 </div>
 </div></div></div>
-<div class="mkwrap">
-<div class="mkscroll"><div class="mkframe mk">
-<div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai/deal/1187</span></div>
-<div class="mkt"><span class="logo">Timelines <em>CRM</em></span><span class="mkaddon"><span class="wadot"></span>Addon · synced with TimelinesAI · +52 1 33 ···· 4471</span><span class="sp"></span><span class="mksearch2">Search deals…</span><span class="mkbtn">+ New deal</span></div>
-<div class="mkcrumb">Pipeline › Negotiation › <b>María G. — restaurant order</b> <span class="mkdot">2</span></div>
-<div class="mkdeal">
-  <div class="mkrail">
-    <h4>Deal fields <span class="mkdot">3</span></h4>
-    <div class="mkfield"><span class="k">Budget</span><span>≈ $1,200 <span class="mkai">AI</span></span></div>
-    <div class="mkfield"><span class="k">Quantity</span><span>40 sets <span class="mkai">AI</span></span></div>
-    <div class="mkfield"><span class="k">Type</span><span>Recurring <span class="mkai">AI</span></span></div>
-    <h4>Contact</h4>
-    <div class="mkfield"><span class="k">Phone</span><span>+52 1 33 ···· 4471</span></div>
-    <div class="mkfield"><span class="k">Source</span><span>WhatsApp</span></div>
-    <h4>Tags</h4>
-    <div class="mktags"><b>wholesale</b><b>hot lead</b></div>
-    <div class="mkrem"><b>⏰ Next step</b> — send quote tomorrow 10:00</div>
-    <div class="mksum"><b>AI SUMMARY</b><br>Wants 40 ceramic sets, monthly if the price fits. Waiting on a quote.</div>
-  </div>
-  <div class="mktl">
-    <div class="e"><span class="ic">📈</span><span class="tx"><b>Stage → Negotiation</b> — moved by Ana</span><span class="tm">09:20</span></div>
-    <div class="e"><span class="ic">💬</span><span class="tx"><b>WhatsApp · 3 messages today</b> — "…if the price works we'll take them monthly". Reply → <span class="mkdot">4</span></span><span class="tm">09:15</span></div>
-    <div class="e"><span class="ic">✨</span><span class="tx"><b>AI updated 3 fields</b> from the conversation — budget, quantity, type</span><span class="tm">09:15</span></div>
-    <div class="e"><span class="ic">⏰</span><span class="tx"><b>Reminder set</b> — send quote tomorrow 10:00</span><span class="tm">09:16</span></div>
-    <div class="e"><span class="ic">📝</span><span class="tx"><b>Note</b> — "ships from the Guadalajara warehouse, check stock first"</span><span class="tm">09:18</span></div>
-  </div>
-  <div class="mktab">WhatsApp ▸</div>
-</div>
-</div></div></div>
 <div class="mklegend">
 <span><span class="mkdot">1</span> The home screen is a pipeline of deals — not an inbox</span>
-<span><span class="mkdot">2</span> A deal record with an activity timeline — classic CRM bones</span>
-<span><span class="mkdot">3</span> AI turns the conversation into CRM fields</span>
-<span><span class="mkdot">4</span> WhatsApp is a side drawer, synced by the platform — nothing rebuilt</span>
+<span><span class="mkdot">2</span> AI turns the conversation into CRM fields ("Budget" is an AI-filled custom field — v1 deals carry no native amount)</span>
+<span><span class="mkdot">3</span> WhatsApp is a side drawer, synced by the platform — nothing rebuilt</span>
 </div>
-<div class="mkcap">Illustrative mockups — the shape of the product, not a design spec.</div>
-<a class="nav" href="product.html" style="margin-top:20px"><span class="kicker">PRODUCT WALKTHROUGH</span><h2>Every v1 screen is already drawn</h2><p>Connect, onboarding, pipeline, deal record, WhatsApp drawer, contacts, reminders, templates, team, billing, ban-safety, mobile — one mockup for every row of the feature matrix, each labeled with its BRD capability.</p><div class="big">13 screens →</div></a>
+<div class="mkcap">Illustrative mockup — the shape of the product, not a design spec.</div>
+<a class="nav" href="product.html" style="margin-top:20px"><span class="kicker">PRODUCT WALKTHROUGH</span><h2>Every v1 screen is already drawn</h2><p>Connect, onboarding, pipeline, deal record, WhatsApp drawer, contacts, reminders, templates, custom fields, team, billing, ban-safety, mobile, reports — one mockup for every row of the feature matrix, each labeled with its BRD capability.</p><div class="big">14 screens →</div></a>
 
 <div class="arch">
   <div class="anode"><h3>Customer's WhatsApp</h3><p>The number they already use — QR connect, 5 minutes</p></div>
@@ -398,7 +369,7 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 <h2>Distribution and friction, not features</h2>
 <div class="grid3">
 <div class="card"><h3>The audience is already ours</h3><p class="sub">Thousands of active workspaces with no CRM connected see it in-app. No cold launch — that's the difference from MessageHub.</p></div>
-<div class="card"><h3>The platform already exists</h3><p class="sub">Same SDK as our CRM integrations — 10+ shipped in the past month. WhatsApp connect, sync and billing are done; we build only the CRM side.</p></div>
+<div class="card"><h3>The risky half already exists</h3><p class="sub">WhatsApp connect, session sync and the billing rail are reused from the platform (the seam 10+ integrations were built on). Net-new: the CRM app itself — sized honestly after the Calypso prototype.</p></div>
 <div class="card"><h3>Monthly, self-serve</h3><p class="sub">Kommo — the market leader — only sells 6–24-month upfront contracts. We sell $19/month, cancel anytime, no sales call.</p></div>
 </div>
 </div>
@@ -419,22 +390,23 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 <div class="eyebrow">05 · THE BET</div>
 <h2>Small bet, mechanical gate</h2>
 <div class="grid3">
-<div class="card price"><div class="v">$19/mo</div><div class="l">per workspace, 3 seats included, +$5/seat. Free for paying TimelinesAI customers — retention first.</div></div>
-<div class="card price"><div class="v">S → M</div><div class="l">build size: small prototype on Calypso, medium production build. No new brand, no paid acquisition.</div></div>
-<div class="card price"><div class="v">90 days</div><div class="l">pilot on our own base, then a mechanical scale-or-park decision. Criteria agreed before launch.</div></div>
+<div class="card price"><div class="v">$19/mo</div><div class="l">per workspace, 3 seats, +$5/seat — a starting anchor, validated by three price tests in the pilot. Free for paying TimelinesAI customers — retention first.</div></div>
+<div class="card price"><div class="v">S → M</div><div class="l">small prototype on Calypso (our rapid-build platform), then a medium production build — sizing re-checked after the prototype. No new brand, no paid acquisition.</div></div>
+<div class="card price"><div class="v">2 of 3</div><div class="l">new WhatsApp-activated workspaces have no CRM — the majority of inflow becomes sellable-to, and the leakiest cohort gets a reason to stay. That's the prize.</div></div>
 </div>
 <div class="gates">
-<div class="card ok"><h3>Scale if (90 days)</h3><ul><li>≥100 activated workspaces</li><li>retention lift in the activated no-CRM cohort</li><li>≥20 paying / ≥$500 MRR on the charged cohort</li></ul></div>
-<div class="card kill"><h3>Park if</h3><ul><li>&lt;30 activated workspaces, or</li><li>&lt;8 paying with a flat trajectory</li><li>→ stop, write down learnings, move on</li></ul></div>
+<div class="card ok"><h3>Scale if (90 days)</h3><ul><li>≥100 activated workspaces</li><li>retention lift in the activated no-CRM cohort vs matched control</li><li>≥20 paying / ≥$500 MRR on the charged cohort (trialing + churned — a secondary signal; the paying base is free by design)</li></ul></div>
+<div class="card kill"><h3>Park if</h3><ul><li>&lt;30 activated workspaces, or</li><li>&lt;8 paying with a flat trajectory</li><li>in-between → one 45-day extension with a named fix, then it's mechanical</li></ul></div>
 </div>
 </div>
 
 <div class="sec">
 <div class="eyebrow">06 · WHAT WE NEED DECIDED</div>
 <h2>Three asks of this meeting</h2>
-<div class="card" style="margin-top:12px"><span class="n" style="color:var(--accent);font-weight:700;margin-right:8px">1</span>Owners per stage — including launch-to-first-users, the phase MessageHub died in. Hard gate: no owners, no build.</div>
-<div class="card" style="margin-top:12px"><span class="n" style="color:var(--accent);font-weight:700;margin-right:8px">2</span>A committed WABA API date from R&amp;D — a verbal "few weeks" is not a date. v1 doesn't block on it (we start on QR), but the ban-risk mitigation can't be planned without it.</div>
-<div class="card" style="margin-top:12px"><span class="n" style="color:var(--accent);font-weight:700;margin-right:8px">3</span>SDK seam confirmation: the integration API's limits/quotas are fine for a first-party app.</div>
+<div class="card" style="margin-top:12px"><span class="n" style="color:var(--accent);font-weight:700;margin-right:8px">1</span>Ratify the owner proposal: Orkhan builds to launch; Alexandra owns launch-to-traction (retention is her remit; capacity frees ~Aug 10 — this pilot IS her next retention project); Cyril commercial. No ratified owner for launch-to-traction (where MessageHub, our previous side-product, died of neglect) — no build.</div>
+<div class="card" style="margin-top:12px"><span class="n" style="color:var(--accent);font-weight:700;margin-right:8px">2</span>Accept the bounded R&amp;D scope: confirm the technical shape (seam, storage, volumes — one paragraph in the BRD), schedule the workspace-on-install SDK fix on the critical path to launch, grant one small in-app placement slot. Nothing in the pilot build blocks on R&amp;D.</div>
+<div class="card" style="margin-top:12px"><span class="n" style="color:var(--accent);font-weight:700;margin-right:8px">3</span>Approve the pilot design: gates and kill criteria, the three pricing tests, and the customer-facing name (the market's own lesson says don't lead with the word "CRM").</div>
+<div class="card" style="margin-top:16px"><h3 style="font-size:13px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">What R&amp;D is actually on the hook for</h3><p class="sub" style="max-width:none">Pilot: nothing — it runs on the existing base and seam. Launch: the workspace-on-install SDK fix (scheduled, scoped). Scale: WABA date, billing SKU, in-app placement slot — tracked, not forced today. The technical shape to confirm against is one paragraph in <a href="brd.html">the BRD</a>, Section 10.</p></div>
 <div class="linkrow">
 <a href="brd.html">Full BRD →</a>
 <a href="market.html">Market research →</a>
