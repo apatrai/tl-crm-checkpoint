@@ -110,20 +110,34 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .toc a{text-decoration:none}
 /* --- feature matrix --- */
 .mx h2{margin:26px 0 4px}
-.mx .sub{font-size:13.5px;color:var(--ink-2);margin-bottom:12px}
-.mx table{min-width:1020px}
-.mx th:first-child,.mx td:first-child{position:sticky;left:0;background:var(--surface);z-index:1;min-width:186px;box-shadow:1px 0 0 var(--line)}
-.mx thead th{white-space:nowrap}
-.mx th.tlc,.mx td.tlc{background:var(--accent-soft)}
+.mx .sub{font-size:13.5px;color:var(--ink-2);margin-bottom:10px}
+.mx{--ok-bg:rgba(63,125,78,.13);--mid-bg:rgba(138,109,31,.13);--tl-bg:rgba(158,48,57,.06)}
+@media(prefers-color-scheme:dark){.mx{--ok-bg:rgba(107,191,128,.15);--mid-bg:rgba(201,169,74,.15);--tl-bg:rgba(196,82,94,.11)}}
+.mxlegend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--ink-2);margin:10px 0}
+.mxlegend span{display:inline-flex;align-items:center;gap:6px}
+.mxlegend .sw{width:20px;height:20px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font-family:"Cascadia Code",monospace;font-weight:700;font-size:12px}
+.mxnote{min-height:42px;display:flex;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:8px 14px;font-size:13px;color:var(--ink-3);margin-bottom:10px}
+.mxnote.on{color:var(--ink);border-color:var(--accent)}
+.mxnote b{color:var(--accent);margin-right:8px;white-space:nowrap}
+.mx .tablewrap{max-height:76vh;overflow:auto}
+.mx table{border-collapse:separate;border-spacing:0;min-width:1150px;font-size:13px}
+.mx thead th{position:sticky;top:0;z-index:2;background:var(--chip);padding:9px 6px 8px;text-align:center;font-size:12px;line-height:1.25;border-bottom:1px solid var(--line);letter-spacing:0;text-transform:none}
+.mx thead th:first-child{left:0;z-index:3;text-align:left;padding-left:12px}
+.mx thead th .p{display:block;font-family:"Cascadia Code",monospace;font-weight:400;font-size:10px;color:var(--ink-3);margin-top:3px;white-space:nowrap}
+.mx tbody td:first-child{position:sticky;left:0;z-index:1;background:var(--surface);min-width:190px;padding:7px 12px;box-shadow:1px 0 0 var(--line);font-size:12.5px;border-bottom:1px solid var(--line)}
+.mx td.fv{width:86px;min-width:86px;text-align:center;font-family:"Cascadia Code",monospace;font-weight:700;font-size:13px;padding:7px 4px;border-bottom:1px solid var(--line);cursor:default}
+.fv.yes{background:var(--ok-bg);color:var(--easy)}
+.fv.partial{background:var(--mid-bg);color:var(--medium)}
+.fv.addon{background:var(--mid-bg);color:var(--medium)}
+.fv.no{color:var(--ink-3);font-weight:400}
+.fv.unknown{color:var(--ink-3);font-weight:400}
+.mx td.fv:hover{outline:2px solid var(--accent);outline-offset:-2px}
+.mx tbody tr:hover td:first-child{color:var(--accent);font-weight:600}
+.mx .grp td{background:var(--bg);border-bottom:1px solid var(--line);padding:14px 0 5px}
+.mx .grp td span{position:sticky;left:12px;display:inline-block;font-family:"Cascadia Code",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
 .mx th.tlc{color:var(--accent)}
-.mx td.fv{text-align:center;font-family:"Cascadia Code",monospace;font-weight:700;font-size:14px;cursor:default}
-.fv.yes{color:var(--easy)} .fv.partial{color:var(--medium)} .fv.addon{color:var(--medium)}
-.fv.no{color:var(--ink-3);font-weight:400} .fv.unknown{color:var(--ink-3);font-weight:400}
-.mx tr.price td{font-size:11px;color:var(--ink-2);text-align:center}
-.mx tr.price td:first-child{text-align:left}
-.mxlegend{display:flex;flex-wrap:wrap;gap:16px;font-size:12.5px;color:var(--ink-2);margin:10px 0 4px}
-.mxlegend b{font-family:"Cascadia Code",monospace;font-weight:700}
-.mxlegend .g-yes{color:var(--easy)} .mxlegend .g-part{color:var(--medium)} .mxlegend .g-no{color:var(--ink-3)}
+.mx .tlc{box-shadow:inset 2px 0 0 var(--accent-soft),inset -2px 0 0 var(--accent-soft)}
+.mx td.fv.tlc.no,.mx td.fv.tlc.unknown{background:var(--tl-bg)}
 .back{font-family:"Cascadia Code",monospace;font-size:13px;display:inline-block;margin-bottom:26px;text-decoration:none}
 .footer{margin-top:64px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3)}
 
