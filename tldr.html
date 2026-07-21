@@ -171,32 +171,8 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .mkdot{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--accent);color:#fff;font-family:"Cascadia Code",monospace;font-size:10px;font-weight:700;flex:none;vertical-align:middle}
 .mklegend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:13px;color:var(--ink-2)}
 .mklegend span{display:flex;align-items:center;gap:7px}
-/* app mockup */
-.mkapp{display:grid;grid-template-columns:188px 1fr 216px;min-height:330px}
-.mklist{border-right:1px solid var(--line);padding:8px}
-.mksearch{background:var(--chip);border-radius:7px;padding:5px 9px;color:var(--ink-3);margin-bottom:6px}
-.mkchat{display:flex;gap:8px;align-items:center;padding:7px 8px;border-radius:8px}
-.mkchat.on{background:var(--accent-soft)}
+/* shared mockup atoms */
 .mkav{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:10px;flex:none}
-.mkchat .nm{font-weight:600}
-.mkchat .sn{color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:98px}
-.mkun{margin-left:auto;background:var(--wa);color:#fff;border-radius:9px;font-size:9px;padding:1px 5px;font-weight:700}
-.mkthread{display:flex;flex-direction:column;background:var(--bg)}
-.mkhead{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--line);background:var(--surface)}
-.mkhead .ph{color:var(--ink-3)}
-.mkstage{margin-left:auto;font-family:"Cascadia Code",monospace;font-size:10px;border:1px solid var(--accent);color:var(--accent);border-radius:10px;padding:2px 8px}
-.mkmsgs{flex:1;padding:12px;display:flex;flex-direction:column;gap:7px}
-.mkm{max-width:78%;padding:6px 10px;border-radius:10px;border:1px solid var(--line);background:var(--surface)}
-.mkm.out{align-self:flex-end;background:var(--wa-out);color:var(--wa-out-ink);border-color:transparent}
-.mkm .t{display:block;font-size:9px;color:var(--ink-3);margin-top:2px;text-align:right}
-.mkin{display:flex;gap:8px;padding:8px 12px;border-top:1px solid var(--line);background:var(--surface);color:var(--ink-3)}
-.mkin .box{flex:1;background:var(--chip);border-radius:14px;padding:5px 11px}
-.mkpanel{border-left:1px solid var(--line);padding:10px}
-.mkpanel h4{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin:10px 0 5px}
-.mkpanel h4:first-child{margin-top:0}
-.mkstages{display:flex;flex-wrap:wrap;gap:4px}
-.mkstages b{font-weight:400;border:1px solid var(--line);border-radius:9px;padding:2px 7px;font-size:10px;color:var(--ink-3)}
-.mkstages b.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
 .mkfield{display:flex;justify-content:space-between;gap:6px;padding:4px 0;border-bottom:1px dashed var(--line)}
 .mkfield .k{color:var(--ink-3)}
 .mkai{color:var(--accent);font-size:9px;font-weight:700}
@@ -205,16 +181,50 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 .mkrem b{color:var(--medium)}
 .mksum{margin-top:8px;background:var(--accent-soft);border-radius:8px;padding:7px 9px;font-size:10.5px}
 .mksum b{color:var(--accent);font-size:9px;letter-spacing:.08em}
-/* kanban mockup */
-.mkboard{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:12px;background:var(--bg);min-height:250px}
+/* CRM top bar */
+.mkt{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);background:var(--surface)}
+.mkt .logo{font-weight:750;font-size:12.5px;letter-spacing:-.01em}
+.mkt .logo em{font-style:normal;color:var(--accent)}
+.mkaddon{font-family:"Cascadia Code",monospace;font-size:9.5px;border:1px solid var(--line);border-radius:10px;padding:2px 8px;color:var(--ink-2);background:var(--chip);display:inline-flex;align-items:center;gap:5px}
+.mkt .sp{flex:1}
+.mksearch2{background:var(--chip);border-radius:7px;padding:4px 12px;color:var(--ink-3);font-size:10.5px}
+.mkbtn{background:var(--accent);color:#fff;border-radius:7px;padding:4px 10px;font-size:10.5px;font-weight:600}
+.wadot{width:7px;height:7px;border-radius:50%;background:var(--wa);display:inline-block;flex:none}
+/* pipeline board */
+.mkboard{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:12px;background:var(--bg);min-height:270px}
 .mkcol h5{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-2);margin-bottom:8px;display:flex;justify-content:space-between}
 .mkcol h5 i{font-style:normal;color:var(--ink-3);font-family:"Cascadia Code",monospace}
 .mkcard{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:8px 9px;margin-bottom:8px}
-.mkcard .row{display:flex;gap:7px;align-items:center;margin-bottom:4px}
-.mkcard .sn{color:var(--ink-3);font-size:10.5px}
+.mkcard .row{display:flex;gap:7px;align-items:center;margin-bottom:3px}
 .mkcard.drag{transform:rotate(-2deg);border-color:var(--accent);box-shadow:0 6px 14px rgba(0,0,0,.14)}
+.mkcard .fld{font-family:"Cascadia Code",monospace;font-size:10px;color:var(--ink-2);margin-top:3px}
+.mkcard .meta{display:flex;align-items:center;gap:5px;margin-top:5px;font-size:9.5px;color:var(--ink-3)}
 .mkcard .due{color:var(--medium);font-size:10px;margin-top:4px}
 .mkcard .due.ok{color:var(--easy)}
+/* deal record */
+.mkcrumb{padding:8px 14px;border-bottom:1px solid var(--line);background:var(--surface);color:var(--ink-3);font-size:10.5px}
+.mkcrumb b{color:var(--ink)}
+.mkdeal{display:grid;grid-template-columns:212px 1fr 30px;min-height:290px}
+.mkrail{border-right:1px solid var(--line);padding:10px;background:var(--surface)}
+.mkrail h4{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin:11px 0 5px}
+.mkrail h4:first-child{margin-top:0}
+.mktl{padding:14px 16px;background:var(--bg);position:relative}
+.mktl::before{content:'';position:absolute;left:27px;top:20px;bottom:20px;width:2px;background:var(--line)}
+.mktl .e{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;position:relative}
+.mktl .ic{width:22px;height:22px;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;flex:none;position:relative;z-index:1}
+.mktl .tx{font-size:11px;color:var(--ink-2);padding-top:3px}
+.mktl .tx b{color:var(--ink)}
+.mktl .tm{margin-left:auto;font-size:9.5px;color:var(--ink-3);font-family:"Cascadia Code",monospace;padding-top:4px;flex:none}
+.mktab{writing-mode:vertical-rl;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--wa);color:#fff;font-size:10px;font-weight:700;letter-spacing:.06em}
+/* architecture strip */
+.arch{display:flex;flex-wrap:wrap;align-items:stretch;margin-top:18px}
+.anode{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;flex:1;min-width:170px}
+.anode h3{font-size:13px}
+.anode p{font-size:11.5px;color:var(--ink-3);margin-top:4px}
+.anode.hero{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.astack{display:flex;flex-direction:column;gap:10px;flex:1.25;min-width:200px}
+.aarr{display:flex;align-items:center;padding:0 10px;color:var(--ink-3);font-size:18px;font-family:"Cascadia Code",monospace;flex:none}
+@media(max-width:680px){.aarr{transform:rotate(90deg);padding:2px 0;justify-content:center;width:100%}}
 /* bet / pilot */
 .price .v{font-family:"Cascadia Code",monospace;font-size:30px;font-weight:750;color:var(--accent)}
 .price .l{color:var(--ink-2);font-size:13px;margin-top:4px}
@@ -253,69 +263,76 @@ h2{font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;
 
 <div class="sec">
 <div class="eyebrow">02 · THE PRODUCT</div>
-<h2>Their WhatsApp, with a pipeline around it</h2>
-<p class="sub">Connect the number they already use (QR, 5 minutes, no API). Every chat becomes a contact; chats get dragged through a simple pipeline; AI does the CRM admin for them.</p>
-<div class="mkwrap">
-<div class="mkscroll"><div class="mkframe mk">
-<div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai</span></div>
-<div class="mkapp">
-  <div class="mklist">
-    <div class="mksearch">Search chats…</div>
-    <div class="mkchat on"><span class="mkav" style="background:#7e57c2">MG</span><span><span class="nm">María G. <span class="mkdot">1</span></span><br><span class="sn">Great. If the price works…</span></span></div>
-    <div class="mkchat"><span class="mkav" style="background:#0288d1">RS</span><span><span class="nm">Rahul S.</span><br><span class="sn">Can you deliver Friday?</span></span><span class="mkun">2</span></div>
-    <div class="mkchat"><span class="mkav" style="background:#c2185b">AK</span><span><span class="nm">Ahmed K.</span><br><span class="sn">Thanks, got the invoice 🙏</span></span></div>
-    <div class="mkchat"><span class="mkav" style="background:#5d8a3c">AP</span><span><span class="nm">Ana P.</span><br><span class="sn">What colors do you have?</span></span><span class="mkun">1</span></div>
-    <div class="mkchat"><span class="mkav" style="background:#b06f1c">LM</span><span><span class="nm">Lucas M.</span><br><span class="sn">Ok, next month then</span></span></div>
-  </div>
-  <div class="mkthread">
-    <div class="mkhead"><span class="mkav" style="background:#7e57c2">MG</span><span><b>María G.</b><br><span class="ph">+52 1 33 ···· 4471</span></span><span class="mkstage">NEGOTIATION</span></div>
-    <div class="mkmsgs">
-      <div class="mkm">Hi! Do you still have the ceramic table sets? I need about 40 for my restaurant<span class="t">09:12</span></div>
-      <div class="mkm out">Yes! 40 sets by Friday is doable. Sending the catalog now 👇<span class="t">09:14</span></div>
-      <div class="mkm">Great. If the price works we'll take them monthly<span class="t">09:15</span></div>
-    </div>
-    <div class="mkin"><span class="box">Message… <b>/quote-template</b></span><span>📎</span></div>
-  </div>
-  <div class="mkpanel">
-    <h4>Stage <span class="mkdot">2</span></h4>
-    <div class="mkstages"><b>New</b><b>Contacted</b><b class="on">Negotiation</b><b>Won</b></div>
-    <h4>Deal fields <span class="mkdot">3</span></h4>
-    <div class="mkfield"><span class="k">Budget</span><span>≈ $1,200 <span class="mkai">AI</span></span></div>
-    <div class="mkfield"><span class="k">Quantity</span><span>40 sets <span class="mkai">AI</span></span></div>
-    <div class="mkfield"><span class="k">Type</span><span>Restaurant, recurring <span class="mkai">AI</span></span></div>
-    <h4>Tags</h4>
-    <div class="mktags"><b>wholesale</b><b>hot lead</b></div>
-    <div class="mkrem"><b>⏰ Follow-up</b> — send quote tomorrow 10:00 <span class="mkdot">4</span></div>
-    <div class="mksum"><b>AI SUMMARY</b><br>Restaurant owner wants 40 ceramic sets, monthly if the price fits. Waiting on a quote.</div>
-  </div>
-</div>
-</div></div>
-<div class="mklegend">
-<span><span class="mkdot">1</span> Every chat becomes a contact — zero data entry</span>
-<span><span class="mkdot">2</span> Deal stage set right from the conversation</span>
-<span><span class="mkdot">3</span> AI reads the chat and fills the fields</span>
-<span><span class="mkdot">4</span> Follow-up reminders — the #1 money saver</span>
-</div></div>
+<h2>A CRM face on the platform we already run</h2>
+<p class="sub">Not a second Timelines. The home screen is deals, not chats; the WhatsApp conversation is a side drawer the platform syncs in. Everything WhatsApp — connection, sync, billing — stays in TimelinesAI.</p>
 <div class="mkwrap">
 <div class="mkscroll"><div class="mkframe mk">
 <div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai/pipeline</span></div>
+<div class="mkt"><span class="logo">Timelines <em>CRM</em></span><span class="mkaddon"><span class="wadot"></span>Addon · synced with TimelinesAI · +52 1 33 ···· 4471 <span class="mkdot">1</span></span><span class="sp"></span><span class="mksearch2">Search deals…</span><span class="mkbtn">+ New deal</span></div>
 <div class="mkboard">
   <div class="mkcol"><h5>New <i>12</i></h5>
-    <div class="mkcard"><div class="row"><span class="mkav" style="background:#5d8a3c">AP</span><b>Ana P.</b></div><div class="sn">What colors do you have?</div></div>
-    <div class="mkcard"><div class="row"><span class="mkav" style="background:#0288d1">RS</span><b>Rahul S.</b></div><div class="sn">Can you deliver Friday?</div><div class="due">⏰ today 15:00</div></div>
+    <div class="mkcard"><div class="row"><span class="mkav" style="background:#5d8a3c">AP</span><b>Ana P. — retail order</b></div><div class="fld">colors: ? · qty: ~15 <span class="mkai">AI</span></div><div class="meta"><span class="wadot"></span>2 new messages</div></div>
+    <div class="mkcard"><div class="row"><span class="mkav" style="background:#0288d1">RS</span><b>Rahul S. — delivery</b></div><div class="fld">deadline: Friday <span class="mkai">AI</span></div><div class="due">⏰ today 15:00</div></div>
   </div>
   <div class="mkcol"><h5>Contacted <i>7</i></h5>
-    <div class="mkcard"><div class="row"><span class="mkav" style="background:#b06f1c">LM</span><b>Lucas M.</b></div><div class="sn">Ok, next month then</div><div class="due">⏰ Aug 1</div></div>
+    <div class="mkcard"><div class="row"><span class="mkav" style="background:#b06f1c">LM</span><b>Lucas M. — furniture</b></div><div class="fld">budget: ≈ $400 <span class="mkai">AI</span></div><div class="due">⏰ Aug 1</div></div>
   </div>
   <div class="mkcol"><h5>Negotiation <i>4</i></h5>
-    <div class="mkcard drag"><div class="row"><span class="mkav" style="background:#7e57c2">MG</span><b>María G.</b></div><div class="sn">40 sets · ≈ $1,200 · monthly</div><div class="due">⏰ tomorrow 10:00</div></div>
+    <div class="mkcard drag"><div class="row"><span class="mkav" style="background:#7e57c2">MG</span><b>María G. — restaurant</b></div><div class="fld">≈ $1,200 · 40 sets · monthly <span class="mkai">AI</span></div><div class="mktags"><b>wholesale</b><b>hot</b></div><div class="due">⏰ quote tomorrow 10:00</div></div>
   </div>
   <div class="mkcol"><h5>Won <i>9</i></h5>
-    <div class="mkcard"><div class="row"><span class="mkav" style="background:#c2185b">AK</span><b>Ahmed K.</b></div><div class="sn">Invoice paid ✓</div><div class="due ok">$860 this month</div></div>
+    <div class="mkcard"><div class="row"><span class="mkav" style="background:#c2185b">AK</span><b>Ahmed K. — hotel</b></div><div class="fld">invoice paid ✓</div><div class="due ok">closed this week</div></div>
   </div>
 </div>
 </div></div></div>
+<div class="mkwrap">
+<div class="mkscroll"><div class="mkframe mk">
+<div class="mkbar"><i></i><i></i><i></i><span class="mkurl">crm.timelines.ai/deal/1187</span></div>
+<div class="mkt"><span class="logo">Timelines <em>CRM</em></span><span class="mkaddon"><span class="wadot"></span>Addon · synced with TimelinesAI · +52 1 33 ···· 4471</span><span class="sp"></span><span class="mksearch2">Search deals…</span><span class="mkbtn">+ New deal</span></div>
+<div class="mkcrumb">Pipeline › Negotiation › <b>María G. — restaurant order</b> <span class="mkdot">2</span></div>
+<div class="mkdeal">
+  <div class="mkrail">
+    <h4>Deal fields <span class="mkdot">3</span></h4>
+    <div class="mkfield"><span class="k">Budget</span><span>≈ $1,200 <span class="mkai">AI</span></span></div>
+    <div class="mkfield"><span class="k">Quantity</span><span>40 sets <span class="mkai">AI</span></span></div>
+    <div class="mkfield"><span class="k">Type</span><span>Recurring <span class="mkai">AI</span></span></div>
+    <h4>Contact</h4>
+    <div class="mkfield"><span class="k">Phone</span><span>+52 1 33 ···· 4471</span></div>
+    <div class="mkfield"><span class="k">Source</span><span>WhatsApp</span></div>
+    <h4>Tags</h4>
+    <div class="mktags"><b>wholesale</b><b>hot lead</b></div>
+    <div class="mkrem"><b>⏰ Next step</b> — send quote tomorrow 10:00</div>
+    <div class="mksum"><b>AI SUMMARY</b><br>Wants 40 ceramic sets, monthly if the price fits. Waiting on a quote.</div>
+  </div>
+  <div class="mktl">
+    <div class="e"><span class="ic">📈</span><span class="tx"><b>Stage → Negotiation</b> — moved by Ana</span><span class="tm">09:20</span></div>
+    <div class="e"><span class="ic">💬</span><span class="tx"><b>WhatsApp · 3 messages today</b> — "…if the price works we'll take them monthly". Reply → <span class="mkdot">4</span></span><span class="tm">09:15</span></div>
+    <div class="e"><span class="ic">✨</span><span class="tx"><b>AI updated 3 fields</b> from the conversation — budget, quantity, type</span><span class="tm">09:15</span></div>
+    <div class="e"><span class="ic">⏰</span><span class="tx"><b>Reminder set</b> — send quote tomorrow 10:00</span><span class="tm">09:16</span></div>
+    <div class="e"><span class="ic">📝</span><span class="tx"><b>Note</b> — "ships from the Guadalajara warehouse, check stock first"</span><span class="tm">09:18</span></div>
+  </div>
+  <div class="mktab">WhatsApp ▸</div>
+</div>
+</div></div></div>
+<div class="mklegend">
+<span><span class="mkdot">1</span> The home screen is a pipeline of deals — not an inbox</span>
+<span><span class="mkdot">2</span> A deal record with an activity timeline — classic CRM bones</span>
+<span><span class="mkdot">3</span> AI turns the conversation into CRM fields</span>
+<span><span class="mkdot">4</span> WhatsApp is a side drawer, synced by the platform — nothing rebuilt</span>
+</div>
 <div class="mkcap">Illustrative mockups — the shape of the product, not a design spec.</div>
+
+<div class="arch">
+  <div class="anode"><h3>Customer's WhatsApp</h3><p>The number they already use — QR connect, 5 minutes</p></div>
+  <div class="aarr">→</div>
+  <div class="anode"><h3>TimelinesAI platform</h3><p>Connection · message sync · billing — already in production</p></div>
+  <div class="aarr">→</div>
+  <div class="astack">
+    <div class="anode"><h3>CRM integrations — core product, today</h3><p>Pipedrive, HubSpot, 20+ — for customers who have a CRM</p></div>
+    <div class="anode hero"><h3>Timelines CRM — this proposal</h3><p>For the ~80% who don't — built like one more integration, whose CRM side is ours</p></div>
+  </div>
+</div>
+<div class="mkcap">How it sits next to the core product: one platform, two faces — the bridge for customers with a CRM, the addon for customers without one.</div>
 </div>
 
 <div class="sec">
